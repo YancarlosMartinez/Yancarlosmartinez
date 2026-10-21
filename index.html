@@ -32,12 +32,53 @@
       letter-spacing: 0.03rem;
       overflow-x: hidden;
       padding-bottom: 5rem;
+      transition: transform 0.1s ease;
+    }
+
+    /* Screen Vibration / Impact Animation Class */
+    .vibrate-effect {
+      animation: screenVibrate 0.3s ease-in-out;
+    }
+    @keyframes screenVibrate {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-4px, 4px) scale(1.002); }
+      40% { transform: translate(4px, -3px) scale(0.998); }
+      60% { transform: translate(-3px, -4px) scale(1.001); }
+      80% { transform: translate(3px, 3px) scale(0.999); }
     }
 
     h1, h2, h3 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       color: #fff;
+    }
+
+    /* Randomized Text Entrance Animations */
+    .anim-jump {
+      animation: textJump 1.2s cubic-bezier(0.25, 1, 0.5, 1.2) both;
+    }
+    @keyframes textJump {
+      0% { transform: translateY(-40px); opacity: 0; }
+      50% { transform: translateY(12px); opacity: 1; }
+      75% { transform: translateY(-6px); }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .anim-fade {
+      animation: textFade 1.5s ease-in-out both;
+    }
+    @keyframes textFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .anim-pop {
+      animation: textPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+    @keyframes textPop {
+      0% { transform: scale(0.7); opacity: 0; }
+      70% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     /* Ambient Background Glows */
@@ -143,7 +184,7 @@
     #chat-box {
       position: absolute; bottom: 75px; right: 0; width: 310px; background: #130a0d; border: 1px solid var(--burgundy);
       border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; overflow: hidden;
-      transition: all 0.3s ease; transform-origin: bottom right;
+      transition: all 0.3s ease;
     }
     #chat-box.hidden { display: none; }
     .chat-header { background: var(--burgundy); color: #fff; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; font-weight: bold; font-size: 0.95rem; }
@@ -195,8 +236,8 @@
   <!-- Hero Section -->
   <section class="hero">
     <div>
-      <h1>Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
-      <p>Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
+      <h1 class="anim-jump">Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
+      <p class="anim-fade">Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
       <div class="btn-group">
         <a href="#portfolio-gallery" class="btn btn-primary">Explore Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -206,8 +247,8 @@
 
   <!-- SECTION 1: WORKSHOP & YANCARLOS TURNAROUND -->
   <section id="workshop-section" style="text-align: center;">
-    <h2 class="section-title">Workshop & Robot Universe</h2>
-    <p class="section-desc">Explore the workshop scene preview (muted). Tap the video card to flip and view Yancarlos's full character turnaround sheet.</p>
+    <h2 class="section-title anim-pop">Workshop & Robot Universe</h2>
+    <p class="section-desc anim-fade">Explore the workshop scene preview (muted). Tap the video card to flip and view Yancarlos's full character turnaround sheet.</p>
     
     <div class="grid" style="max-width: 950px; margin: 0 auto;">
       <!-- Flip Card 1: Workshop Video on Front -> Flips to Yancarlos Turnaround on Back -->
@@ -246,8 +287,8 @@
 
   <!-- SECTION 2: LAWYER SYLVIA'S ANIMATION PRESENTATION -->
   <section id="sylvia-section" style="text-align: center; background: rgba(114, 17, 33, 0.05);">
-    <h2 class="section-title">Sylvia's Animation Presentation</h2>
-    <p class="section-desc">Explore Sylvia's presentation preview (muted). Tap to flip and reveal the character turnaround sheet.</p>
+    <h2 class="section-title anim-jump">Sylvia's Animation Presentation</h2>
+    <p class="section-desc anim-fade">Explore Sylvia's presentation preview (muted). Tap to flip and reveal the character turnaround sheet.</p>
     
     <div style="max-width: 650px; margin: 0 auto;">
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
@@ -269,8 +310,8 @@
 
   <!-- SECTION 3: BROCCARLOS UNIVERSE -->
   <section id="broccoli-section">
-    <h2 class="section-title">The Broccarlos Universe</h2>
-    <p class="section-desc">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
+    <h2 class="section-title anim-pop">The Broccarlos Universe</h2>
+    <p class="section-desc anim-fade">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
 
     <div class="grid">
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
@@ -319,8 +360,8 @@
 
   <!-- SECTION 4: VICTOR / AVICTOR 3D BLUEPRINT -->
   <section id="victor-section" style="text-align: center;">
-    <h2 class="section-title">Victor / Avictor 3D Blueprint</h2>
-    <p class="section-desc">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe.</p>
+    <h2 class="section-title anim-jump">Victor / Avictor 3D Blueprint</h2>
+    <p class="section-desc anim-fade">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe.</p>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
       <div class="card" style="padding: 1rem;">
@@ -343,8 +384,8 @@
 
   <!-- SECTION 5: PROJECT SHOWCASE & MILESTONES -->
   <section id="portfolio-gallery">
-    <h2 class="section-title">Project Showcase & Milestones</h2>
-    <p class="section-desc">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
+    <h2 class="section-title anim-pop">Project Showcase & Milestones</h2>
+    <p class="section-desc anim-fade">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
 
     <div class="tabs">
       <button class="tab-btn active" data-filter="all">All Projects</button>
@@ -390,8 +431,8 @@
 
   <!-- SECTION 6: FAMILY & CREATIVE COLLABORATIONS -->
   <section style="background: rgba(217, 146, 31, 0.04);">
-    <h2 class="section-title">Family & Creative Collaborations</h2>
-    <p class="section-desc">Character Creator 5 character designs and digital portrait studies dedicated to loved ones.</p>
+    <h2 class="section-title anim-jump">Family & Creative Collaborations</h2>
+    <p class="section-desc anim-fade">Character Creator 5 character designs and digital portrait studies dedicated to loved ones.</p>
     
     <div class="grid">
       <div class="card">
@@ -425,8 +466,8 @@
 
   <!-- SECTION 7: ENDING SCENE & CHARACTER REELS (WITH FULL UNMUTED AUDIO CONTROLS) -->
   <section id="reels" style="text-align: center;">
-    <h2 class="section-title">Scene & Character Reels</h2>
-    <p class="section-desc">Cinematic test renders and video reels with full sound. Use the built-in player controls to play with audio sound.</p>
+    <h2 class="section-title anim-pop">Scene & Character Reels</h2>
+    <p class="section-desc anim-fade">Cinematic test renders and video reels with full sound. Use the built-in player controls to play with audio sound.</p>
     
     <div class="grid" style="max-width: 1100px; margin: 0 auto;">
       <div style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg);">
@@ -462,8 +503,8 @@
 
   <!-- Contact Section -->
   <section id="contact" style="text-align: center;">
-    <h2 class="section-title">Let's Build Something Great</h2>
-    <p class="section-desc">Have a film project, web build, or 3D development inquiry? Let's connect.</p>
+    <h2 class="section-title anim-jump">Let's Build Something Great</h2>
+    <p class="section-desc anim-fade">Have a film project, web build, or 3D development inquiry? Let's connect.</p>
     <a href="mailto:yanmartinez92@gmail.com" class="btn btn-primary">Email Me Directly</a>
   </section>
 
@@ -488,6 +529,17 @@
   </div>
 
   <script>
+    // Screen Impact / Vibration Effect on Tap
+    document.addEventListener('click', (e) => {
+      // Avoid triggering vibration when clicking buttons, links, or inside the chatbot directly
+      if (e.target.closest('button') || e.target.closest('a') || e.target.closest('#chat-box')) return;
+      
+      document.body.classList.add('vibrate-effect');
+      setTimeout(() => {
+        document.body.classList.remove('vibrate-effect');
+      }, 300);
+    });
+
     // Category Filtering Script
     const filterBtns = document.querySelectorAll('.tab-btn');
     const cards = document.querySelectorAll('.card');
@@ -535,7 +587,7 @@
         const lower = text.toLowerCase();
 
         if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie') || lower.includes('editor')) {
-          reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He graduated from the New York Film Academy (Class of 2019) and Goodwin College.";
+          reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He graduated from the New York Film Academy (Class of 2019) and Goodwin College[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span).";
         } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel') || lower.includes('broccarlos') || lower.includes('victor')) {
           reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccarlos and Avictor!";
         } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable') || lower.includes('manny') || lower.includes('bri') || lower.includes('emmanuel') || lower.includes('olivia')) {
