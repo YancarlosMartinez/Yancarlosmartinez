@@ -34,7 +34,29 @@
       padding-bottom: 5rem;
     }
 
-    /* Target Element Vibration (Only when text is tapped) */
+    h1, h2, h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Word and Letter grouping for horizontal readable layout with shatter effect */
+    .word {
+      display: inline-block;
+      white-space: nowrap;
+      margin-right: 0.25em;
+    }
+    .char {
+      display: inline-block;
+      transition: transform 5s cubic-bezier(0.1, 1, 0.1, 1), opacity 5s ease, rotate 5s ease;
+      will-change: transform, opacity;
+    }
+    .shattering .char {
+      transform: translate(var(--rx), var(--ry)) rotate(var(--rrot)) scale(0.7);
+      opacity: 0.15;
+    }
+
+    /* Target Element Vibration (Only when specific text is tapped) */
     .vibrate-target {
       animation: elementVibrate 0.3s ease-in-out;
     }
@@ -46,24 +68,14 @@
       80% { transform: translate(3px, 3px); }
     }
 
-    h1, h2, h3, h4, p, span, a.brand-text {
-      font-family: 'Syne', sans-serif;
-      cursor: pointer;
-      display: inline-block;
-      transition: color 0.3s;
+    /* Electric Spark / Energy Flash Effect on Image/Card Tap */
+    .spark-flash {
+      animation: sparkPulse 0.4s ease-out;
     }
-    
-    p { font-family: 'Inter', sans-serif; display: block; }
-
-    /* Shatter & Re-form Letter Styles (Individual Element Scramble) */
-    .char {
-      display: inline-block;
-      transition: transform 5s cubic-bezier(0.1, 1, 0.1, 1), opacity 5s ease, rotate 5s ease;
-      will-change: transform, opacity;
-    }
-    .shattering .char {
-      transform: translate(var(--rx), var(--ry)) rotate(var(--rrot)) scale(0.7);
-      opacity: 0.15;
+    @keyframes sparkPulse {
+      0% { box-shadow: 0 0 0 0 rgba(217, 146, 31, 0.9), inset 0 0 0 0 rgba(217, 146, 31, 0.9); border-color: var(--gold); }
+      50% { box-shadow: 0 0 25px 8px rgba(217, 146, 31, 0.8), inset 0 0 15px 4px rgba(255, 255, 255, 0.6); border-color: #fff; }
+      100% { box-shadow: 0 0 5px 2px rgba(217, 146, 31, 0.2), inset 0 0 0 0 transparent; border-color: rgba(217, 146, 31, 0.3); }
     }
 
     /* Ambient Background Glows */
@@ -97,7 +109,7 @@
       text-align: center; padding: 8rem 1.5rem 4rem; position: relative;
       background: radial-gradient(circle at center, var(--burgundy-glow) 0%, transparent 70%);
     }
-    .hero h1 { font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: 1.15; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: 1.15; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
     .hero h1 span { color: var(--gold); display: block; }
     .hero p { max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.05rem; color: var(--muted); line-height: 1.7; }
 
@@ -118,6 +130,7 @@
     /* Click-to-Flip 3D Card Styles */
     .flip-card {
       background-color: transparent; width: 100%; height: 400px; perspective: 1000px; cursor: pointer; margin-bottom: 1.5rem;
+      border-radius: 16px; transition: box-shadow 0.3s;
     }
     .flip-card-inner {
       position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d;
@@ -158,8 +171,15 @@
     .card h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); margin-bottom: 0.8rem; line-height: 1.35; }
     .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
 
-    /* Floating AI Assistant Widget with Minimize */
-    #ai-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: 'Inter', sans-serif; }
+    /* Floating AI Assistant Widget - Fixed position guaranteed so it never moves during text shatter */
+    #ai-widget { 
+      position: fixed !important; 
+      bottom: 20px !important; 
+      right: 20px !important; 
+      z-index: 99999 !important; 
+      font-family: 'Inter', sans-serif; 
+      transform: none !important;
+    }
     #chat-toggle {
       width: 60px; height: 60px; border-radius: 50%; background: var(--burgundy); border: 2px solid var(--gold);
       cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
@@ -205,7 +225,7 @@
   <header>
     <a href="#" class="brand">
       <img src="Yan's cartoon headshot.png" alt="Yancarlos">
-      <span>YANCARLOS MARTINEZ</span>
+      <span class="shatter-text">YANCARLOS MARTINEZ</span>
     </a>
     <nav>
       <a href="#workshop-section">Workshop & Robot</a>
@@ -237,7 +257,7 @@
     
     <div class="grid" style="max-width: 950px; margin: 0 auto;">
       <!-- Flip Card 1: Workshop Video on Front -> Flips to Yancarlos Turnaround on Back -->
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
             <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
@@ -253,7 +273,7 @@
       </div>
 
       <!-- Flip Card 2: Yancel Robot Turnaround -->
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround">
@@ -276,7 +296,7 @@
     <p class="section-desc shatter-text">Explore Sylvia's presentation preview (muted). Tap to flip and reveal the character turnaround sheet.</p>
     
     <div style="max-width: 650px; margin: 0 auto;">
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
             <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
@@ -299,7 +319,7 @@
     <p class="section-desc shatter-text">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
 
     <div class="grid">
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround">
@@ -313,7 +333,7 @@
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown">
@@ -327,7 +347,7 @@
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero in the Enchanted Forest.png" alt="Enchanted Forest">
@@ -349,7 +369,7 @@
     <p class="section-desc shatter-text">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe.</p>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
-      <div class="card" style="padding: 1rem;">
+      <div class="card" style="padding: 1rem;" onclick="triggerSpark(this);">
         <img src="Victor Character Blueprint.jpg" alt="Victor Blueprint" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);" class="shatter-text">Character Blueprint</h3>
@@ -357,7 +377,7 @@
         </div>
       </div>
 
-      <div class="card" style="padding: 1rem;">
+      <div class="card" style="padding: 1rem;" onclick="triggerSpark(this);">
         <img src="Blender Avictor.png" alt="Blender Avictor Rig" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);" class="shatter-text">Blender Pipeline Rig</h3>
@@ -420,7 +440,7 @@
     <p class="section-desc shatter-text">Character Creator 5 character designs and digital portrait studies dedicated to loved ones.</p>
     
     <div class="grid">
-      <div class="card">
+      <div class="card" onclick="triggerSpark(this);">
         <img src="Bri CC5.png" alt="Bri CC5 Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -429,7 +449,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" onclick="triggerSpark(this);">
         <img src="Emmanuel CC5.png" alt="Emmanuel Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -438,7 +458,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" onclick="triggerSpark(this);">
         <img src="Olivia CC5.png" alt="Olivia Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -514,38 +534,50 @@
   </div>
 
   <script>
-    // Split Titles into Horizontal Letters for Independent Shatter & 5-Second Reassembly
+    // Group text into words and letters while keeping normal horizontal flow and wrapping
     document.querySelectorAll('.shatter-text').forEach(el => {
       const text = el.textContent;
-      el.innerHTML = text.split('').map(char => {
-        if (char === ' ') return '<span class="char" style="display:inline-block; width:0.3em;"> </span>';
-        const rx = (Math.random() - 0.5) * 300;
-        const ry = (Math.random() - 0.5) * 300;
-        const rrot = (Math.random() - 0.5) * 540;
-        return `<span class="char" style="--rx: ${rx}px; --ry: ${ry}px; --rrot: ${rrot}deg;">${char}</span>`;
-      }).join('');
+      const words = text.split(' ');
+      el.innerHTML = words.map(word => {
+        const chars = word.split('').map(char => {
+          const rx = (Math.random() - 0.5) * 250;
+          const ry = (Math.random() - 0.5) * 250;
+          const rrot = (Math.random() - 0.5) * 360;
+          return `<span class="char" style="--rx: ${rx}px; --ry: ${ry}px; --rrot: ${rrot}deg;">${char}</span>`;
+        }).join('');
+        return `<span class="word">${chars}</span>`;
+      }).join(' ');
     });
 
-    // Tap-to-Break Script: ONLY the exact text block tapped shatters and vibrates, taking 5 seconds to re-form. Images and videos remain completely untouched.
+    // Tap-to-Break Script: ONLY the exact text block tapped shatters and vibrates for 5 seconds.
     document.querySelectorAll('.shatter-text').forEach(titleEl => {
       titleEl.addEventListener('click', (e) => {
         e.stopPropagation();
         
-        // Trigger Vibration on this specific text element only
+        // Trigger vibration ONLY on this specific text element
         titleEl.classList.add('vibrate-target');
         setTimeout(() => {
           titleEl.classList.remove('vibrate-target');
         }, 300);
 
-        // Scatter / Break letters apart
+        // Scatter / Break letters
         titleEl.classList.add('shattering');
 
-        // Slowly re-form back into place over exactly 5 seconds
+        // Slowly re-form back into place over 5 seconds
         setTimeout(() => {
           titleEl.classList.remove('shattering');
-        }, 350); // holds broken state briefly then smooth transition back over 5s via CSS
+        }, 350);
       });
     });
+
+    // Electric Spark / Energy Flash function for image/card taps (No vibration)
+    function triggerSpark(element) {
+      const cardInner = element.querySelector('.flip-card-inner') || element;
+      cardInner.classList.add('spark-flash');
+      setTimeout(() => {
+        cardInner.classList.remove('spark-flash');
+      }, 400);
+    }
 
     // Category Filtering Script
     const filterBtns = document.querySelectorAll('.tab-btn');
@@ -594,7 +626,7 @@
         const lower = text.toLowerCase();
 
         if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie') || lower.includes('editor')) {
-          reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He graduated from the New York Film Academy (Class of 2019) and Goodwin College[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span).";
+          reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He graduated from the New York Film Academy (Class of 2019) and Goodwin College.";
         } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel') || lower.includes('broccarlos') || lower.includes('victor')) {
           reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccarlos and Avictor!";
         } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable') || lower.includes('manny') || lower.includes('bri') || lower.includes('emmanuel') || lower.includes('olivia')) {
