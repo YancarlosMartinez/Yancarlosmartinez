@@ -35,16 +35,16 @@
       transition: transform 0.1s ease;
     }
 
-    /* Screen Vibration / Impact Animation Class */
+    /* Screen Vibration / Impact Animation */
     .vibrate-effect {
       animation: screenVibrate 0.3s ease-in-out;
     }
     @keyframes screenVibrate {
       0%, 100% { transform: translate(0, 0); }
-      20% { transform: translate(-4px, 4px) scale(1.002); }
-      40% { transform: translate(4px, -3px) scale(0.998); }
-      60% { transform: translate(-3px, -4px) scale(1.001); }
-      80% { transform: translate(3px, 3px) scale(0.999); }
+      20% { transform: translate(-5px, 5px) scale(1.003); }
+      40% { transform: translate(5px, -4px) scale(0.997); }
+      60% { transform: translate(-4px, -5px) scale(1.002); }
+      80% { transform: translate(4px, 4px) scale(0.998); }
     }
 
     h1, h2, h3 {
@@ -53,32 +53,15 @@
       color: #fff;
     }
 
-    /* Randomized Text Entrance Animations */
-    .anim-jump {
-      animation: textJump 1.2s cubic-bezier(0.25, 1, 0.5, 1.2) both;
+    /* Shatter & Re-form Letter Styles */
+    .char {
+      display: inline-block;
+      transition: transform 5s cubic-bezier(0.1, 1, 0.1, 1), opacity 5s ease;
+      will-change: transform, opacity;
     }
-    @keyframes textJump {
-      0% { transform: translateY(-40px); opacity: 0; }
-      50% { transform: translateY(12px); opacity: 1; }
-      75% { transform: translateY(-6px); }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-
-    .anim-fade {
-      animation: textFade 1.5s ease-in-out both;
-    }
-    @keyframes textFade {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .anim-pop {
-      animation: textPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-    }
-    @keyframes textPop {
-      0% { transform: scale(0.7); opacity: 0; }
-      70% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
+    body.breaking .char {
+      transform: translate(var(--rx), var(--ry)) rotate(var(--rrot)) scale(0.8);
+      opacity: 0.2;
     }
 
     /* Ambient Background Glows */
@@ -236,7 +219,7 @@
   <!-- Hero Section -->
   <section class="hero">
     <div>
-      <h1 class="anim-jump">Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
+      <h1 class="shatter-text">Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
       <p class="anim-fade">Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
       <div class="btn-group">
         <a href="#portfolio-gallery" class="btn btn-primary">Explore Work</a>
@@ -247,7 +230,7 @@
 
   <!-- SECTION 1: WORKSHOP & YANCARLOS TURNAROUND -->
   <section id="workshop-section" style="text-align: center;">
-    <h2 class="section-title anim-pop">Workshop & Robot Universe</h2>
+    <h2 class="section-title shatter-text">Workshop & Robot Universe</h2>
     <p class="section-desc anim-fade">Explore the workshop scene preview (muted). Tap the video card to flip and view Yancarlos's full character turnaround sheet.</p>
     
     <div class="grid" style="max-width: 950px; margin: 0 auto;">
@@ -287,7 +270,7 @@
 
   <!-- SECTION 2: LAWYER SYLVIA'S ANIMATION PRESENTATION -->
   <section id="sylvia-section" style="text-align: center; background: rgba(114, 17, 33, 0.05);">
-    <h2 class="section-title anim-jump">Sylvia's Animation Presentation</h2>
+    <h2 class="section-title shatter-text">Sylvia's Animation Presentation</h2>
     <p class="section-desc anim-fade">Explore Sylvia's presentation preview (muted). Tap to flip and reveal the character turnaround sheet.</p>
     
     <div style="max-width: 650px; margin: 0 auto;">
@@ -310,7 +293,7 @@
 
   <!-- SECTION 3: BROCCARLOS UNIVERSE -->
   <section id="broccoli-section">
-    <h2 class="section-title anim-pop">The Broccarlos Universe</h2>
+    <h2 class="section-title shatter-text">The Broccarlos Universe</h2>
     <p class="section-desc anim-fade">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
 
     <div class="grid">
@@ -360,7 +343,7 @@
 
   <!-- SECTION 4: VICTOR / AVICTOR 3D BLUEPRINT -->
   <section id="victor-section" style="text-align: center;">
-    <h2 class="section-title anim-jump">Victor / Avictor 3D Blueprint</h2>
+    <h2 class="section-title shatter-text">Victor / Avictor 3D Blueprint</h2>
     <p class="section-desc anim-fade">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe.</p>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
@@ -384,7 +367,7 @@
 
   <!-- SECTION 5: PROJECT SHOWCASE & MILESTONES -->
   <section id="portfolio-gallery">
-    <h2 class="section-title anim-pop">Project Showcase & Milestones</h2>
+    <h2 class="section-title shatter-text">Project Showcase & Milestones</h2>
     <p class="section-desc anim-fade">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
 
     <div class="tabs">
@@ -431,7 +414,7 @@
 
   <!-- SECTION 6: FAMILY & CREATIVE COLLABORATIONS -->
   <section style="background: rgba(217, 146, 31, 0.04);">
-    <h2 class="section-title anim-jump">Family & Creative Collaborations</h2>
+    <h2 class="section-title shatter-text">Family & Creative Collaborations</h2>
     <p class="section-desc anim-fade">Character Creator 5 character designs and digital portrait studies dedicated to loved ones.</p>
     
     <div class="grid">
@@ -466,7 +449,7 @@
 
   <!-- SECTION 7: ENDING SCENE & CHARACTER REELS (WITH FULL UNMUTED AUDIO CONTROLS) -->
   <section id="reels" style="text-align: center;">
-    <h2 class="section-title anim-pop">Scene & Character Reels</h2>
+    <h2 class="section-title shatter-text">Scene & Character Reels</h2>
     <p class="section-desc anim-fade">Cinematic test renders and video reels with full sound. Use the built-in player controls to play with audio sound.</p>
     
     <div class="grid" style="max-width: 1100px; margin: 0 auto;">
@@ -503,7 +486,7 @@
 
   <!-- Contact Section -->
   <section id="contact" style="text-align: center;">
-    <h2 class="section-title anim-jump">Let's Build Something Great</h2>
+    <h2 class="section-title shatter-text">Let's Build Something Great</h2>
     <p class="section-desc anim-fade">Have a film project, web build, or 3D development inquiry? Let's connect.</p>
     <a href="mailto:yanmartinez92@gmail.com" class="btn btn-primary">Email Me Directly</a>
   </section>
@@ -529,15 +512,35 @@
   </div>
 
   <script>
-    // Screen Impact / Vibration Effect on Tap
+    // Split Titles into Letters for Shatter & Re-form Animation
+    document.querySelectorAll('.shatter-text').forEach(el => {
+      const text = el.textContent;
+      el.innerHTML = text.split('').map(char => {
+        if (char === ' ') return ' ';
+        const rx = (Math.random() - 0.5) * 350;
+        const ry = (Math.random() - 0.5) * 350;
+        const rrot = (Math.random() - 0.5) * 720;
+        return `<span class="char" style="--rx: ${rx}px; --ry: ${ry}px; --rrot: ${rrot}deg;">${char}</span>`;
+      }).join('');
+    });
+
+    // Screen Impact, Vibration, and Letter Break / Re-form Trigger on Tap
     document.addEventListener('click', (e) => {
-      // Avoid triggering vibration when clicking buttons, links, or inside the chatbot directly
       if (e.target.closest('button') || e.target.closest('a') || e.target.closest('#chat-box')) return;
       
+      // Trigger Screen Vibration
       document.body.classList.add('vibrate-effect');
       setTimeout(() => {
         document.body.classList.remove('vibrate-effect');
       }, 300);
+
+      // Trigger Letter Break (Shatter)
+      document.body.classList.add('breaking');
+      
+      // After vibration stops, start slowly re-forming letters back over 5 seconds
+      setTimeout(() => {
+        document.body.classList.remove('breaking');
+      }, 350);
     });
 
     // Category Filtering Script
