@@ -48,6 +48,7 @@
       max-width: 100%;
       white-space: normal;
       word-wrap: break-word;
+      text-align: inherit;
     }
     .word {
       display: inline-block;
@@ -78,16 +79,30 @@
       80% { transform: translate(3px, 3px); }
     }
 
-    /* Full-Border Electric Shock Effect (Light Blue & Yellow) */
+    /* Realistic Electric Sparks Flowing Across Borders (Light Blue & Yellow) */
     .electric-border {
-      animation: electricShock 0.6s ease-in-out;
+      position: relative;
     }
-    @keyframes electricShock {
-      0% { border-color: var(--gold); box-shadow: 0 0 10px #00f0ff, inset 0 0 10px #ffea00; }
-      25% { border-color: #00f0ff; box-shadow: 0 0 25px 5px #00f0ff, inset 0 0 20px 5px #ffea00; }
-      50% { border-color: #ffea00; box-shadow: 0 0 25px 5px #ffea00, inset 0 0 20px 5px #00f0ff; }
-      75% { border-color: #00f0ff; box-shadow: 0 0 25px 5px #00f0ff, inset 0 0 20px 5px #ffea00; }
-      100% { border-color: var(--gold); box-shadow: 0 0 10px rgba(217,146,31,0.3), inset 0 0 0 transparent; }
+    .electric-border::before, .electric-border::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 18px;
+      pointer-events: none;
+      z-index: 30;
+      background: linear-gradient(90deg, #00f0ff, #ffea00, #00f0ff, #ffea00);
+      background-size: 300% 300%;
+      animation: borderSparkFlow 0.6s linear forwards;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding: 3px;
+    }
+    @keyframes borderSparkFlow {
+      0% { background-position: 0% 50%; opacity: 1; filter: drop-shadow(0 0 8px #00f0ff); }
+      50% { background-position: 150% 50%; opacity: 1; filter: drop-shadow(0 0 12px #ffea00); }
+      100% { background-position: 300% 50%; opacity: 0; }
     }
 
     /* Particle Burst & Smoke Canvas/Overlay Effects */
@@ -301,7 +316,7 @@
     
     <div class="grid" style="max-width: 950px; margin: 0 auto;">
       <!-- Flip Card 1: Workshop Video on Front -> Flips to Yancarlos Turnaround on Back -->
-      <div class="flip-card" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
+      <div class="flip-card electric-parent" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
             <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
@@ -317,7 +332,7 @@
       </div>
 
       <!-- Flip Card 2: Yancel Robot Turnaround -->
-      <div class="flip-card" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
+      <div class="flip-card electric-parent" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround">
@@ -340,7 +355,7 @@
     <p class="section-desc shatter-text">Explore Sylvia's presentation preview (muted). Tap to flip and reveal the character turnaround sheet.</p>
     
     <div style="max-width: 650px; margin: 0 auto;">
-      <div class="flip-card" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
+      <div class="flip-card electric-parent" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
             <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
@@ -363,7 +378,7 @@
     <p class="section-desc shatter-text">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
 
     <div class="grid">
-      <div class="flip-card" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
+      <div class="flip-card electric-parent" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround">
@@ -377,7 +392,7 @@
         </div>
       </div>
 
-      <div class="flip-card" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
+      <div class="flip-card electric-parent" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown">
@@ -391,7 +406,7 @@
         </div>
       </div>
 
-      <div class="flip-card" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
+      <div class="flip-card electric-parent" onclick="triggerElectricBorder(this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero in the Enchanted Forest.png" alt="Enchanted Forest">
@@ -413,7 +428,7 @@
     <p class="section-desc shatter-text">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe.</p>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
-      <div class="card" style="padding: 1rem;" onclick="triggerElectricBorder(this);">
+      <div class="card electric-parent" style="padding: 1rem;" onclick="triggerElectricBorder(this);">
         <img src="Victor Character Blueprint.jpg" alt="Victor Blueprint" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);" class="shatter-text">Character Blueprint</h3>
@@ -421,7 +436,7 @@
         </div>
       </div>
 
-      <div class="card" style="padding: 1rem;" onclick="triggerElectricBorder(this);">
+      <div class="card electric-parent" style="padding: 1rem;" onclick="triggerElectricBorder(this);">
         <img src="Blender Avictor.png" alt="Blender Avictor Rig" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);" class="shatter-text">Blender Pipeline Rig</h3>
@@ -484,7 +499,7 @@
     <p class="section-desc shatter-text">Character Creator 5 character designs and digital portrait studies dedicated to loved ones.</p>
     
     <div class="grid">
-      <div class="card" onclick="triggerElectricBorder(this);">
+      <div class="card electric-parent" onclick="triggerElectricBorder(this);">
         <img src="Bri CC5.png" alt="Bri CC5 Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -493,7 +508,7 @@
         </div>
       </div>
 
-      <div class="card" onclick="triggerElectricBorder(this);">
+      <div class="card electric-parent" onclick="triggerElectricBorder(this);">
         <img src="Emmanuel CC5.png" alt="Emmanuel Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -502,7 +517,7 @@
         </div>
       </div>
 
-      <div class="card" onclick="triggerElectricBorder(this);">
+      <div class="card electric-parent" onclick="triggerElectricBorder(this);">
         <img src="Olivia CC5.png" alt="Olivia Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -519,7 +534,7 @@
     <p class="section-desc shatter-text">Cinematic test renders and video reels with full sound. Use the built-in player controls to play with audio sound.</p>
     
     <div class="grid" style="max-width: 1100px; margin: 0 auto;">
-      <div style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg);" onclick="triggerElectricBorder(this);">
+      <div class="electric-parent" style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg); position:relative;" onclick="triggerElectricBorder(this);">
         <video src="Yan's first scene.mp4" controls playsinline style="width: 100%; height: 260px; object-fit: cover; display: block; background: #000;"></video>
         <div style="padding: 1.2rem; text-align: left;">
           <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);" class="shatter-text">First Scene Render</h3>
@@ -527,7 +542,7 @@
         </div>
       </div>
 
-      <div style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg);" onclick="triggerElectricBorder(this);">
+      <div class="electric-parent" style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg); position:relative;" onclick="triggerElectricBorder(this);">
         <video src="Sylvia speech-1.mp4" controls playsinline style="width: 100%; height: 260px; object-fit: cover; display: block; background: #000;"></video>
         <div style="padding: 1.2rem; text-align: left;">
           <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);" class="shatter-text">Rendered Animation Presentation</h3>
@@ -578,7 +593,7 @@
   </div>
 
   <script>
-    // Group text into words and letters while keeping normal horizontal flow and wrapping
+    // Group text into words and letters while preserving normal horizontal flow and wrapping
     document.querySelectorAll('.shatter-text').forEach(el => {
       const text = el.textContent;
       const words = text.split(' ');
@@ -622,40 +637,40 @@
       }
     }
 
-    // Localized Tap-to-Break Script: ONLY letters near the tapped click point shatter and vibrate locally, then re-form over 5 seconds.
+    // Localized Tap-to-Break Script with exact reassembly timing (5 seconds)
     document.querySelectorAll('.shatter-text').forEach(titleEl => {
       titleEl.addEventListener('click', (e) => {
         e.stopPropagation();
         
         createTextExplosion(e.clientX, e.clientY);
 
-        // Trigger vibration ONLY on this specific text element
+        // Trigger local vibration ONLY on this specific text block
         titleEl.classList.add('vibrate-local');
         setTimeout(() => {
           titleEl.classList.remove('vibrate-local');
         }, 300);
 
-        // Find and shatter letters closest to the tap point
+        // Shatter characters near the tap point
         const chars = titleEl.querySelectorAll('.char');
         chars.forEach(char => {
           const rect = char.getBoundingClientRect();
           const dist = Math.hypot(e.clientX - (rect.left + rect.width/2), e.clientY - (rect.top + rect.height/2));
-          if (dist < 150) { // shatter letters within tap radius
+          if (dist < 150) {
             char.classList.add('shattered');
             setTimeout(() => {
               char.classList.remove('shattered');
-            }, 5000); // exactly 5 seconds to re-form back into place
+            }, 5000); // 5 seconds to re-form back into place
           }
         });
       });
     });
 
-    // Electric Border Shock function for image cards and videos (Light blue & yellow border flashing)
+    // Electric Border Spark function for image cards and videos
     function triggerElectricBorder(element) {
-      const targetBox = element.querySelector('.flip-card-inner') || element;
-      targetBox.classList.add('electric-border');
+      const parentCard = element.closest('.electric-parent') || element;
+      parentCard.classList.add('electric-border');
       setTimeout(() => {
-        targetBox.classList.remove('electric-border');
+        parentCard.classList.remove('electric-border');
       }, 600);
     }
 
