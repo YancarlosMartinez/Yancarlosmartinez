@@ -76,32 +76,35 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
 /* Tappable surfaces */
 .flip-card,.card,.vid{touch-action:manipulation;-webkit-user-select:none;user-select:none}
 
-/* Flip cards: front (.ff) and info side (.fb) */
-.flip-card{position:relative;height:400px;cursor:pointer;border:1px solid rgba(217,146,31,.3);border-radius:16px;box-shadow:0 10px 30px rgba(114,17,33,.3);background:var(--card)}
-.ff,.fb{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--card);transition:opacity .45s .1s}
-.ff img,.ff video{width:100%;height:100%;object-fit:cover;background:#000;display:block}
-.ff img.fit{object-fit:contain}
-.ff::after{content:"TAP FOR INFO";position:absolute;right:12px;bottom:12px;z-index:3;padding:4px 10px;border:1px solid var(--gold);border-radius:6px;background:rgba(11,7,8,.7);color:var(--gold);font:700 .7rem monospace;pointer-events:none}
-.fb{padding:1.1rem;align-items:stretch;justify-content:flex-start;overflow-y:auto;background:#130a0d;text-align:left;opacity:0;pointer-events:none;transition:none}
-.fb::after{content:"[ Tap for info to go back ]";margin-top:auto;padding-top:.6rem;color:var(--gold);font:.7rem monospace}
-.fb h3{color:var(--gold);font-size:1.1rem;margin-bottom:.4rem}
-.fb p{font-size:.85rem;line-height:1.5;color:var(--muted);margin-bottom:.5rem}
-.fb img{width:100%;height:120px;object-fit:contain;background:#000;border-radius:6px}
+/* Cards: image stage + separate text block (each reacts on its own) */
+.flip-card{border:1px solid rgba(217,146,31,.3);border-radius:16px;box-shadow:0 10px 30px rgba(114,17,33,.3);background:var(--card);padding:.6rem .6rem 1.1rem}
+.stage{position:relative;height:280px;border-radius:12px;background:#000;cursor:pointer}
+.stage.shat{background:linear-gradient(0deg,rgba(114,17,33,.45),#000 22%)}
+.ff,.fb{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:#000}
+.ff img,.ff video,.fb img{width:100%;height:100%;object-fit:cover;display:block}
+.ff img.fit,.fb img{object-fit:contain}
+.ff::after,.fb::after{content:"TAP FOR INFO";position:absolute;right:12px;bottom:12px;z-index:3;padding:4px 10px;border:1px solid var(--gold);border-radius:6px;background:rgba(11,7,8,.7);color:var(--gold);font:700 .7rem monospace;pointer-events:none}
+.fb{opacity:0;pointer-events:none}
+.stage.flipped>.ff{opacity:0;pointer-events:none}
+.stage.flipped>.fb{opacity:1;pointer-events:auto}
+.stage.shat>.ff,.stage.shat>.fb{opacity:0!important}
+.info{padding:.9rem .5rem 0}
+.info h3{color:var(--gold);font-size:1.1rem;margin-bottom:.4rem}
+.info p{font-size:.88rem;line-height:1.55;color:var(--muted)}
 .meta{font-size:.75rem;color:var(--gold);text-transform:uppercase;letter-spacing:.05rem;font-weight:600;margin-bottom:.4rem}
-.flipped .ff{opacity:0;pointer-events:none;transition:none}
-.flipped .fb{opacity:1;pointer-events:auto;transition:opacity .45s .1s}
 
-/* Shatter shards */
+/* Shatter pieces: fall to the floor, then rebuild into the other image */
 .shards{position:absolute;inset:0;z-index:5;pointer-events:none}
-.shard{position:absolute;inset:0;border-radius:16px;overflow:hidden;will-change:transform,opacity;transition:transform .85s cubic-bezier(.2,.7,.3,1),opacity .85s ease-in}
-.shard>*{opacity:1!important;transform:none!important;transition:none!important}
+.shard{position:absolute;overflow:hidden;will-change:transform}
+.shard>.g{inset:auto;overflow:hidden;border-radius:12px;opacity:1;transition:opacity .5s;pointer-events:none}
+.shards.sw .o{opacity:0}
 
-/* Robotic saber: cyan + yellow lightning around the border */
-.saber{position:absolute;z-index:99999;pointer-events:none;overflow:visible;filter:drop-shadow(0 0 4px #00f0ff) drop-shadow(0 0 10px #ffea00)}
+/* Robotic saber: red + orange lightning around the border */
+.saber{position:absolute;z-index:99999;pointer-events:none;overflow:visible;filter:drop-shadow(0 0 4px #ff1a1a) drop-shadow(0 0 10px #ff7a00)}
 .saber path{fill:none;stroke-linejoin:bevel;stroke-linecap:round}
-.sb{stroke:#00f0ff;stroke-width:2;animation:fl .5s ease-out forwards}
-.sc{stroke:#00f0ff;stroke-width:4;stroke-dasharray:10 15;animation:zap .9s linear forwards}
-.sy{stroke:#ffea00;stroke-width:3;stroke-dasharray:7 18;animation:zap2 .9s linear forwards}
+.sb{stroke:#ff7a00;stroke-width:2;animation:fl .5s ease-out forwards}
+.sc{stroke:#ff1a1a;stroke-width:4;stroke-dasharray:10 15;animation:zap .9s linear forwards}
+.sy{stroke:#ff8c00;stroke-width:3;stroke-dasharray:7 18;animation:zap2 .9s linear forwards}
 @keyframes fl{to{opacity:0}}
 @keyframes zap{0%,70%{opacity:1}100%{stroke-dashoffset:-100;opacity:0}}
 @keyframes zap2{0%,70%{opacity:1}100%{stroke-dashoffset:100;opacity:0}}
@@ -141,7 +144,7 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
 .ci button{padding:0 16px;background:var(--gold);border:0;color:#000;font-weight:700;cursor:pointer}
 @keyframes pulse{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(114,17,33,.6)}70%{transform:scale(1.08);box-shadow:0 0 0 12px rgba(114,17,33,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(114,17,33,0)}}
 
-@media(max-width:768px){nav{display:none}.hero{min-height:50vh;padding-top:5rem}section{padding:1.5rem 5%}.desc{margin-bottom:1.2rem}.flip-card{height:340px}}
+@media(max-width:768px){nav{display:none}.hero{min-height:50vh;padding-top:5rem}section{padding:1.5rem 5%}.desc{margin-bottom:1.2rem}.stage{height:240px}}
 @media(prefers-reduced-motion:reduce){.orb,#tg{animation:none}}
 </style>
 </head>
@@ -176,20 +179,12 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">Explore the workshop scene preview. Tap for info to shatter the card and reveal the turnaround sheet.</p>
   <div class="grid wide">
     <div class="flip-card">
-      <div class="ff"><video src="Yan%27s%20first%20scene.mp4" poster="Yan%27s%20first%20scene.png" autoplay muted loop playsinline preload="auto"></video></div>
-      <div class="fb">
-        <h3>Yancarlos Turnaround &amp; Workshop</h3>
-        <p><b>Story:</b> Deep in the workshop, precision engineering meets imagination. Built for the animated short script, Yancarlos designs and assembles advanced robotics in real-time Unreal Engine lighting.</p>
-        <img src="Yan's turnaround sheet.png" alt="Yancarlos Turnaround Sheet">
-      </div>
+      <div class="stage"><div class="ff"><video src="Yan%27s%20first%20scene.mp4" poster="Yan%27s%20first%20scene.png" autoplay muted loop playsinline preload="auto"></video></div><div class="fb"><img src="Yan's turnaround sheet.png" alt="Yancarlos Turnaround Sheet"></div></div>
+      <div class="info"><h3 class="shatter">Yancarlos Turnaround &amp; Workshop</h3><p class="shatter">Story: Deep in the workshop, precision engineering meets imagination. Built for the animated short script, Yancarlos designs and assembles advanced robotics in real-time Unreal Engine lighting.</p></div>
     </div>
     <div class="flip-card">
-      <div class="ff"><img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround"></div>
-      <div class="fb">
-        <h3>Yancel Robot Turnaround</h3>
-        <p>Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p>
-        <img src="Yancel full_body turnaround sheet.png" alt="Yancel Full Body Robot">
-      </div>
+      <div class="stage"><div class="ff"><img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround"></div><div class="fb"><img src="Yancel full_body turnaround sheet.png" alt="Yancel Full Body Robot"></div></div>
+      <div class="info"><h3 class="shatter">Yancel Robot Turnaround</h3><p class="shatter">Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p></div>
     </div>
   </div>
 </section>
@@ -200,12 +195,8 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">Explore Sylvia’s presentation preview. Tap for info to shatter the card and reveal the turnaround sheet.</p>
   <div class="mid">
     <div class="flip-card">
-      <div class="ff"><video src="Sylvia%20speech-1.mp4" autoplay muted loop playsinline preload="auto"></video></div>
-      <div class="fb">
-        <h3>Rendered Presentation &amp; Turnaround</h3>
-        <p>High-end character presentation and virtual environment showcase.</p>
-        <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround">
-      </div>
+      <div class="stage"><div class="ff"><video src="Sylvia%20speech-1.mp4" autoplay muted loop playsinline preload="auto"></video></div><div class="fb"><img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround"></div></div>
+      <div class="info"><h3 class="shatter">Rendered Presentation &amp; Turnaround</h3><p class="shatter">High-end character presentation and virtual environment showcase.</p></div>
     </div>
   </div>
 </section>
@@ -216,16 +207,16 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">An original superhero concept born from creative imagination. Tap any card for info to shatter it and reveal the lore.</p>
   <div class="grid">
     <div class="flip-card">
-      <div class="ff"><img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround"></div>
-      <div class="fb"><h3>Character Anatomy</h3><p>Full character design and rigging sheet showing front, side, and back views for Broccarlos in high-end animation pipelines.</p></div>
+      <div class="stage"><div class="ff"><img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround"></div></div>
+      <div class="info"><h3 class="shatter">Character Anatomy</h3><p class="shatter">Full character design and rigging sheet showing front, side, and back views for Broccarlos in high-end animation pipelines.</p></div>
     </div>
     <div class="flip-card">
-      <div class="ff"><img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown"></div>
-      <div class="fb"><h3>Costume &amp; Gear</h3><p>Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccarlos.</p></div>
+      <div class="stage"><div class="ff"><img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown"></div></div>
+      <div class="info"><h3 class="shatter">Costume &amp; Gear</h3><p class="shatter">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccarlos.</p></div>
     </div>
     <div class="flip-card">
-      <div class="ff"><img src="Broccoli Hero in the Enchanted Forest.png" alt="Broccarlos in the Enchanted Forest"></div>
-      <div class="fb"><h3>The Legend</h3><p>Standing tall in the enchanted forest, Broccarlos protects nature’s realm with unmatched power and resilience.</p></div>
+      <div class="stage"><div class="ff"><img src="Broccoli Hero in the Enchanted Forest.png" alt="Broccarlos in the Enchanted Forest"></div></div>
+      <div class="info"><h3 class="shatter">The Legend</h3><p class="shatter">Standing tall in the enchanted forest, Broccarlos protects nature’s realm with unmatched power and resilience.</p></div>
     </div>
   </div>
 </section>
@@ -236,12 +227,8 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">Technical rigging sheets, armor breakdowns, and Blender sculpting specs for the Avictor universe. Tap the card for info.</p>
   <div class="mid">
     <div class="flip-card">
-      <div class="ff"><img class="fit" src="Blender Avictor.png" alt="Blender Avictor Rig"></div>
-      <div class="fb">
-        <h3>Character Blueprint</h3>
-        <p>Anatomical guides, prop distribution, and texture mapping matrices designed for cinematic game engines.</p>
-        <img src="Victor Character Blueprint.jpg" alt="Victor Blueprint">
-      </div>
+      <div class="stage"><div class="ff"><img class="fit" src="Blender Avictor.png" alt="Blender Avictor Rig"></div><div class="fb"><img src="Victor Character Blueprint.jpg" alt="Victor Blueprint"></div></div>
+      <div class="info"><h3 class="shatter">Character Blueprint</h3><p class="shatter">Anatomical guides, prop distribution, and texture mapping matrices designed for cinematic game engines.</p></div>
     </div>
   </div>
 </section>
@@ -260,17 +247,17 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <div class="grid">
     <div class="card" data-cat="film">
       <img src="The Families Feud.jpg" alt="The Families Feud">
-      <div class="cc"><div class="meta">February 2022 • Lead Editor</div><h3>The Families Feud</h3><p>IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery.</p></div>
+      <div class="cc"><div class="meta">February 2022 • Lead Editor</div><h3 class="shatter">The Families Feud</h3><p class="shatter">IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery.</p></div>
     </div>
     <div class="card" data-cat="modeling">
       <a href="https://a.co/d/0feif4ZH" target="_blank" rel="noopener">
         <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover">
-        <div class="cc"><div class="meta">2026 • Commercial Print Model</div><h3>Fable Manny Book Cover</h3><p>Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p><span class="more">Order on Amazon →</span></div>
+        <div class="cc"><div class="meta">2026 • Commercial Print Model</div><h3 class="shatter">Fable Manny Book Cover</h3><p class="shatter">Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p><span class="more">Order on Amazon →</span></div>
       </a>
     </div>
     <div class="card" data-cat="awards" id="awards">
       <img src="IMDbProCard.png" alt="Awards and Diplomas">
-      <div class="cc"><div class="meta">New York Film Academy (Class of 2019) • Goodwin College</div><h3>Awards &amp; Academic Diplomas</h3><p>Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p></div>
+      <div class="cc"><div class="meta">New York Film Academy (Class of 2019) • Goodwin College</div><h3 class="shatter">Awards &amp; Academic Diplomas</h3><p class="shatter">Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p></div>
     </div>
   </div>
 </section>
@@ -281,16 +268,16 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">Character Creator 5 designs for the upcoming short film, starring the family. Tap any card for info.</p>
   <div class="grid">
     <div class="flip-card">
-      <div class="ff"><img src="Bri CC5.png" alt="Bridget, Character Creator 5 portrait"></div>
-      <div class="fb"><div class="meta">Short Film • Mom</div><h3>Bridget</h3><p>Mom in the upcoming short film. Professional modeling, facial sculpting, hair simulation, and rigging with texture-ready specs, built in Character Creator 5.</p></div>
+      <div class="stage"><div class="ff"><img src="Bri CC5.png" alt="Bridgitte, Character Creator 5 portrait"></div></div>
+      <div class="info"><div class="meta">Short Film • Mom</div><h3 class="shatter">Bridgitte</h3><p class="shatter">Mom in the upcoming short film. Professional modeling, facial sculpting, hair simulation, and rigging with texture-ready specs, built in Character Creator 5.</p></div>
     </div>
     <div class="flip-card">
-      <div class="ff"><img src="Emmanuel CC5.png" alt="Emmanuel, Character Creator 5 portrait"></div>
-      <div class="fb"><div class="meta">Short Film • Son</div><h3>Emmanuel</h3><p>Son in the upcoming short film. Character Creator 5 build with advanced lighting and styling studio render tests.</p></div>
+      <div class="stage"><div class="ff"><img src="Emmanuel CC5.png" alt="Emmanuel, Character Creator 5 portrait"></div></div>
+      <div class="info"><div class="meta">Short Film • Son</div><h3 class="shatter">Emmanuel</h3><p class="shatter">Son in the upcoming short film. Character Creator 5 build with advanced lighting and styling studio render tests.</p></div>
     </div>
     <div class="flip-card">
-      <div class="ff"><img src="Olivia CC5.png" alt="Olivia, Character Creator 5 portrait"></div>
-      <div class="fb"><div class="meta">Short Film • Daughter</div><h3>Olivia</h3><p>Daughter in the upcoming short film. Detailed expression rigging and dynamic portrait lighting, built in Character Creator 5.</p></div>
+      <div class="stage"><div class="ff"><img src="Olivia CC5.png" alt="Olivia, Character Creator 5 portrait"></div></div>
+      <div class="info"><div class="meta">Short Film • Daughter</div><h3 class="shatter">Olivia</h3><p class="shatter">Daughter in the upcoming short film. Detailed expression rigging and dynamic portrait lighting, built in Character Creator 5.</p></div>
     </div>
   </div>
 </section>
@@ -354,7 +341,7 @@ Q('.shatter').forEach(el=>{
   });
 });
 
-/* 2. Saber lightning: jagged cyan + yellow bolts racing around the whole border */
+/* 2. Saber lightning: jagged red + orange bolts racing around the whole border */
 function bolt(w,h){
   const p=[],s=10,j=()=>rnd(-4.5,4.5);
   for(let x=0;x<w;x+=s)p.push([x,j()]);
@@ -375,43 +362,67 @@ function saber(el){
   setTimeout(()=>{clearInterval(t);svg.remove()},950);
 }
 
-/* 3. Cards shatter into shards and reveal the other side; tap again to reverse */
-const COLS=4,ROWS=3;
+/* 3. The image/video alone breaks into small pieces that fall to the floor, then rebuild (about 3s) into the other image; tap again to reverse. Text is separate. */
+const COLS=8,ROWS=6,TB=1450,BUILD=3000,D=TB+BUILD,SW=950;
 function snap(v){
   try{if(!v.videoWidth)throw 0;const c=document.createElement('canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);return c.toDataURL('image/jpeg',.6)}
   catch(_){return v.poster}
 }
-function flip(card){
-  if(card.dataset.busy)return;card.dataset.busy=1;
-  const face=card.querySelector(card.classList.contains('flipped')?'.fb':'.ff'),tpl=face.cloneNode(true),vs=tpl.querySelectorAll('video');
+function prep(face){
+  const t=face.cloneNode(true),vs=t.querySelectorAll('video');
   face.querySelectorAll('video').forEach((v,i)=>{const im=new Image(),s=snap(v);if(s)im.src=s;vs[i].replaceWith(im)});
-  const P=[...Array(ROWS+1)].map((_,r)=>[...Array(COLS+1)].map((_,c)=>[c*100/COLS+(c%COLS?rnd(-7,7):0),r*100/ROWS+(r%ROWS?rnd(-8,8):0)]));
-  const box=document.createElement('div'),W=card.offsetWidth,H=card.offsetHeight,parts=[];
+  return t;
+}
+const tr=(x,y,a)=>`translate(${x}px,${y}px) rotate(${a}deg)`,fr=t=>Math.min(1,t/D);
+function flip(st){
+  if(st.dataset.busy)return;st.dataset.busy=1;
+  const ff=st.querySelector('.ff'),fb=st.querySelector('.fb'),back=st.classList.contains('flipped'),
+    oldF=prep(back?fb:ff),newF=fb?prep(back?ff:fb):oldF,
+    W=st.clientWidth,H=st.clientHeight,gx=W/COLS,gy=H/ROWS,box=document.createElement('div'),parts=[],
+    P=[...Array(ROWS+1)].map((_,r)=>[...Array(COLS+1)].map((_,c)=>[c*gx+(c%COLS?rnd(-.2,.2)*gx:0),r*gy+(r%ROWS?rnd(-.2,.2)*gy:0)]));
   box.className='shards';
   for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
-    const a=P[r][c],b=P[r][c+1],d=P[r+1][c],e=P[r+1][c+1];
-    for(const t of [[a,b,d],[b,e,d]]){
-      const s=document.createElement('div'),x=(t[0][0]+t[1][0]+t[2][0])/3,y=(t[0][1]+t[1][1]+t[2][1])/3;
-      s.className='shard';
-      s.style.clipPath='polygon('+t.map(p=>p[0]+'% '+p[1]+'%').join(',')+')';
-      s.style.transformOrigin=x+'% '+y+'%';
-      s.appendChild(tpl.cloneNode(true));box.appendChild(s);parts.push([s,x-50,y-50]);
-    }
+    const a=P[r][c],b=P[r][c+1],e=P[r+1][c+1],d=P[r+1][c],k=Math.random();
+    (k<.45?[[a,b,e,d]]:k<.725?[[a,b,d],[b,e,d]]:[[a,b,e],[a,e,d]]).forEach(pts=>parts.push({pts,r}));
   }
-  card.appendChild(box);card.classList.toggle('flipped');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>parts.forEach(([s,x,y])=>{
-    s.style.transform=`translate(${x/50*W*rnd(.6,1.4)}px,${y/50*H*rnd(.6,1.4)+rnd(0,90)}px) rotate(${rnd(-90,90)}deg) scale(.3)`;
-    s.style.opacity=0;
-  })));
-  setTimeout(()=>{box.remove();delete card.dataset.busy},900);
+  parts.forEach(({pts,r})=>{
+    const xs=pts.map(q=>q[0]),ys=pts.map(q=>q[1]),bx=Math.floor(Math.min(...xs)),by=Math.floor(Math.min(...ys)),
+      bw=Math.ceil(Math.max(...xs))-bx,bh=Math.ceil(Math.max(...ys))-by,s=document.createElement('div'),
+      n=newF.cloneNode(true),o=oldF.cloneNode(true);
+    s.className='shard';
+    s.style.cssText=`left:${bx}px;top:${by}px;width:${bw}px;height:${bh}px;clip-path:polygon(${pts.map(q=>(q[0]-bx).toFixed(1)+'px '+(q[1]-by).toFixed(1)+'px').join(',')})`;
+    n.classList.add('g','n');o.classList.add('g','o');
+    [n,o].forEach(g=>g.style.cssText=`left:${-bx}px;top:${-by}px;width:${W}px;height:${H}px`);
+    s.append(n,o);box.appendChild(s);
+    const rot=rnd(-75,75),ra=Math.abs(rot*Math.PI/180),hh=(bw*Math.sin(ra)+bh*Math.cos(ra))/2,
+      ty=H-4-hh-(ROWS-1-r)*bh*rnd(.22,.38)-(by+bh/2),
+      tx=Math.max(-bx-bw*.1,Math.min(W-bx-bw*.9,rnd(-.1,.1)*W)),
+      fd=560+Math.abs(ty)*.8,d1=rnd(0,160),lift=rnd(6,16),ta=TB+rnd(0,BUILD*.3),ad=BUILD*.7,
+      rest=tr(tx,ty,rot),home=tr(0,0,0);
+    s.animate([
+      {offset:0,transform:home},
+      {offset:fr(d1),transform:home,easing:'cubic-bezier(.5,0,.9,.55)'},
+      {offset:fr(d1+.6*fd),transform:tr(tx*.8,ty,rot*.9),easing:'cubic-bezier(.2,.6,.4,1)'},
+      {offset:fr(d1+.8*fd),transform:tr(tx*.9,ty-lift,rot*.95),easing:'cubic-bezier(.5,0,.9,.55)'},
+      {offset:fr(d1+fd),transform:rest},
+      {offset:fr(ta),transform:rest,easing:'ease-in'},
+      {offset:fr(ta+.4*ad),transform:tr(tx*.45,ty*.55-rnd(20,50),rot*.5),easing:'ease-out'},
+      {offset:fr(ta+ad),transform:home},
+      {offset:1,transform:home}
+    ],{duration:D,fill:'forwards'});
+  });
+  st.appendChild(box);st.classList.add('shat');
+  setTimeout(()=>box.classList.add('sw'),SW);
+  setTimeout(()=>{if(fb)st.classList.toggle('flipped');st.classList.remove('shat');box.remove();delete st.dataset.busy},D+100);
 }
 
-/* Any tap on a flip card, project card, or video container fires the saber; flip cards also shatter-toggle */
+/* Tap an image/video: lightning + only the image shatters. Tap text: only the text shatters (handled above). */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('.flip-card,.card,.vid');
+  if(e.target.closest('.shatter'))return;
+  const st=e.target.closest('.stage'),t=st||e.target.closest('.card,.vid');
   if(!t)return;
   saber(t);
-  if(t.classList.contains('flip-card'))flip(t);
+  if(st)flip(st);
 });
 
 /* 4. Reliable video: muted inline autoplay, retried on load, tab return, and the first touch (covers Low Power Mode) */
@@ -431,7 +442,7 @@ const L=(u,t)=>`<a href='${u}' target='_blank' rel='noopener'>${t}</a>`;
 const IMDB=L('https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk','IMDb');
 const ABOUT=`Yancarlos Martinez is a multi-disciplinary creator: a film editor recognized on ${IMDB} for “The Families Feud,” a New York Film Academy graduate (Class of 2019) who also studied at Goodwin College, a game developer and 3D artist (Unreal Engine 5, Unity, Blender, Character Creator 5), and a commercial print model on the cover of ${L('https://a.co/d/0feif4ZH','Fable Manny')}.`;
 const KB=[
-[/family|short film|bridget|emmanuel|olivia|\bmom\b|\bson\b|daughter/i,'His upcoming short film stars Character Creator 5 versions of Bridget (mom), Emmanuel (son), and Olivia (daughter).'],
+[/family|short film|bridgitte|emmanuel|olivia|\bmom\b|\bson\b|daughter/i,'His upcoming short film stars Character Creator 5 versions of Bridgitte (mom), Emmanuel (son), and Olivia (daughter).'],
 [/3d|game|unreal|unity|blender|\bcod(e|er|ing)\b|character|yancel|robot|broccarlos|broccoli|victor|sylvia/i,'He builds games, shaders, and 3D virtual environments with Unreal Engine 5, Unity, Blender, and Character Creator 5, plus original universes like Broccarlos and Avictor.'],
 [/model|book|print|backstage|fable|manny|amazon/i,`Yancarlos is a commercial print model featured on the cover of “Fable Manny.” ${L('https://a.co/d/0feif4ZH','Order it on Amazon')} or see his ${L('https://www.backstage.com','Backstage')} profile.`],
 [/film|edit|award|imdb|movie|feud|nyfa|academy|goodwin|school|educat|diploma|graduat/i,`Yancarlos is recognized on ${IMDB} for editing the feature film “The Families Feud.” He studied at the New York Film Academy (Class of 2019) and Goodwin College.`],
