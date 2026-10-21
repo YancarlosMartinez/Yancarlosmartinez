@@ -40,7 +40,7 @@
       color: #fff;
     }
 
-    /* Normal Horizontal Readable Text Flow + Shatter Effect */
+    /* Section Titles Shatter Effect */
     .shatter-text {
       display: inline-block;
       cursor: pointer;
@@ -60,8 +60,6 @@
       transition: transform 5s cubic-bezier(0.1, 1, 0.1, 1), opacity 5s ease, rotate 5s ease;
       will-change: transform, opacity;
     }
-
-    /* Targeted local letter shattering */
     .char.shattered {
       transform: translate(var(--rx), var(--ry)) rotate(var(--rrot)) scale(0.6);
       opacity: 0.1;
@@ -79,65 +77,22 @@
       80% { transform: translate(3px, 3px); }
     }
 
-    /* Full-Border Electric Lightning Shock & Smoke Effect (Light Blue & Yellow) */
+    /* Electric Lightning Border Effect (No solid highlight box, pure glowing electricity) */
     .electric-parent {
       position: relative;
     }
-    .electric-border::after {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 20px;
-      pointer-events: none;
-      z-index: 30;
-      background: linear-gradient(90deg, #00f0ff, #ffea00, #00f0ff, #ffea00, #00f0ff);
-      background-size: 400% 400%;
-      animation: borderElectricFlash 0.6s ease-in-out forwards;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      padding: 4px;
+    .electric-border {
+      animation: borderElectricFlash 0.8s ease-in-out forwards;
+      box-shadow: 0 0 25px 5px #00f0ff, inset 0 0 20px #ffea00 !important;
+      border-color: #ffea00 !important;
     }
     @keyframes borderElectricFlash {
-      0% { background-position: 0% 50%; opacity: 1; filter: drop-shadow(0 0 14px #00f0ff); }
-      50% { background-position: 200% 50%; opacity: 1; filter: drop-shadow(0 0 20px #ffea00); }
-      100% { background-position: 400% 50%; opacity: 0; }
+      0% { box-shadow: 0 0 10px #00f0ff, inset 0 0 10px #ffea00; }
+      50% { box-shadow: 0 0 30px 10px #ffea00, inset 0 0 25px #00f0ff; }
+      100% { box-shadow: 0 0 10px rgba(217,146,31,0.3), inset 0 0 0 transparent; }
     }
 
-    /* Border Sparks & Smoke Elements */
-    .border-spark {
-      position: fixed;
-      pointer-events: none;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      z-index: 99999;
-      box-shadow: 0 0 10px #fff;
-      animation: borderSparkFly 0.6s ease-out forwards;
-    }
-    @keyframes borderSparkFly {
-      0% { transform: translate(0, 0) scale(1.4); opacity: 1; }
-      100% { transform: translate(var(--bx), var(--by)) scale(0); opacity: 0; }
-    }
-
-    .border-smoke {
-      position: fixed;
-      pointer-events: none;
-      width: 18px;
-      height: 18px;
-      background: rgba(0, 240, 255, 0.3);
-      border-radius: 50%;
-      filter: blur(6px);
-      z-index: 99998;
-      animation: borderSmokeExpand 0.8s ease-out forwards;
-    }
-    @keyframes borderSmokeExpand {
-      0% { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(4); opacity: 0; }
-    }
-
-    /* Particle Burst & Smoke Canvas/Overlay Effects for Text */
+    /* Particle Burst & Smoke Canvas/Overlay Effects */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -218,13 +173,13 @@
     .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1rem; text-align: center; }
     .section-desc { text-align: center; max-width: 650px; margin: 0 auto 3rem; color: var(--muted); font-size: 1rem; }
 
-    /* Click-to-Flip 3D Card Styles */
+    /* Click-to-Flip 3D Card Styles (Slower 2-second transition) */
     .flip-card {
       background-color: transparent; width: 100%; height: 400px; perspective: 1000px; cursor: pointer; margin-bottom: 1.5rem;
       border-radius: 16px; position: relative; overflow: hidden;
     }
     .flip-card-inner {
-      position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d;
+      position: relative; width: 100%; height: 100%; text-align: center; transition: transform 2s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d;
       border-radius: 16px; border: 1px solid rgba(217, 146, 31, 0.3); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3);
     }
     .flip-card.flipped .flip-card-inner {
@@ -332,8 +287,9 @@
   <!-- Hero Section -->
   <section class="hero">
     <div>
-      <h1 class="shatter-text">Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
-      <p class="shatter-text">Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
+      <!-- Main title rendered normally left-to-right (readable) -->
+      <h1>Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
+      <p>Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
       <div class="btn-group">
         <a href="#portfolio-gallery" class="btn btn-primary">Explore Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -625,7 +581,7 @@
   </div>
 
   <script>
-    // Group text into words and letters while preserving normal horizontal flow (`display: inline`)
+    // Group text into words and letters while preserving normal horizontal flow
     document.querySelectorAll('.shatter-text').forEach(el => {
       const text = el.textContent;
       const words = text.split(' ');
@@ -697,7 +653,7 @@
       });
     });
 
-    // Electric Border Spark function with light blue & yellow border lightning and border smoke
+    // Electric Border Spark function with light blue & yellow border lightning and smoke
     function triggerElectricBorder(element, event) {
       const parentCard = element.closest('.electric-parent') || element;
       parentCard.classList.add('electric-border');
@@ -707,7 +663,7 @@
       // Spawn sparks all along the border perimeter
       for (let i = 0; i < 20; i++) {
         const p = document.createElement('div');
-        p.className = 'border-spark';
+        p.className = 'particle';
         const side = Math.floor(Math.random() * 4);
         let x, y;
         if (side === 0) { x = rect.left + Math.random() * rect.width; y = rect.top; }
@@ -721,8 +677,8 @@
         
         const angle = Math.random() * Math.PI * 2;
         const speed = 20 + Math.random() * 50;
-        p.style.setProperty('--bx', Math.cos(angle) * speed + 'px');
-        p.style.setProperty('--by', Math.sin(angle) * speed + 'px');
+        p.style.setProperty('--vx', Math.cos(angle) * speed + 'px');
+        p.style.setProperty('--vy', Math.sin(angle) * speed + 'px');
         
         document.body.appendChild(p);
         setTimeout(() => p.remove(), 600);
@@ -731,7 +687,7 @@
       // Border smoke puffs
       for (let j = 0; j < 6; j++) {
         const s = document.createElement('div');
-        s.className = 'border-smoke';
+        s.className = 'smoke';
         s.style.left = (rect.left + Math.random() * rect.width) + 'px';
         s.style.top = (rect.top + Math.random() * rect.height) + 'px';
         document.body.appendChild(s);
@@ -740,7 +696,7 @@
 
       setTimeout(() => {
         parentCard.classList.remove('electric-border');
-      }, 600);
+      }, 800);
     }
 
     // Category Filtering Script
