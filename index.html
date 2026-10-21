@@ -40,7 +40,7 @@
       color: #fff;
     }
 
-    /* Normal Horizontal Readable Text Flow + Shatter Effect */
+    /* Normal Horizontal Readable Text Flow (Inline characters to prevent vertical stacking) */
     .shatter-text {
       display: inline-block;
       cursor: pointer;
@@ -50,13 +50,8 @@
       word-wrap: break-word;
       text-align: inherit;
     }
-    .word {
-      display: inline-block;
-      white-space: nowrap;
-      margin-right: 0.25em;
-    }
     .char {
-      display: inline-block;
+      display: inline;
       transition: transform 5s cubic-bezier(0.1, 1, 0.1, 1), opacity 5s ease, rotate 5s ease;
       will-change: transform, opacity;
     }
@@ -79,7 +74,7 @@
       80% { transform: translate(3px, 3px); }
     }
 
-    /* Full-Border Electric Shock & Smoke Effect (Light Blue & Yellow) */
+    /* Full-Border Electric Lightning Shock & Smoke Effect (Light Blue & Yellow) */
     .electric-parent {
       position: relative;
     }
@@ -100,8 +95,8 @@
       padding: 4px;
     }
     @keyframes borderElectricFlash {
-      0% { background-position: 0% 50%; opacity: 1; filter: drop-shadow(0 0 12px #00f0ff); }
-      50% { background-position: 200% 50%; opacity: 1; filter: drop-shadow(0 0 18px #ffea00); }
+      0% { background-position: 0% 50%; opacity: 1; filter: drop-shadow(0 0 14px #00f0ff); }
+      50% { background-position: 200% 50%; opacity: 1; filter: drop-shadow(0 0 20px #ffea00); }
       100% { background-position: 400% 50%; opacity: 0; }
     }
 
@@ -593,14 +588,14 @@
   </div>
 
   <script>
-    // Group text into words and letters while preserving normal horizontal flow and wrapping
+    // Group text into words and letters while preserving horizontal flow (`display: inline`)
     document.querySelectorAll('.shatter-text').forEach(el => {
       const text = el.textContent;
       const words = text.split(' ');
       el.innerHTML = words.map(word => {
         const chars = word.split('').map(char => {
-          const rx = (Math.random() - 0.5) * 220;
-          const ry = (Math.random() - 0.5) * 220;
+          const rx = (Math.random() - 0.5) * 180;
+          const ry = (Math.random() - 0.5) * 180;
           const rrot = (Math.random() - 0.5) * 360;
           return `<span class="char" style="--rx: ${rx}px; --ry: ${ry}px; --rrot: ${rrot}deg;">${char}</span>`;
         }).join('');
@@ -644,7 +639,7 @@
         
         createTextExplosion(e.clientX, e.clientY);
 
-        // Trigger local vibration ONLY on this specific text block
+        // Trigger local vibration ONLY on this specific text element
         titleEl.classList.add('vibrate-local');
         setTimeout(() => {
           titleEl.classList.remove('vibrate-local');
