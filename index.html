@@ -48,7 +48,7 @@
       color: #fff;
     }
 
-    /* Section Titles & Main Title Shatter Effect */
+    /* Section Titles Shatter Effect */
     .shatter-text {
       display: inline-block;
       cursor: pointer;
@@ -85,7 +85,7 @@
       80% { transform: translate(3px, 3px); }
     }
 
-    /* Linear Electric Lightning & Thunder Border Effect (Blue & Yellow) */
+    /* Linear Electric Lightning & Thunder Border Effect (Blue & Yellow, No Circles) */
     .electric-parent {
       position: relative;
     }
@@ -137,27 +137,27 @@
       position: relative; width: 100%; height: 100%; text-align: center;
       border-radius: 16px; border: 1px solid rgba(217, 146, 31, 0.3); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3);
       background: var(--card-bg);
-      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s ease, opacity 0.8s ease;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .flip-card-front, .flip-card-back {
       position: absolute; inset: 0; width: 100%; height: 100%;
       border-radius: 16px; overflow: hidden; background: var(--card-bg);
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .flip-card-back {
       opacity: 0; pointer-events: none; padding: 1.5rem; text-align: left; justify-content: flex-start; overflow-y: auto; background: #130a0d;
-      transform: scale(0.9) rotate(-3deg);
-      filter: blur(8px);
+      transform: scale(0.85) rotate(-4deg);
+      filter: blur(10px);
     }
     .flip-card.puzzle-disassembling .flip-card-front {
-      transform: scale(0.7) rotate(6deg) translate(30px, -20px);
-      filter: blur(12px);
+      transform: scale(0.6) rotate(8deg) translate(40px, -30px);
+      filter: blur(15px);
       opacity: 0;
     }
     .flip-card.puzzle-disassembling .flip-card-back {
-      transform: scale(0.7) rotate(-6deg) translate(-30px, 20px);
-      filter: blur(12px);
+      transform: scale(0.6) rotate(-8deg) translate(-40px, 30px);
+      filter: blur(15px);
       opacity: 0;
     }
     .flip-card.flipped .flip-card-front {
@@ -232,8 +232,8 @@
 
     /* Hero Section - Optimized spacing to eliminate desktop gap */
     .hero {
-      min-height: 80vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 7rem 1.5rem 2rem; position: relative;
+      min-height: 75vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 1.5rem 2rem; position: relative;
       background: radial-gradient(circle at center, var(--burgundy-glow) 0%, transparent 70%);
     }
     .hero h1 { font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: 1.15; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
@@ -250,7 +250,7 @@
     .btn-outline:hover { background: var(--burgundy); border-color: var(--burgundy); transform: translateY(-3px); }
 
     /* Sections Container - Optimized padding */
-    section { padding: 3.5rem 4%; max-width: 1300px; margin: 0 auto; }
+    section { padding: 3rem 4%; max-width: 1300px; margin: 0 auto; }
     .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1rem; text-align: center; }
     .section-desc { text-align: center; max-width: 650px; margin: 0 auto 3rem; color: var(--muted); font-size: 1rem; }
 
@@ -342,9 +342,9 @@
   <!-- Hero Section -->
   <section class="hero">
     <div>
-      <!-- Main title with shatter-text for interactive explosion effect without vertical stacking -->
-      <h1 class="shatter-text">Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
-      <p class="shatter-text">Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
+      <!-- Main hero title rendered cleanly left-to-right with no shatter/explosion -->
+      <h1>Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
+      <p>Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
       <div class="btn-group">
         <a href="#portfolio-gallery" class="btn btn-primary">Explore Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -355,7 +355,7 @@
   <!-- SECTION 1: WORKSHOP & YANCARLOS TURNAROUND -->
   <section id="workshop-section" style="text-align: center;">
     <h2 class="section-title shatter-text">Workshop & Robot Universe</h2>
-    <p class="section-desc shatter-text">Explore the workshop scene preview. Tap the card to disassemble into puzzle pieces and reveal turnaround sheet.</p>
+    <p class="section-desc shatter-text">Explore the workshop scene preview. Tap the card to disassemble and reveal turnaround sheet.</p>
     
     <div class="grid" style="max-width: 950px; margin: 0 auto;">
       <!-- Card 1: Yancarlos in workshop with robot head -->
@@ -636,7 +636,7 @@
   </div>
 
   <script>
-    // Group section titles and descriptions into words and letters for shatter animation
+    // Group section titles and descriptions into words and letters for shatter animation (Hero title intentionally excluded)
     document.querySelectorAll('.shatter-text').forEach(el => {
       const text = el.textContent;
       const words = text.split(' ');
@@ -710,7 +710,6 @@
 
     // Puzzle Disassemble / Reassemble Transition & Electric Lightning Border for Flip Cards
     function triggerPuzzleTransition(cardEl, event) {
-      // Prevent triggering when clicking inside back content text scroll
       if (event.target.closest('.flip-card-back')) return;
 
       triggerElectricLightning(cardEl, event);
@@ -719,10 +718,10 @@
       setTimeout(() => {
         cardEl.classList.toggle('flipped');
         cardEl.classList.remove('puzzle-disassembling');
-      }, 400);
+      }, 500);
     }
 
-    // Electric Lightning Border effect with traveling thunder dashes around the border
+    // Electric Lightning Border effect with sharp traveling thunder dashes around the border
     function triggerElectricLightning(element, event) {
       const parentCard = element.closest('.electric-parent') || element;
       parentCard.classList.add('electric-border');
