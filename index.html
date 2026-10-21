@@ -40,11 +40,11 @@
       color: #fff;
     }
 
-    /* Word and Letter grouping for horizontal readable layout with shatter effect */
-    .word {
+    /* Normal Horizontal Readable Text Flow + Shatter Effect */
+    .shatter-text {
       display: inline-block;
-      white-space: nowrap;
-      margin-right: 0.25em;
+      cursor: pointer;
+      position: relative;
     }
     .char {
       display: inline-block;
@@ -52,8 +52,8 @@
       will-change: transform, opacity;
     }
     .shattering .char {
-      transform: translate(var(--rx), var(--ry)) rotate(var(--rrot)) scale(0.7);
-      opacity: 0.15;
+      transform: translate(var(--rx), var(--ry)) rotate(var(--rrot)) scale(0.6);
+      opacity: 0.1;
     }
 
     /* Target Element Vibration (Only when specific text is tapped) */
@@ -68,13 +68,29 @@
       80% { transform: translate(3px, 3px); }
     }
 
+    /* Particle Burst Effect Canvas / Overlay */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      z-index: 99999;
+      animation: burstParticle 0.8s ease-out forwards;
+    }
+    @keyframes burstParticle {
+      0% { transform: translate(0, 0) scale(1.5); opacity: 1; box-shadow: 0 0 10px #fff; }
+      100% { transform: translate(var(--vx), var(--vy)) scale(0); opacity: 0; }
+    }
+
     /* Electric Spark / Energy Flash Effect on Image/Card Tap */
     .spark-flash {
       animation: sparkPulse 0.4s ease-out;
     }
     @keyframes sparkPulse {
       0% { box-shadow: 0 0 0 0 rgba(217, 146, 31, 0.9), inset 0 0 0 0 rgba(217, 146, 31, 0.9); border-color: var(--gold); }
-      50% { box-shadow: 0 0 25px 8px rgba(217, 146, 31, 0.8), inset 0 0 15px 4px rgba(255, 255, 255, 0.6); border-color: #fff; }
+      50% { box-shadow: 0 0 30px 10px rgba(217, 146, 31, 0.9), inset 0 0 20px 5px rgba(255, 255, 255, 0.8); border-color: #fff; }
       100% { box-shadow: 0 0 5px 2px rgba(217, 146, 31, 0.2), inset 0 0 0 0 transparent; border-color: rgba(217, 146, 31, 0.3); }
     }
 
@@ -171,7 +187,7 @@
     .card h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); margin-bottom: 0.8rem; line-height: 1.35; }
     .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
 
-    /* Floating AI Assistant Widget - Fixed position guaranteed so it never moves during text shatter */
+    /* Floating AI Assistant Widget - Locked in place */
     #ai-widget { 
       position: fixed !important; 
       bottom: 20px !important; 
@@ -257,7 +273,7 @@
     
     <div class="grid" style="max-width: 950px; margin: 0 auto;">
       <!-- Flip Card 1: Workshop Video on Front -> Flips to Yancarlos Turnaround on Back -->
-      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
+      <div class="flip-card" onclick="triggerSparkWithParticles(event, this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
             <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
@@ -273,7 +289,7 @@
       </div>
 
       <!-- Flip Card 2: Yancel Robot Turnaround -->
-      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
+      <div class="flip-card" onclick="triggerSparkWithParticles(event, this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround">
@@ -296,7 +312,7 @@
     <p class="section-desc shatter-text">Explore Sylvia's presentation preview (muted). Tap to flip and reveal the character turnaround sheet.</p>
     
     <div style="max-width: 650px; margin: 0 auto;">
-      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
+      <div class="flip-card" onclick="triggerSparkWithParticles(event, this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
             <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
@@ -319,7 +335,7 @@
     <p class="section-desc shatter-text">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
 
     <div class="grid">
-      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
+      <div class="flip-card" onclick="triggerSparkWithParticles(event, this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround">
@@ -333,7 +349,7 @@
         </div>
       </div>
 
-      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
+      <div class="flip-card" onclick="triggerSparkWithParticles(event, this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown">
@@ -347,7 +363,7 @@
         </div>
       </div>
 
-      <div class="flip-card" onclick="triggerSpark(this); this.classList.toggle('flipped');">
+      <div class="flip-card" onclick="triggerSparkWithParticles(event, this); this.classList.toggle('flipped');">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero in the Enchanted Forest.png" alt="Enchanted Forest">
@@ -369,7 +385,7 @@
     <p class="section-desc shatter-text">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe.</p>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
-      <div class="card" style="padding: 1rem;" onclick="triggerSpark(this);">
+      <div class="card" style="padding: 1rem;" onclick="triggerSparkWithParticles(event, this);">
         <img src="Victor Character Blueprint.jpg" alt="Victor Blueprint" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);" class="shatter-text">Character Blueprint</h3>
@@ -377,7 +393,7 @@
         </div>
       </div>
 
-      <div class="card" style="padding: 1rem;" onclick="triggerSpark(this);">
+      <div class="card" style="padding: 1rem;" onclick="triggerSparkWithParticles(event, this);">
         <img src="Blender Avictor.png" alt="Blender Avictor Rig" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);" class="shatter-text">Blender Pipeline Rig</h3>
@@ -440,7 +456,7 @@
     <p class="section-desc shatter-text">Character Creator 5 character designs and digital portrait studies dedicated to loved ones.</p>
     
     <div class="grid">
-      <div class="card" onclick="triggerSpark(this);">
+      <div class="card" onclick="triggerSparkWithParticles(event, this);">
         <img src="Bri CC5.png" alt="Bri CC5 Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -449,7 +465,7 @@
         </div>
       </div>
 
-      <div class="card" onclick="triggerSpark(this);">
+      <div class="card" onclick="triggerSparkWithParticles(event, this);">
         <img src="Emmanuel CC5.png" alt="Emmanuel Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -458,7 +474,7 @@
         </div>
       </div>
 
-      <div class="card" onclick="triggerSpark(this);">
+      <div class="card" onclick="triggerSparkWithParticles(event, this);">
         <img src="Olivia CC5.png" alt="Olivia Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
@@ -534,14 +550,14 @@
   </div>
 
   <script>
-    // Group text into words and letters while keeping normal horizontal flow and wrapping
+    // Group text into words and letters while keeping horizontal flow and correct wrapping
     document.querySelectorAll('.shatter-text').forEach(el => {
       const text = el.textContent;
       const words = text.split(' ');
       el.innerHTML = words.map(word => {
         const chars = word.split('').map(char => {
-          const rx = (Math.random() - 0.5) * 250;
-          const ry = (Math.random() - 0.5) * 250;
+          const rx = (Math.random() - 0.5) * 220;
+          const ry = (Math.random() - 0.5) * 220;
           const rrot = (Math.random() - 0.5) * 360;
           return `<span class="char" style="--rx: ${rx}px; --ry: ${ry}px; --rrot: ${rrot}deg;">${char}</span>`;
         }).join('');
@@ -549,11 +565,37 @@
       }).join(' ');
     });
 
-    // Tap-to-Break Script: ONLY the exact text block tapped shatters and vibrates for 5 seconds.
+    // Particle Burst Generator function
+    function createParticleBurst(x, y, color = '#d9921f') {
+      const particleCount = 20;
+      for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.background = color;
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 40 + Math.random() * 100;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed;
+        
+        p.style.setProperty('--vx', vx + 'px');
+        p.style.setProperty('--vy', vy + 'px');
+        
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 800);
+      }
+    }
+
+    // Tap-to-Break Script: ONLY the exact text block tapped shatters, vibrates for 0.3s, and bursts gold particles!
     document.querySelectorAll('.shatter-text').forEach(titleEl => {
       titleEl.addEventListener('click', (e) => {
         e.stopPropagation();
         
+        const rect = titleEl.getBoundingClientRect();
+        createParticleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, '#d9921f');
+
         // Trigger vibration ONLY on this specific text element
         titleEl.classList.add('vibrate-target');
         setTimeout(() => {
@@ -570,8 +612,11 @@
       });
     });
 
-    // Electric Spark / Energy Flash function for image/card taps (No vibration)
-    function triggerSpark(element) {
+    // Electric Spark & Particle Burst function for image/card taps (NO screen vibration, locked chatbox safety)
+    function triggerSparkWithParticles(event, element) {
+      const rect = element.getBoundingClientRect();
+      createParticleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, '#fff');
+
       const cardInner = element.querySelector('.flip-card-inner') || element;
       cardInner.classList.add('spark-flash');
       setTimeout(() => {
