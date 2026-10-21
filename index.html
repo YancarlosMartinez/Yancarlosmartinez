@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yancarlos Martinez | Coder, Editor, Game Dev & 3D Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --burgundy: #721121;
+      --burgundy-glow: rgba(114, 17, 33, 0.4);
+      --gold: #d9921f;
+      --gold-glow: rgba(217, 146, 31, 0.3);
+      --bg: #0b0708;
+      --card-bg: #150d10;
+      --text: #f3ecee;
+      --muted: #b8a9ac;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.9rem;
+      letter-spacing: 0.03rem;
+      overflow-x: hidden;
+      padding-bottom: 5rem;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Navigation Header */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      background: rgba(11, 7, 8, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(114, 17, 33, 0.3);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%;
+    }
+    .brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--gold); text-decoration: none; font-size: 1.2rem; }
+    nav { display: flex; gap: 2rem; }
+    nav a { color: var(--text); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s; }
+    nav a:hover { color: var(--gold); }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 2rem 4rem; position: relative;
+      background: radial-gradient(circle at center, var(--burgundy-glow) 0%, transparent 70%);
+    }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero h1 span { color: var(--gold); display: block; }
+    .hero p { max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.15rem; color: var(--muted); line-height: 1.8; }
+
+    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer;
+    }
+    .btn-primary { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold-glow); }
+    .btn-primary:hover { transform: translateY(-3px); background: #e09f2b; }
+    .btn-outline { border: 2px solid var(--burgundy); color: #fff; background: transparent; }
+    .btn-outline:hover { background: var(--burgundy); border-color: var(--burgundy); transform: translateY(-3px); }
+
+    /* Sections Container */
+    section { padding: 6rem 5%; max-width: 1300px; margin: 0 auto; }
+    .section-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; text-align: center; }
+    .section-desc { text-align: center; max-width: 600px; margin: 0 auto 4rem; color: var(--muted); font-size: 1.05rem; }
+
+    /* Filter Category Tabs */
+    .tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+    .tab-btn { background: var(--card-bg); border: 1px solid rgba(114, 17, 33, 0.5); color: var(--text); padding: 0.7rem 1.5rem; border-radius: 999px; cursor: pointer; font-weight: 500; transition: all 0.3s; }
+    .tab-btn.active, .tab-btn:hover { background: var(--burgundy); border-color: var(--gold); color: #fff; }
+
+    /* Grid & Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+    .card {
+      background: var(--card-bg); border: 1px solid rgba(217, 146, 31, 0.15); border-radius: 16px; overflow: hidden;
+      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); }
+    .card img { width: 100%; height: 240px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .card-content { padding: 2rem; }
+    .card-meta { font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05rem; margin-bottom: 0.8rem; font-weight: 600; }
+    .card h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+    .card p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+
+    /* Floating AI Assistant Widget */
+    #ai-widget { position: fixed; bottom: 25px; right: 25px; z-index: 1000; font-family: 'Inter', sans-serif; }
+    #chat-toggle {
+      width: 65px; height: 65px; border-radius: 50%; background: var(--burgundy); border: 2px solid var(--gold);
+      cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+      animation: pulse-glow 2s infinite; font-size: 1.8rem; color: #fff; overflow: hidden;
+    }
+    #chat-toggle img { width: 100%; height: 100%; object-fit: cover; }
+    #chat-box {
+      position: absolute; bottom: 85px; right: 0; width: 340px; background: #130a0d; border: 1px solid var(--burgundy);
+      border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    #chat-box.hidden { display: none; }
+    .chat-header { background: var(--burgundy); color: #fff; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; font-weight: bold; }
+    .chat-header button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
+    .chat-body { padding: 18px; height: 220px; overflow-y: auto; font-size: 0.9rem; color: var(--text); display: flex; flex-direction: column; gap: 12px; }
+    .chat-input-area { display: flex; border-top: 1px solid rgba(255,255,255,0.1); background: #0b0708; }
+    .chat-input-area input { flex: 1; background: transparent; border: none; padding: 14px; color: #fff; outline: none; font-size: 0.9rem; }
+    .chat-input-area button { background: var(--gold); border: none; padding: 0 20px; font-weight: bold; cursor: pointer; color: #000; }
+
+    @keyframes pulse-glow {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(114, 17, 33, 0.6); }
+      70% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(114, 17, 33, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(114, 17, 33, 0); }
+    }
+
+    @media(max-width: 768px) {
+      nav { display: none; }
+      .hero { padding-top: 7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <a href="#" class="brand">YANCARLOS MARTINEZ</a>
+    <nav>
+      <a href="#vfx-transformation">VFX Effect</a>
+      <a href="#portfolio-gallery">Portfolio</a>
+      <a href="#3d-section">3D & Game Dev</a>
+      <a href="#awards">Awards</a>
+      <a href="#socials">Socials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <h1>Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
+      <p>Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
+      <div class="btn-group">
+        <a href="#portfolio-gallery" class="btn btn-primary">Explore Work</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIRTUAL PRODUCTION & 3D CHARACTER VIDEO LAYER SECTION -->
+  <section id="vfx-transformation" style="position: relative; height: 200vh; background: #0b0708; padding: 0;">
+    <div style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
+      
+      <div style="position: absolute; top: 40px; text-align: center; z-index: 10;">
+        <h2 class="section-title" style="color: var(--gold); text-shadow: 0 0 20px var(--gold-glow);">Virtual Production & VFX Pipeline</h2>
+        <p class="section-desc">Scroll down to transform raw green screen footage into a fully rendered 3D virtual environment.</p>
+      </div>
+
+      <div id="vfx-viewport" style="width: 85%; max-width: 1100px; height: 60vh; border-radius: 20px; overflow: hidden; position: relative; border: 2px solid var(--gold); box-shadow: 0 25px 50px rgba(114, 17, 33, 0.6); transition: transform 0.1s ease-out;">
+        
+        <div id="virtual-env-layer" style="position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center;">
+          <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Rendered 3D Environment" style="width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) saturate(1.2);">
+          <span style="position: absolute; bottom: 20px; background: rgba(217,146,31,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 5px 15px; border-radius: 8px; font-family: monospace; font-weight: bold;">UNREAL ENGINE 5 COMPOSITE VIRTUAL SET</span>
+        </div>
+
+        <div id="3d-character-video-layer" style="position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; background: #052605; transition: opacity 0.5s ease;">
+          <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+          <span style="position: absolute; bottom: 20px; background: rgba(0,255,0,0.2); border: 1px solid #00ff00; color: #00ff00; padding: 5px 15px; border-radius: 8px; font-family: monospace; font-weight: bold;">RAW GREEN SCREEN CAPTURE</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Portfolio Gallery Section -->
+  <section id="portfolio-gallery">
+    <h2 class="section-title">Project Showcase & Milestones</h2>
+    <p class="section-desc">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-filter="all">All Projects</button>
+      <button class="tab-btn" data-filter="film">Film & Editing</button>
+      <button class="tab-btn" data-filter="3d">3D & Unreal Dev</button>
+      <button class="tab-btn" data-filter="modeling">Commercial Modeling</button>
+      <button class="tab-btn" data-filter="awards">Awards & Diplomas</button>
+    </div>
+
+    <div class="grid">
+      <div class="card" data-category="film">
+        <img src="The Families Feud.jpg" alt="The Families Feud">
+        <div class="card-content">
+          <div class="card-meta">February 2022 • Lead Editor</div>
+          <h3>The Families Feud</h3>
+          <p>IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery.</p>
+        </div>
+      </div>
+
+      <div class="card" data-category="3d" id="3d-section">
+        <img src="Yancel Robot head turnaround sheet.png" alt="Unreal Engine 5 Build">
+        <div class="card-content">
+          <div class="card-meta">2026 • Unreal Engine / Blender</div>
+          <h3>Interactive 3D Environments</h3>
+          <p>Custom 3D character design, rigging in Character Creator 5, and immersive game engine prototyping.</p>
+        </div>
+        <div style="padding: 0 2rem 2rem 2rem;">
+          <iframe title="3D Asset Preview" src="Yancel full_body turnaround sheet.png" width="100%" height="300" frameborder="0" allowfullscreen style="border-radius: 8px; border: 1px solid var(--burgundy);"></iframe>
+        </div>
+      </div>
+
+      <div class="card" data-category="modeling">
+        <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover">
+        <div class="card-content">
+          <div class="card-meta">2026 • Commercial Print Model</div>
+          <h3>Fable Manny Book Cover</h3>
+          <p>Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p>
+        </div>
+      </div>
+
+      <div class="card" data-category="awards" id="awards">
+        <img src="IMDbProCard.png" alt="Awards and Diplomas">
+        <div class="card-content">
+          <div class="card-meta">New York Film Academy • Goodwin College</div>
+          <h3>Awards & Academic Diplomas</h3>
+          <p>Formal academic training in film production, advanced post-production, and technical direction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dedicated Video Showcase Section -->
+  <section style="text-align: center; padding: 4rem 2rem;">
+    <h2 class="section-title">Scene & Character Reel</h2>
+    <p class="section-desc">Cinematic test renders and character sequences.</p>
+    <div style="max-width: 900px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3);">
+      <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; display: block;"></video>
+    </div>
+  </section>
+
+  <!-- Social & Professional Links Section -->
+  <section id="socials" style="text-align: center; padding: 4rem 2rem;">
+    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--gold);">Professional Profiles & Socials</h3>
+    <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+      <a href="https://www.facebook.com/share/19sGsR39n8/" target="_blank" class="btn btn-outline">Facebook</a>
+      <a href="https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info" target="_blank" class="btn btn-outline">LinkedIn</a>
+      <a href="https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk" target="_blank" class="btn btn-outline">IMDb</a>
+      <a href="https://www.backstage.com" target="_blank" class="btn btn-outline">Backstage</a>
+      <a href="https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl" target="_blank" class="btn btn-outline">Instagram</a>
+      <a href="https://www.tiktok.com/@yancarlosmart1nez?_r=1&_t=ZP-9Ahc36fQtxv" target="_blank" class="btn btn-outline">TikTok</a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" style="text-align: center;">
+    <h2 class="section-title">Let's Build Something Great</h2>
+    <p class="section-desc">Have a film project, web build, or 3D development inquiry? Let's connect.</p>
+    <a href="mailto:yanmartinez92@gmail.com" class="btn btn-primary">Email Me Directly</a>
+  </section>
+
+  <!-- Floating Animated AI Assistant Widget -->
+  <div id="ai-widget">
+    <div id="chat-box" class="hidden">
+      <div class="chat-header">
+        <span>Yancarlos AI Assistant</span>
+        <button id="close-chat">&times;</button>
+      </div>
+      <div class="chat-body" id="chat-messages">
+        <p>👋 Hey! I'm Yancarlos's virtual assistant. Ask me about his film awards, Unreal Engine projects, or web development skills!</p>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Type a question...">
+        <button id="send-chat">Send</button>
+      </div>
+    </div>
+    <button id="chat-toggle">
+      <img src="Yan's cartoon headshot.png" alt="Yancarlos Chat Head">
+    </button>
+  </div>
+
+  <script>
+    // Scroll-driven VFX Transition Script for Green Screen to 3D Environment
+    window.addEventListener('scroll', () => {
+      const section = document.getElementById('vfx-transformation');
+      const greenScreenLayer = document.getElementById('green-screen-layer');
+      const viewport = document.getElementById('vfx-viewport');
+      
+      const rect = section.getBoundingClientRect();
+      const scrollProgress = -rect.top / (section.offsetHeight - window.innerHeight);
+      
+      if (scrollProgress >= 0 && scrollProgress <= 1) {
+        greenScreenLayer.style.opacity = 1 - (scrollProgress * 1.5);
+        viewport.style.transform = `scale(${1 + (scrollProgress * 0.15)})`;
+      }
+    });
+
+    // Category Filtering Script
+    const filterBtns = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // AI Assistant Widget Script
+    const toggleBtn = document.getElementById('chat-toggle');
+    const chatBox = document.getElementById('chat-box');
+    const closeBtn = document.getElementById('close-chat');
+    const sendBtn = document.getElementById('send-chat');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    toggleBtn.addEventListener('click', () => chatBox.classList.toggle('hidden'));
+    closeBtn.addEventListener('click', () => chatBox.classList.add('hidden'));
+
+    sendBtn.addEventListener('click', handleChat);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
+
+    function handleChat() {
+      const text = chatInput.value.trim();
+      if(!text) return;
+
+      chatMessages.innerHTML += `<p><strong>You:</strong> ${text}</p>`;
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      setTimeout(() => {
+        let reply = "Yancarlos is an expert in web design, film editing, and 3D game development!";
+        const lower = text.toLowerCase();
+
+        if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie')) {
+          reply = "Yancarlos won IMDb Best Editing for 'The Families Feud'! Check out his work on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a>.";
+        } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender')) {
+          reply = "He builds games and environments using Unreal Engine 5, Unity, Blender, and Character Creator 5.";
+        } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage')) {
+          reply = "He is a commercial print model featured on the book cover of 'Fable Manny' (ISBN: 978454818982). View his acting/modeling portfolio on <a href='https://www.backstage.com' target='_blank' style='color:var(--gold);'>Backstage</a>!";
+        } else if(lower.includes('social') || lower.includes('instagram') || lower.includes('tiktok') || lower.includes('linkedin') || lower.includes('facebook')) {
+          reply = "Connect with Yancarlos online:<br>" +
+                  "• <a href='https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info' target='_blank' style='color:var(--gold);'>LinkedIn</a><br>" +
+                  "• <a href='https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl' target='_blank' style='color:var(--gold);'>Instagram</a><br>" +
+                  "• <a href='https://www.tiktok.com/@yancarlosmart1nez?_r=1&_t=ZP-9Ahc36fQtxv' target='_blank' style='color:var(--gold);'>TikTok</a><br>" +
+                  "• <a href='https://www.facebook.com/share/19sGsR39n8/' target='_blank' style='color:var(--gold);'>Facebook</a>";
+        } else if(lower.includes('contact') || lower.includes('hire') || lower.includes('email')) {
+          reply = "You can reach out directly via email at yanmartinez92@gmail.com or use the contact section below!";
+        }
+
+        chatMessages.innerHTML += `<p style="color:var(--text); margin-top:5px;"><strong>AI:</strong> ${reply}</p>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 500);
+    }
+  </script>
+</body>
+</html>
