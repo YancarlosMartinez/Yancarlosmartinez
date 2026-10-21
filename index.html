@@ -48,7 +48,7 @@
       color: #fff;
     }
 
-    /* Section Titles Shatter Effect */
+    /* Section Titles Shatter Effect (Main Title left untouched for clean readability) */
     .shatter-text {
       display: inline-block;
       cursor: pointer;
@@ -85,7 +85,7 @@
       80% { transform: translate(3px, 3px); }
     }
 
-    /* Linear Electric Lightning & Thunder Border Effect (Blue & Yellow, No Circles) */
+    /* Linear Electric Thunder & Lightning Border Effect (Blue & Yellow, No Circles) */
     .electric-parent {
       position: relative;
     }
@@ -115,11 +115,11 @@
     .border-lightning {
       position: fixed;
       pointer-events: none;
-      width: 14px;
+      width: 16px;
       height: 3px;
       background: #ffea00;
       z-index: 99999;
-      box-shadow: 0 0 10px #00f0ff, 0 0 15px #ffea00;
+      box-shadow: 0 0 12px #00f0ff, 0 0 18px #ffea00;
       transform: rotate(45deg);
       animation: lightningStreak 0.5s ease-out forwards;
     }
@@ -128,7 +128,7 @@
       100% { transform: translate(var(--lx), var(--ly)) scale(0.2) rotate(180deg); opacity: 0; }
     }
 
-    /* Puzzle Disassemble & Reassemble Transition for Cards */
+    /* Shattering Card Transition (Breaks into pieces, reassembles on alternate side) */
     .flip-card {
       background-color: transparent; width: 100%; height: 400px; cursor: pointer; margin-bottom: 1.5rem;
       border-radius: 16px; position: relative; overflow: hidden;
@@ -147,33 +147,33 @@
     }
     .flip-card-back {
       opacity: 0; pointer-events: none; padding: 1.5rem; text-align: left; justify-content: flex-start; overflow-y: auto; background: #130a0d;
-      transform: scale(0.85) rotate(-4deg);
-      filter: blur(10px);
+      transform: scale(0.8) rotate(-6deg);
+      filter: blur(12px);
     }
-    .flip-card.puzzle-disassembling .flip-card-front {
-      transform: scale(0.6) rotate(8deg) translate(40px, -30px);
-      filter: blur(15px);
+    .flip-card.card-shattering .flip-card-front {
+      transform: scale(0.5) rotate(12deg) translate(50px, -40px);
+      filter: blur(18px);
       opacity: 0;
     }
-    .flip-card.puzzle-disassembling .flip-card-back {
-      transform: scale(0.6) rotate(-8deg) translate(-40px, 30px);
-      filter: blur(15px);
+    .flip-card.card-shattering .flip-card-back {
+      transform: scale(0.5) rotate(-12deg) translate(-50px, 40px);
+      filter: blur(18px);
       opacity: 0;
     }
     .flip-card.flipped .flip-card-front {
-      opacity: 0; pointer-events: none; filter: blur(10px); transform: scale(0.9);
+      opacity: 0; pointer-events: none; filter: blur(12px); transform: scale(0.85);
     }
     .flip-card.flipped .flip-card-back {
       opacity: 1; pointer-events: auto; filter: blur(0); transform: scale(1) rotate(0deg);
     }
-    .flip-card img { width: 100%; height: 100%; object-fit: contain; background: #000; }
+    .flip-card img, .flip-card video { width: 100%; height: 100%; object-fit: cover; background: #000; }
     .tap-hint {
       position: absolute; bottom: 12px; right: 12px; z-index: 10;
       background: rgba(217, 146, 31, 0.25); border: 1px solid var(--gold); color: var(--gold);
       padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 0.7rem; font-weight: bold;
     }
 
-    /* Particle Burst & Smoke Canvas/Overlay Effects for Text */
+    /* Particle Burst & Smoke Canvas/Overlay Effects for Text & Card Explosions */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -342,7 +342,7 @@
   <!-- Hero Section -->
   <section class="hero">
     <div>
-      <!-- Main hero title rendered cleanly left-to-right with no shatter/explosion -->
+      <!-- Main title rendered cleanly left-to-right with NO shatter animation or explosion -->
       <h1>Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
       <p>Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
       <div class="btn-group">
@@ -355,37 +355,37 @@
   <!-- SECTION 1: WORKSHOP & YANCARLOS TURNAROUND -->
   <section id="workshop-section" style="text-align: center;">
     <h2 class="section-title shatter-text">Workshop & Robot Universe</h2>
-    <p class="section-desc shatter-text">Explore the workshop scene preview. Tap the card to disassemble and reveal turnaround sheet.</p>
+    <p class="section-desc shatter-text">Explore the workshop scene preview. Tap the card to shatter/disassemble and reveal turnaround sheet.</p>
     
     <div class="grid" style="max-width: 950px; margin: 0 auto;">
-      <!-- Card 1: Yancarlos in workshop with robot head -->
-      <div class="flip-card electric-parent" onclick="triggerPuzzleTransition(this, event);">
+      <!-- Card 1: Video playing first on front -->
+      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
-            <img src="Yan's first scene.png" alt="Yancarlos in Workshop with Robot Head" style="width: 100%; height: 100%; object-fit: cover;">
-            <div class="tap-hint">TAP TO DISASSEMBLE & VIEW</div>
+            <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+            <div class="tap-hint">TAP TO SHATTER & REVEAL</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Yancarlos Turnaround & Workshop</h3>
             <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;" class="shatter-text"><strong>Story:</strong> Deep in the workshop, precision engineering meets imagination. Built for the animated short script, Yancarlos designs and assembles advanced robotics in real-time Unreal Engine lighting.</p>
             <img src="Yan's turnaround sheet.png" alt="Yancarlos Turnaround Sheet" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to reassemble back ]</span>
+            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to shatter back ]</span>
           </div>
         </div>
       </div>
 
       <!-- Flip Card 2: Yancel Robot Turnaround -->
-      <div class="flip-card electric-parent" onclick="triggerPuzzleTransition(this, event);">
+      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround">
-            <div class="tap-hint">TAP TO DISASSEMBLE & REVEAL</div>
+            <div class="tap-hint">TAP TO SHATTER & REVEAL</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Yancel Robot Turnaround</h3>
             <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;" class="shatter-text">Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p>
             <img src="Yancel full_body turnaround sheet.png" alt="Full Body Robot" style="width: 100%; height: 130px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to reassemble back ]</span>
+            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to shatter back ]</span>
           </div>
         </div>
       </div>
@@ -395,20 +395,20 @@
   <!-- SECTION 2: LAWYER SYLVIA'S ANIMATION PRESENTATION -->
   <section id="sylvia-section" style="text-align: center; background: rgba(114, 17, 33, 0.05);">
     <h2 class="section-title shatter-text">Sylvia's Animation Presentation</h2>
-    <p class="section-desc shatter-text">Explore Sylvia's presentation preview. Tap to disassemble and reveal turnaround sheet.</p>
+    <p class="section-desc shatter-text">Explore Sylvia's presentation preview. Tap to shatter and reveal turnaround sheet.</p>
     
     <div style="max-width: 650px; margin: 0 auto;">
-      <div class="flip-card electric-parent" onclick="triggerPuzzleTransition(this, event);">
+      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
         <div class="flip-card-inner">
           <div class="flip-card-front" style="padding: 0; background: #000;">
             <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
-            <div class="tap-hint">TAP TO DISASSEMBLE & VIEW</div>
+            <div class="tap-hint">TAP TO SHATTER & VIEW</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Rendered Presentation & Turnaround</h3>
             <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;" class="shatter-text">High-end character presentation and virtual environment showcase.</p>
             <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to reassemble back ]</span>
+            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to shatter back ]</span>
           </div>
         </div>
       </div>
@@ -418,47 +418,47 @@
   <!-- SECTION 3: BROCCARLOS UNIVERSE -->
   <section id="broccoli-section">
     <h2 class="section-title shatter-text">The Broccarlos Universe</h2>
-    <p class="section-desc shatter-text">An original superhero concept born from creative imagination—tap any card below to disassemble and reveal lore.</p>
+    <p class="section-desc shatter-text">An original superhero concept born from creative imagination—tap any card below to shatter and reveal lore.</p>
 
     <div class="grid">
-      <div class="flip-card electric-parent" onclick="triggerPuzzleTransition(this, event);">
+      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround">
-            <div class="tap-hint">TAP TO DISASSEMBLE</div>
+            <div class="tap-hint">TAP TO SHATTER</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Character Anatomy</h3>
             <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Full character design and rigging sheet showing front, side, and back views for Broccarlos in high-end animation pipelines.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to reassemble back ]</span>
+            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to shatter back ]</span>
           </div>
         </div>
       </div>
 
-      <div class="flip-card electric-parent" onclick="triggerPuzzleTransition(this, event);">
+      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown">
-            <div class="tap-hint">TAP TO DISASSEMBLE</div>
+            <div class="tap-hint">TAP TO SHATTER</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Costume & Gear</h3>
             <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccarlos.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to reassemble back ]</span>
+            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to shatter back ]</span>
           </div>
         </div>
       </div>
 
-      <div class="flip-card electric-parent" onclick="triggerPuzzleTransition(this, event);">
+      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero in the Enchanted Forest.png" alt="Enchanted Forest">
-            <div class="tap-hint">TAP TO DISASSEMBLE</div>
+            <div class="tap-hint">TAP TO SHATTER</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">The Legend</h3>
             <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Standing tall in the enchanted forest, Broccarlos protects nature's realm with unmatched power and resilience.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to reassemble back ]</span>
+            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to shatter back ]</span>
           </div>
         </div>
       </div>
@@ -636,7 +636,7 @@
   </div>
 
   <script>
-    // Group section titles and descriptions into words and letters for shatter animation (Hero title intentionally excluded)
+    // Group section titles and descriptions into words and letters for shatter animation (Hero title excluded)
     document.querySelectorAll('.shatter-text').forEach(el => {
       const text = el.textContent;
       const words = text.split(' ');
@@ -708,16 +708,16 @@
       });
     });
 
-    // Puzzle Disassemble / Reassemble Transition & Electric Lightning Border for Flip Cards
-    function triggerPuzzleTransition(cardEl, event) {
+    // Card Shatter / Disassemble Transition & Electric Lightning Border
+    function triggerCardShatterTransition(cardEl, event) {
       if (event.target.closest('.flip-card-back')) return;
 
       triggerElectricLightning(cardEl, event);
 
-      cardEl.classList.add('puzzle-disassembling');
+      cardEl.classList.add('card-shattering');
       setTimeout(() => {
         cardEl.classList.toggle('flipped');
-        cardEl.classList.remove('puzzle-disassembling');
+        cardEl.classList.remove('card-shattering');
       }, 500);
     }
 
@@ -729,7 +729,7 @@
       const rect = parentCard.getBoundingClientRect();
       
       // Spawn sharp lightning thunder dashes along the border perimeter
-      for (let i = 0; i < 24; i++) {
+      for (let i = 0; i < 28; i++) {
         const p = document.createElement('div');
         p.className = 'border-lightning';
         const side = Math.floor(Math.random() * 4);
@@ -744,7 +744,7 @@
         p.style.background = Math.random() > 0.5 ? '#00f0ff' : '#ffea00';
         
         const angle = Math.random() * Math.PI * 2;
-        const speed = 40 + Math.random() * 70;
+        const speed = 40 + Math.random() * 80;
         p.style.setProperty('--lx', Math.cos(angle) * speed + 'px');
         p.style.setProperty('--ly', Math.sin(angle) * speed + 'px');
         
