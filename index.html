@@ -49,24 +49,24 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 5%;
     }
-    .brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--gold); text-decoration: none; font-size: 1.2rem; }
-    nav { display: flex; gap: 2rem; }
-    nav a { color: var(--text); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s; }
+    .brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--gold); text-decoration: none; font-size: 1.1rem; }
+    nav { display: flex; gap: 1.5rem; }
+    nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
     nav a:hover { color: var(--gold); }
 
     /* Hero Section */
     .hero {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 8rem 2rem 4rem; position: relative;
+      text-align: center; padding: 8rem 1.5rem 4rem; position: relative;
       background: radial-gradient(circle at center, var(--burgundy-glow) 0%, transparent 70%);
     }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 5rem); line-height: 1.15; margin-bottom: 1.5rem; }
     .hero h1 span { color: var(--gold); display: block; }
-    .hero p { max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.15rem; color: var(--muted); line-height: 1.8; }
+    .hero p { max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.05rem; color: var(--muted); line-height: 1.7; }
 
     .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn {
-      padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer;
+      padding: 0.8rem 1.8rem; border-radius: 999px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer;
     }
     .btn-primary { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold-glow); }
     .btn-primary:hover { transform: translateY(-3px); background: #e09f2b; }
@@ -74,70 +74,72 @@
     .btn-outline:hover { background: var(--burgundy); border-color: var(--burgundy); transform: translateY(-3px); }
 
     /* Sections Container */
-    section { padding: 6rem 5%; max-width: 1300px; margin: 0 auto; }
-    .section-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; text-align: center; }
-    .section-desc { text-align: center; max-width: 600px; margin: 0 auto 4rem; color: var(--muted); font-size: 1.05rem; }
+    section { padding: 5rem 5%; max-width: 1300px; margin: 0 auto; }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 3rem); margin-bottom: 1rem; text-align: center; }
+    .section-desc { text-align: center; max-width: 600px; margin: 0 auto 3rem; color: var(--muted); font-size: 1rem; }
 
-    /* Hover-Reveal Turnaround Section (Horizontal Slide) */
+    /* Hover-Reveal Turnaround Section (Full Image Contain + Smooth Hover) */
     .hover-vfx-container {
-      width: 100%; max-width: 1000px; height: 500px; margin: 0 auto; position: relative;
+      width: 100%; max-width: 1000px; height: 450px; margin: 0 auto; position: relative;
       border-radius: 20px; overflow: hidden; border: 2px solid var(--gold);
+      background: #000;
       box-shadow: 0 25px 50px rgba(114, 17, 33, 0.6);
     }
     .vfx-base-image {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; background: #000;
     }
     .vfx-hover-video {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
-      opacity: 0; transition: opacity 0.4s ease-in-out;
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; background: #000;
+      opacity: 0; transition: opacity 0.3s ease-in-out;
     }
-    .hover-vfx-container:hover .vfx-hover-video {
+    .hover-vfx-container:hover .vfx-hover-video,
+    .hover-vfx-container:active .vfx-hover-video {
       opacity: 1;
     }
     .vfx-badge {
-      position: absolute; bottom: 20px; left: 20px; z-index: 10;
-      background: rgba(217,146,31,0.2); border: 1px solid var(--gold); color: var(--gold);
-      padding: 6px 16px; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 0.9rem;
+      position: absolute; bottom: 15px; left: 15px; z-index: 10;
+      background: rgba(217,146,31,0.25); border: 1px solid var(--gold); color: var(--gold);
+      padding: 5px 12px; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 0.8rem;
     }
 
     /* Filter Category Tabs */
-    .tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
-    .tab-btn { background: var(--card-bg); border: 1px solid rgba(114, 17, 33, 0.5); color: var(--text); padding: 0.7rem 1.5rem; border-radius: 999px; cursor: pointer; font-weight: 500; transition: all 0.3s; }
+    .tabs { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .tab-btn { background: var(--card-bg); border: 1px solid rgba(114, 17, 33, 0.5); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 999px; cursor: pointer; font-weight: 500; font-size: 0.9rem; transition: all 0.3s; }
     .tab-btn.active, .tab-btn:hover { background: var(--burgundy); border-color: var(--gold); color: #fff; }
 
-    /* Grid & Cards */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+    /* Grid & Cards (Optimized for Mobile & Desktop parity) */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
     .card {
       background: var(--card-bg); border: 1px solid rgba(217, 146, 31, 0.15); border-radius: 16px; overflow: hidden;
       transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
-    .card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); }
-    .card img { width: 100%; height: 240px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .card-content { padding: 2rem; }
-    .card-meta { font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05rem; margin-bottom: 0.8rem; font-weight: 600; }
-    .card h3 { font-size: 1.4rem; margin-bottom: 1rem; }
-    .card p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+    .card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); }
+    .card img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .card-content { padding: 1.5rem; }
+    .card-meta { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05rem; margin-bottom: 0.6rem; font-weight: 600; }
+    .card h3 { font-size: clamp(1.2rem, 2.5vw, 1.4rem); margin-bottom: 0.8rem; line-height: 1.3; word-break: normal; overflow-wrap: break-word; }
+    .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
 
     /* Floating AI Assistant Widget */
-    #ai-widget { position: fixed; bottom: 25px; right: 25px; z-index: 1000; font-family: 'Inter', sans-serif; }
+    #ai-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: 'Inter', sans-serif; }
     #chat-toggle {
-      width: 65px; height: 65px; border-radius: 50%; background: var(--burgundy); border: 2px solid var(--gold);
+      width: 60px; height: 60px; border-radius: 50%; background: var(--burgundy); border: 2px solid var(--gold);
       cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
-      animation: pulse-glow 2s infinite; font-size: 1.8rem; color: #fff; overflow: hidden;
+      animation: pulse-glow 2s infinite; font-size: 1.6rem; color: #fff; overflow: hidden;
     }
     #chat-toggle img { width: 100%; height: 100%; object-fit: cover; }
     #chat-box {
-      position: absolute; bottom: 85px; right: 0; width: 340px; background: #130a0d; border: 1px solid var(--burgundy);
+      position: absolute; bottom: 75px; right: 0; width: 310px; background: #130a0d; border: 1px solid var(--burgundy);
       border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; overflow: hidden;
       transition: all 0.3s ease;
     }
     #chat-box.hidden { display: none; }
-    .chat-header { background: var(--burgundy); color: #fff; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; font-weight: bold; }
+    .chat-header { background: var(--burgundy); color: #fff; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; font-weight: bold; font-size: 0.95rem; }
     .chat-header button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
-    .chat-body { padding: 18px; height: 220px; overflow-y: auto; font-size: 0.9rem; color: var(--text); display: flex; flex-direction: column; gap: 12px; }
+    .chat-body { padding: 15px; height: 200px; overflow-y: auto; font-size: 0.85rem; color: var(--text); display: flex; flex-direction: column; gap: 10px; }
     .chat-input-area { display: flex; border-top: 1px solid rgba(255,255,255,0.1); background: #0b0708; }
-    .chat-input-area input { flex: 1; background: transparent; border: none; padding: 14px; color: #fff; outline: none; font-size: 0.9rem; }
-    .chat-input-area button { background: var(--gold); border: none; padding: 0 20px; font-weight: bold; cursor: pointer; color: #000; }
+    .chat-input-area input { flex: 1; background: transparent; border: none; padding: 12px; color: #fff; outline: none; font-size: 0.85rem; }
+    .chat-input-area button { background: var(--gold); border: none; padding: 0 16px; font-weight: bold; cursor: pointer; color: #000; font-size: 0.85rem; }
 
     @keyframes pulse-glow {
       0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(114, 17, 33, 0.6); }
@@ -147,7 +149,8 @@
 
     @media(max-width: 768px) {
       nav { display: none; }
-      .hero { padding-top: 7rem; }
+      .hero { padding-top: 6rem; }
+      .hover-vfx-container { height: 350px; }
     }
   </style>
 </head>
@@ -157,11 +160,10 @@
   <header>
     <a href="#" class="brand">YANCARLOS MARTINEZ</a>
     <nav>
-      <a href="#vfx-transformation">VFX Showcase</a>
+      <a href="#vfx-transformation">VFX</a>
       <a href="#portfolio-gallery">Portfolio</a>
-      <a href="#3d-section">3D & Game Dev</a>
+      <a href="#3d-section">3D Dev</a>
       <a href="#reels">Reels</a>
-      <a href="#socials">Socials</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -179,18 +181,14 @@
   </section>
 
   <!-- VIRTUAL PRODUCTION & HOVER-REVEAL TURNAROUND SECTION -->
-  <section id="vfx-transformation" style="text-align: center; padding: 4rem 2rem;">
+  <section id="vfx-transformation" style="text-align: center; padding: 4rem 1.5rem;">
     <h2 class="section-title">Virtual Production & VFX Pipeline</h2>
-    <p class="section-desc">Hover across the image below to reveal the live green-screen video composite over the full-body character turnaround.</p>
+    <p class="section-desc">Tap or hover across the character turnaround to reveal the live green-screen video composite.</p>
     
     <div class="hover-vfx-container">
-      <!-- Base Image: Full-body character turnaround sheet -->
       <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Character Turnaround" class="vfx-base-image">
-      
-      <!-- Hover Video: Green-screen footage revealed on hover -->
       <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline class="vfx-hover-video"></video>
-      
-      <div class="vfx-badge">HOVER TO REVEAL LIVE GREEN SCREEN COMPOSITE</div>
+      <div class="vfx-badge">HOVER / TAP TO REVEAL GREEN SCREEN</div>
     </div>
   </section>
 
@@ -224,8 +222,8 @@
           <h3>Interactive 3D Environments</h3>
           <p>Custom 3D character design, rigging in Character Creator 5, and immersive game engine prototyping.</p>
         </div>
-        <div style="padding: 0 2rem 2rem 2rem;">
-          <iframe title="3D Asset Preview" src="Yancel full_body turnaround sheet.png" width="100%" height="300" frameborder="0" allowfullscreen style="border-radius: 8px; border: 1px solid var(--burgundy);"></iframe>
+        <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+          <iframe title="3D Asset Preview" src="Yancel full_body turnaround sheet.png" width="100%" height="250" frameborder="0" allowfullscreen style="border-radius: 8px; border: 1px solid var(--burgundy);"></iframe>
         </div>
       </div>
 
@@ -249,36 +247,34 @@
     </div>
   </section>
 
-  <!-- Dedicated Video & Reel Showcase Section (Ending Reels) -->
-  <section id="reels" style="text-align: center; padding: 4rem 2rem;">
+  <!-- Dedicated Video & Reel Showcase Section -->
+  <section id="reels" style="text-align: center; padding: 4rem 1.5rem;">
     <h2 class="section-title">Scene & Character Reels</h2>
     <p class="section-desc">Cinematic test renders, video editing reels, and character animation sequences.</p>
     
     <div class="grid" style="max-width: 1100px; margin: 0 auto;">
-      <!-- Reel 1 -->
       <div style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg);">
-        <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 320px; object-fit: cover; display: block;"></video>
-        <div style="padding: 1.5rem; text-align: left;">
-          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--gold);">First Scene Render</h3>
-          <p style="color: var(--muted); font-size: 0.9rem;">Real-time lighting and cinematic composition test in Unreal Engine.</p>
+        <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 260px; object-fit: cover; display: block;"></video>
+        <div style="padding: 1.2rem; text-align: left;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);">First Scene Render</h3>
+          <p style="color: var(--muted); font-size: 0.85rem;">Real-time lighting and cinematic composition test in Unreal Engine.</p>
         </div>
       </div>
 
-      <!-- Reel 2 (Add extra video files here when ready) -->
       <div style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg);">
-        <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 320px; object-fit: cover; display: block;"></video>
-        <div style="padding: 1.5rem; text-align: left;">
-          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--gold);">Virtual Production Composite</h3>
-          <p style="color: var(--muted); font-size: 0.9rem;">Green-screen keying and live background integration.</p>
+        <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 260px; object-fit: cover; display: block;"></video>
+        <div style="padding: 1.2rem; text-align: left;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);">Virtual Production Composite</h3>
+          <p style="color: var(--muted); font-size: 0.85rem;">Green-screen keying and live background integration.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Social & Professional Links Section -->
-  <section id="socials" style="text-align: center; padding: 4rem 2rem;">
-    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--gold);">Professional Profiles & Socials</h3>
-    <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+  <section id="socials" style="text-align: center; padding: 4rem 1.5rem;">
+    <h3 style="font-size: 1.6rem; margin-bottom: 2rem; color: var(--gold);">Professional Profiles & Socials</h3>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
       <a href="https://www.facebook.com/share/19sGsR39n8/" target="_blank" class="btn btn-outline">Facebook</a>
       <a href="https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info" target="_blank" class="btn btn-outline">LinkedIn</a>
       <a href="https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk" target="_blank" class="btn btn-outline">IMDb</a>
@@ -364,9 +360,9 @@
 
         if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie') || lower.includes('editor')) {
           reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He also studied at the New York Film Academy and Goodwin College.";
-        } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character')) {
+        } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel')) {
           reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5.";
-        } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable')) {
+        } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable') || lower.includes('manny')) {
           reply = "Yancarlos is a commercial print model featured on the book cover of 'Fable Manny' (ISBN: 978454818982). You can view his acting and modeling profiles on <a href='https://www.backstage.com' target='_blank' style='color:var(--gold);'>Backstage</a>.";
         } else if(lower.includes('social') || lower.includes('instagram') || lower.includes('tiktok') || lower.includes('linkedin') || lower.includes('facebook')) {
           reply = "Connect with Yancarlos across his professional profiles:<br>" +
