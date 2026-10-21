@@ -43,15 +43,18 @@
     /* Navigation Header */
     header {
       position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-      background: rgba(11, 7, 8, 0.9);
+      background: rgba(11, 7, 8, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(114, 17, 33, 0.3);
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 4%;
+      padding: 0.8rem 3%;
     }
-    .brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--gold); text-decoration: none; font-size: 1rem; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .brand img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); }
+    .brand span { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--gold); font-size: 0.95rem; letter-spacing: 0.05rem; }
+    
     nav { display: flex; gap: 1rem; flex-wrap: wrap; }
-    nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.3s; }
+    nav a { color: var(--text); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: color 0.3s; }
     nav a:hover { color: var(--gold); }
 
     /* Hero Section */
@@ -78,7 +81,7 @@
     .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1rem; text-align: center; }
     .section-desc { text-align: center; max-width: 650px; margin: 0 auto 3rem; color: var(--muted); font-size: 1rem; }
 
-    /* Hover-Reveal Turnaround Section (Object-Fit Contain for Full Image View) */
+    /* Hover-Reveal Turnaround Section */
     .hover-vfx-container {
       width: 100%; max-width: 950px; height: 480px; margin: 0 auto; position: relative;
       border-radius: 20px; overflow: hidden; border: 2px solid var(--gold);
@@ -102,23 +105,23 @@
       padding: 5px 12px; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 0.75rem;
     }
 
-    /* Interactive 3D Flip Card Styles */
+    /* Click-to-Flip 3D Card Styles */
     .flip-card {
-      background-color: transparent; width: 100%; height: 340px; perspective: 1000px; margin-bottom: 1.5rem;
+      background-color: transparent; width: 100%; height: 360px; perspective: 1000px; cursor: pointer; margin-bottom: 1.5rem;
     }
     .flip-card-inner {
-      position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d;
+      position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d;
       border-radius: 16px; border: 1px solid rgba(217, 146, 31, 0.2);
     }
-    .flip-card:hover .flip-card-inner, .flip-card:active .flip-card-inner {
+    .flip-card.flipped .flip-card-inner {
       transform: rotateY(180deg);
     }
     .flip-card-front, .flip-card-back {
-      position: absolute; width: 100%; height: 100%;-webkit-backface-visibility: hidden; backface-visibility: hidden;
+      position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
       border-radius: 16px; overflow: hidden; background: var(--card-bg); display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
     .flip-card-back {
-      transform: rotateY(180deg); padding: 1.5rem; text-align: left;
+      transform: rotateY(180deg); padding: 2rem; text-align: left; justify-content: flex-start; overflow-y: auto;
     }
     .flip-card img { width: 100%; height: 100%; object-fit: contain; background: #000; }
 
@@ -134,13 +137,13 @@
       transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
     .card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); }
-    .card img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .card img { width: 100%; height: 220px; object-fit: contain; background: #000; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .card-content { padding: 1.5rem; }
     .card-meta { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05rem; margin-bottom: 0.6rem; font-weight: 600; }
-    .card h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); margin-bottom: 0.8rem; line-height: 1.35; word-break: normal; overflow-wrap: break-word; }
+    .card h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); margin-bottom: 0.8rem; line-height: 1.35; }
     .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
 
-    /* Floating AI Assistant Widget */
+    /* Floating AI Assistant Widget with Minimize */
     #ai-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: 'Inter', sans-serif; }
     #chat-toggle {
       width: 60px; height: 60px; border-radius: 50%; background: var(--burgundy); border: 2px solid var(--gold);
@@ -178,7 +181,10 @@
 
   <!-- Navigation -->
   <header>
-    <a href="#" class="brand">YANCARLOS MARTINEZ</a>
+    <a href="#" class="brand">
+      <img src="Yan's cartoon headshot.png" alt="Yancarlos">
+      <span>YANCARLOS MARTINEZ</span>
+    </a>
     <nav>
       <a href="#vfx-transformation">VFX</a>
       <a href="#portfolio-gallery">Portfolio</a>
@@ -213,47 +219,50 @@
     </div>
   </section>
 
-  <!-- BROCCOLI HERO STORY & LORE SECTION -->
+  <!-- BROCCOLI HERO STORY & LORE SECTION (CLICK-TO-FLIP) -->
   <section id="broccoli-section" style="background: rgba(114, 17, 33, 0.08);">
     <h2 class="section-title">The Broccoli Hero Universe</h2>
-    <p class="section-desc">An original superhero concept born from creative imagination—exploring the origin, costume breakdown, and legendary adventures in the enchanted forest.</p>
+    <p class="section-desc">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
 
     <div class="grid">
-      <!-- 3D Flip Card 1: Turnaround -->
-      <div class="flip-card">
+      <!-- Flip Card 1: Turnaround -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Boy Character Turnaround Sheet.png" alt="Broccoli Boy Turnaround">
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Character Anatomy</h3>
-            <p style="font-size: 0.85rem; color: var(--muted);">Full character design and rigging sheet showing front, side, and back views for high-end animation pipelines.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Full character design and rigging sheet showing front, side, and back views for high-end animation pipelines. Created with intricate detail to bring the Broccoli Hero to life.</p>
+            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
 
-      <!-- 3D Flip Card 2: Costume Breakdown -->
-      <div class="flip-card">
+      <!-- Flip Card 2: Costume Breakdown -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown">
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Costume & Gear</h3>
-            <p style="font-size: 0.85rem; color: var(--muted);">Detailed breakdown of tactical armor, signature cape, utility belt, and custom superhero accessories.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for legendary quests.</p>
+            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
 
-      <!-- 3D Flip Card 3: Enchanted Forest -->
-      <div class="flip-card">
+      <!-- Flip Card 3: Enchanted Forest -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero in the Enchanted Forest.png" alt="Enchanted Forest">
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">The Legend</h3>
-            <p style="font-size: 0.85rem; color: var(--muted);">Standing tall in the enchanted forest, the Broccoli Hero protects nature's realm with unmatched power and resilience.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Standing tall in the enchanted forest, the Broccoli Hero protects nature's realm with unmatched power, inspiring courage and growth across the universe.</p>
+            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
@@ -267,7 +276,7 @@
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
       <div class="card" style="padding: 1rem;">
-        <img src="Victor Character Blueprint.png" alt="Victor Blueprint" style="height: 300px; object-fit: contain; background: #000; border-radius: 8px;">
+        <img src="Victor Character Blueprint.png" alt="Victor Blueprint" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);">Character Blueprint</h3>
           <p>Anatomical guides, prop distribution, and texture mapping matrices designed for cinematic game engines.</p>
@@ -275,7 +284,7 @@
       </div>
 
       <div class="card" style="padding: 1rem;">
-        <img src="Blender Avictor.png" alt="Blender Avictor Rig" style="height: 300px; object-fit: contain; background: #000; border-radius: 8px;">
+        <img src="Blender Avictor.png" alt="Blender Avictor Rig" style="height: 280px; object-fit: contain; background: #000; border-radius: 8px;">
         <div class="card-content">
           <h3 style="color: var(--gold);">Blender Pipeline Rig</h3>
           <p>High-polygon character mesh sculpting, texturing, and rigging setup inside Blender.</p>
@@ -346,7 +355,7 @@
     
     <div class="grid">
       <div class="card">
-        <img src="Bri CC5.png" alt="Bri CC5 Portrait" style="object-fit: contain; background: #000;">
+        <img src="Bri CC5.png" alt="Bri CC5 Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
           <h3>Bridgitte "Bri"</h3>
@@ -355,7 +364,7 @@
       </div>
 
       <div class="card">
-        <img src="Emmanuel CC5.png" alt="Emmanuel Portrait" style="object-fit: contain; background: #000;">
+        <img src="Emmanuel CC5.png" alt="Emmanuel Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
           <h3>Emmanuel</h3>
@@ -364,7 +373,7 @@
       </div>
 
       <div class="card">
-        <img src="Olivia CC5.png" alt="Olivia Portrait" style="object-fit: contain; background: #000;">
+        <img src="Olivia CC5.png" alt="Olivia Portrait">
         <div class="card-content">
           <div class="card-meta">Character Creator 5</div>
           <h3>Olivia</h3>
@@ -391,8 +400,8 @@
       <div style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg);">
         <video src="Sylvia speech-1.mp4" controls playsinline style="width: 100%; height: 260px; object-fit: cover; display: block; background: #000;"></video>
         <div style="padding: 1.2rem; text-align: left;">
-          <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);">Virtual Production Composite</h3>
-          <p style="color: var(--muted); font-size: 0.85rem;">Green-screen keying and live background integration.</p>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);">Rendered Animation Presentation</h3>
+          <p style="color: var(--muted); font-size: 0.85rem;">High-end character presentation and virtual environment showcase.</p>
         </div>
       </div>
     </div>
@@ -418,7 +427,7 @@
     <a href="mailto:yanmartinez92@gmail.com" class="btn btn-primary">Email Me Directly</a>
   </section>
 
-  <!-- Floating Animated AI Assistant Widget -->
+  <!-- Floating Animated AI Assistant Widget with Minimize/Close -->
   <div id="ai-widget">
     <div id="chat-box" class="hidden">
       <div class="chat-header">
@@ -426,14 +435,14 @@
         <button id="close-chat">&times;</button>
       </div>
       <div class="chat-body" id="chat-messages">
-        <p>👋 Hey! I'm Yancarlos's virtual assistant. Ask me about his IMDb award-winning editing, Unreal Engine 5 projects, or modeling work!</p>
+        <p>👋 Hey! I'm Yancarlos's virtual assistant. Ask me about his IMDb award-winning editing, Unreal Engine 5 projects, or character universes!</p>
       </div>
       <div class="chat-input-area">
         <input type="text" id="chat-input" placeholder="Type a question...">
         <button id="send-chat">Send</button>
       </div>
     </div>
-    <button id="chat-toggle">
+    <button id="chat-toggle" title="Toggle AI Chat">
       <img src="Yan's cartoon headshot.png" alt="Yancarlos Chat Head">
     </button>
   </div>
