@@ -81,37 +81,13 @@
     .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1rem; text-align: center; }
     .section-desc { text-align: center; max-width: 650px; margin: 0 auto 3rem; color: var(--muted); font-size: 1rem; }
 
-    /* Hover-Reveal Turnaround Section */
-    .hover-vfx-container {
-      width: 100%; max-width: 950px; height: 480px; margin: 0 auto; position: relative;
-      border-radius: 20px; overflow: hidden; border: 2px solid var(--gold);
-      background: #000;
-      box-shadow: 0 25px 50px rgba(114, 17, 33, 0.6);
-    }
-    .vfx-base-image {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; background: #0b0708;
-    }
-    .vfx-hover-video {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; background: #0b0708;
-      opacity: 0; transition: opacity 0.3s ease-in-out;
-    }
-    .hover-vfx-container:hover .vfx-hover-video,
-    .hover-vfx-container:active .vfx-hover-video {
-      opacity: 1;
-    }
-    .vfx-badge {
-      position: absolute; bottom: 15px; left: 15px; z-index: 10;
-      background: rgba(217,146,31,0.25); border: 1px solid var(--gold); color: var(--gold);
-      padding: 5px 12px; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 0.75rem;
-    }
-
     /* Click-to-Flip 3D Card Styles */
     .flip-card {
-      background-color: transparent; width: 100%; height: 380px; perspective: 1000px; cursor: pointer; margin-bottom: 1.5rem;
+      background-color: transparent; width: 100%; height: 400px; perspective: 1000px; cursor: pointer; margin-bottom: 1.5rem;
     }
     .flip-card-inner {
       position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d;
-      border-radius: 16px; border: 1px solid rgba(217, 146, 31, 0.2); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.2);
+      border-radius: 16px; border: 1px solid rgba(217, 146, 31, 0.3); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3);
     }
     .flip-card.flipped .flip-card-inner {
       transform: rotateY(180deg);
@@ -121,9 +97,14 @@
       border-radius: 16px; overflow: hidden; background: var(--card-bg); display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
     .flip-card-back {
-      transform: rotateY(180deg); padding: 2rem; text-align: left; justify-content: flex-start; overflow-y: auto; background: #130a0d;
+      transform: rotateY(180deg); padding: 1.5rem; text-align: left; justify-content: flex-start; overflow-y: auto; background: #130a0d;
     }
     .flip-card img { width: 100%; height: 100%; object-fit: contain; background: #000; }
+    .tap-hint {
+      position: absolute; bottom: 12px; right: 12px; z-index: 10;
+      background: rgba(217, 146, 31, 0.25); border: 1px solid var(--gold); color: var(--gold);
+      padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 0.7rem; font-weight: bold;
+    }
 
     /* Filter Category Tabs */
     .tabs { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
@@ -173,7 +154,6 @@
     @media(max-width: 768px) {
       nav { display: none; }
       .hero { padding-top: 6rem; }
-      .hover-vfx-container { height: 320px; }
     }
   </style>
 </head>
@@ -188,7 +168,7 @@
     <nav>
       <a href="#workshop-section">Workshop & Robot</a>
       <a href="#sylvia-section">Sylvia VFX</a>
-      <a href="#broccoli-section">Broccoli Carlos</a>
+      <a href="#broccoli-section">Broccarlos</a>
       <a href="#victor-section">Victor Blueprint</a>
       <a href="#portfolio-gallery">Portfolio</a>
       <a href="#reels">Reels</a>
@@ -208,71 +188,84 @@
     </div>
   </section>
 
-  <!-- SECTION 1: WORKSHOP & YANCEL'S ROBOT STORY -->
+  <!-- SECTION 1: WORKSHOP & YANCARLOS / JOHN'S TURNAROUND -->
   <section id="workshop-section" style="text-align: center;">
     <h2 class="section-title">Workshop & Robot Universe</h2>
-    <p class="section-desc">Experience the first story chapter: real-time lighting and robotics assembly in the workshop, paired with Yancel's interactive character turnaround sheet.</p>
+    <p class="section-desc">Tap the character turnaround cards below to flip them, explore Yancarlos and Yancel's robot universe, and reveal the workshop scenes.</p>
     
-    <div style="max-width: 950px; margin: 0 auto 3rem; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 25px 50px rgba(114, 17, 33, 0.6); background: var(--card-bg);">
-      <video src="Yan's first scene.mp4" controls playsinline style="width: 100%; height: 400px; object-fit: cover; display: block; background: #000;"></video>
-      <div style="padding: 1.5rem; text-align: left;">
-        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">The Workshop Scene</h3>
-        <p style="color: var(--muted); font-size: 0.95rem;">Yancarlos building and assembling robotics in an immersive Unreal Engine 5 environment.</p>
-      </div>
-    </div>
-
-    <!-- Interactive Flip Card for Yancel's Robot Turnaround -->
-    <div style="max-width: 600px; margin: 0 auto;">
+    <div class="grid" style="max-width: 950px; margin: 0 auto;">
+      <!-- Flip Card 1: Yancarlos / John Turnaround Sheet -->
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
-            <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Head Turnaround">
+            <img src="Yan's turnaround sheet.png" alt="Yancarlos Turnaround">
+            <div class="tap-hint">TAP TO FLIP & REVEAL</div>
           </div>
           <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Yancel Robot - Full Turnaround</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem;">Tap to view the complete front, side, and back body rigging sheet designed for the robot character universe.</p>
-            <img src="Yancel full_body turnaround sheet.png" alt="Full Body Turnaround" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
+            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Yancarlos / John Turnaround</h3>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1rem;">Full character anatomy and styling breakdown for the creator driving the workshop scene.</p>
+            <video src="Yan's first scene.mp4" controls playsinline style="width: 100%; height: 160px; object-fit: cover; border-radius: 6px; background: #000;"></video>
+            <span style="display: block; margin-top: 0.8rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flip Card 2: Yancel Robot Turnaround -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround">
+            <div class="tap-hint">TAP TO FLIP & REVEAL</div>
+          </div>
+          <div class="flip-card-back">
+            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Yancel Robot Turnaround</h3>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1rem;">Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p>
+            <img src="Yancel full_body turnaround sheet.png" alt="Full Body Robot" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
+            <span style="display: block; margin-top: 0.8rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 2: LAWYER SYLVIA'S PROJECT PRESENTATION -->
+  <!-- SECTION 2: LAWYER SYLVIA'S ANIMATION PRESENTATION -->
   <section id="sylvia-section" style="text-align: center; background: rgba(114, 17, 33, 0.05);">
     <h2 class="section-title">Sylvia's Animation Presentation</h2>
-    <p class="section-desc">Explore Sylvia's professional project presentation and interactive character turnaround sheet.</p>
+    <p class="section-desc">Tap the character turnaround below to flip and explore Sylvia's rendered animation presentation.</p>
     
-    <div class="hover-vfx-container" style="margin-bottom: 3rem;">
-      <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround Sheet" class="vfx-base-image">
-      <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline class="vfx-hover-video"></video>
-      <div class="vfx-badge">HOVER / TAP TO REVEAL PRESENTATION</div>
-    </div>
-
-    <div style="max-width: 950px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 25px 50px rgba(114, 17, 33, 0.6); background: var(--card-bg);">
-      <video src="Sylvia speech-1.mp4" controls playsinline style="width: 100%; height: 400px; object-fit: cover; display: block; background: #000;"></video>
-      <div style="padding: 1.5rem; text-align: left;">
-        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Rendered Animation Presentation</h3>
-        <p style="color: var(--muted); font-size: 0.95rem;">High-end character presentation and virtual environment showcase.</p>
+    <div style="max-width: 650px; margin: 0 auto;">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround">
+            <div class="tap-hint">TAP TO FLIP & REVEAL</div>
+          </div>
+          <div class="flip-card-back">
+            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Rendered Presentation</h3>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1rem;">High-end character presentation and virtual environment showcase.</p>
+            <video src="Sylvia speech-1.mp4" controls playsinline style="width: 100%; height: 160px; object-fit: cover; border-radius: 6px; background: #000;"></video>
+            <span style="display: block; margin-top: 0.8rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 3: BROCCOLI CARLOS UNIVERSE -->
+  <!-- SECTION 3: BROCCARLOS UNIVERSE -->
   <section id="broccoli-section">
-    <h2 class="section-title">The Broccoli Carlos Universe</h2>
+    <h2 class="section-title">The Broccarlos Universe</h2>
     <p class="section-desc">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
 
     <div class="grid">
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
-            <img src="Broccoli Boy Character Turnaround.png" alt="Broccoli Carlos Turnaround">
+            <img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround">
+            <div class="tap-hint">TAP TO FLIP</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Character Anatomy</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Full character design and rigging sheet showing front, side, and back views for Broccoli Carlos in high-end animation pipelines.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Full character design and rigging sheet showing front, side, and back views for Broccarlos in high-end animation pipelines.</p>
             <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
@@ -282,10 +275,11 @@
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown">
+            <div class="tap-hint">TAP TO FLIP</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Costume & Gear</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccoli Carlos.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccarlos.</p>
             <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
@@ -295,10 +289,11 @@
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="Broccoli Hero in the Enchanted Forest.png" alt="Enchanted Forest">
+            <div class="tap-hint">TAP TO FLIP</div>
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">The Legend</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Standing tall in the enchanted forest, Broccoli Carlos protects nature's realm with unmatched power and resilience.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Standing tall in the enchanted forest, Broccarlos protects nature's realm with unmatched power and resilience.</p>
             <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
@@ -521,8 +516,8 @@
 
         if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie') || lower.includes('editor')) {
           reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He also studied at the New York Film Academy and Goodwin College.";
-        } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel') || lower.includes('broccoli') || lower.includes('victor')) {
-          reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccoli Carlos and Avictor!";
+        } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel') || lower.includes('broccarlos') || lower.includes('victor')) {
+          reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccarlos and Avictor!";
         } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable') || lower.includes('manny') || lower.includes('bri') || lower.includes('emmanuel') || lower.includes('olivia')) {
           reply = "Yancarlos is a commercial print model featured on the book cover of 'Fable Manny' (ISBN: 978454818982). View his portfolio on <a href='https://www.backstage.com' target='_blank' style='color:var(--gold);'>Backstage</a>.";
         } else if(lower.includes('social') || lower.includes('instagram') || lower.includes('tiktok') || lower.includes('linkedin') || lower.includes('facebook')) {
