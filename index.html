@@ -289,14 +289,14 @@
     // Scroll-driven VFX Transition Script for Green Screen to 3D Environment
     window.addEventListener('scroll', () => {
       const section = document.getElementById('vfx-transformation');
-      const greenScreenLayer = document.getElementById('green-screen-layer');
+      const videoLayer = document.getElementById('3d-character-video-layer');
       const viewport = document.getElementById('vfx-viewport');
       
       const rect = section.getBoundingClientRect();
       const scrollProgress = -rect.top / (section.offsetHeight - window.innerHeight);
       
       if (scrollProgress >= 0 && scrollProgress <= 1) {
-        greenScreenLayer.style.opacity = 1 - (scrollProgress * 1.5);
+        videoLayer.style.opacity = 1 - (scrollProgress * 1.5);
         viewport.style.transform = `scale(${1 + (scrollProgress * 0.15)})`;
       }
     });
