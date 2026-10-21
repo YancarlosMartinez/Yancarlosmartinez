@@ -1,845 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yancarlos Martinez | Coder, Editor, Game Dev & 3D Artist</title>
-  
-  <!-- Open Graph / Social Link Share Preview (Shows Yancarlos in workshop with robot head) -->
-  <meta property="og:title" content="Yancarlos Martinez | Coder, Editor, Game Dev & 3D Artist">
-  <meta property="og:description" content="Award-winning film editor, Unreal/Unity game developer, and commercial print model portfolio.">
-  <meta property="og:image" content="Yan's first scene.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="Yan's first scene.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yancarlos Martinez | Coder, Editor, Game Dev &amp; 3D Artist</title>
+<meta name="description" content="Award-winning film editor, Unreal/Unity game developer, and commercial print model portfolio.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Link-share preview: Yancarlos in the workshop with the robot head -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yancarlos Martinez | Coder, Editor, Game Dev &amp; 3D Artist">
+<meta property="og:description" content="Award-winning film editor, Unreal/Unity game developer, and commercial print model portfolio.">
+<meta property="og:image" content="Yan's first scene.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="Yan's first scene.png">
 
-  <style>
-    :root {
-      --burgundy: #721121;
-      --burgundy-glow: rgba(114, 17, 33, 0.4);
-      --gold: #d9921f;
-      --gold-glow: rgba(217, 146, 31, 0.3);
-      --bg: #0b0708;
-      --card-bg: #150d10;
-      --text: #f3ecee;
-      --muted: #b8a9ac;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bur:#721121;--gold:#d9921f;--bg:#0b0708;--card:#150d10;--text:#f3ecee;--muted:#b8a9ac}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 1rem/1.7 'Inter',sans-serif;letter-spacing:.02rem;overflow-x:hidden;padding-bottom:4rem}
+h1,h2,h3{font-family:'Syne',sans-serif;font-weight:800;color:#fff}
+img,video{max-width:100%}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+/* Ambient glow */
+.amb{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orb{position:absolute;width:clamp(340px,75vw,900px);aspect-ratio:1;border-radius:50%;animation:drift 24s ease-in-out infinite alternate}
+.o1{top:-18%;left:-22%;background:radial-gradient(circle,rgba(114,17,33,.55),transparent 65%)}
+.o2{bottom:-22%;right:-25%;background:radial-gradient(circle,rgba(217,146,31,.2),transparent 65%);animation-duration:30s}
+@keyframes drift{to{transform:translate3d(14vw,9vh,0) scale(1.18)}}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      line-height: 1.8rem;
-      letter-spacing: 0.03rem;
-      overflow-x: hidden;
-      padding-bottom: 5rem;
-    }
+/* Header */
+header{position:fixed;top:0;left:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:.6rem 3%;background:rgba(11,7,8,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(114,17,33,.3)}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--gold)}
+.brand span{font:800 .9rem 'Syne',sans-serif;letter-spacing:.05rem;color:var(--gold)}
+nav{display:flex;gap:1rem;flex-wrap:wrap}
+nav a{color:var(--text);text-decoration:none;font-size:.8rem;font-weight:500;transition:color .3s}
+nav a:hover{color:var(--gold)}
 
-    h1, h2, h3 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      color: #fff;
-    }
+/* Hero (plain text, no letter animation) */
+.hero{min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5.5rem 1.2rem 1.5rem;background:radial-gradient(circle at center,rgba(114,17,33,.4),transparent 70%)}
+.hero h1{font-size:clamp(2.1rem,5vw,4.2rem);line-height:1.15;max-width:900px;margin:0 auto 1rem}
+.hero h1 span{display:block;color:var(--gold)}
+.hero p{max-width:700px;margin:0 auto 1.6rem;color:var(--muted)}
+.btns,.row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:.7rem 1.6rem;border-radius:999px;font-weight:600;text-decoration:none;transition:.3s}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{background:var(--gold);color:#000;box-shadow:0 0 20px rgba(217,146,31,.3)}
+.btn-primary:hover{background:#e09f2b}
+.btn-outline{border:2px solid var(--bur);color:#fff}
+.btn-outline:hover{background:var(--bur)}
 
-    /* Section Titles Shatter Effect */
-    .shatter-text {
-      display: inline-block;
-      cursor: pointer;
-      position: relative;
-      max-width: 100%;
-      white-space: normal;
-      word-wrap: break-word;
-      text-align: inherit;
-    }
-    .word {
-      display: inline-block;
-      white-space: nowrap;
-      margin-right: 0.25em;
-    }
-    .char {
-      display: inline-block;
-      transition: transform 5s cubic-bezier(0.1, 1, 0.1, 1), opacity 5s ease, rotate 5s ease;
-      will-change: transform, opacity;
-    }
-    .char.shattered {
-      transform: translate(var(--rx), var(--ry)) rotate(var(--rrot)) scale(0.6);
-      opacity: 0.1;
-    }
+/* Sections */
+section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
+.tint{background:rgba(114,17,33,.05)}
+.tint2{background:rgba(217,146,31,.04)}
+.shatter{display:block;width:fit-content;max-width:100%;cursor:pointer}
+.ttl{font-size:clamp(1.7rem,3.5vw,2.6rem);text-align:center;margin:0 auto .5rem}
+.desc{text-align:center;max-width:650px;margin:0 auto 1.6rem;color:var(--muted)}
+.mid{max-width:650px;margin:0 auto}
+.wide{max-width:950px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem}
+#socials h3{font-size:1.5rem;color:var(--gold);margin:0 auto 1.2rem}
 
-    /* Targeted Element Vibration */
-    .vibrate-local {
-      animation: localVibrate 0.3s ease-in-out;
-    }
-    @keyframes localVibrate {
-      0%, 100% { transform: translate(0, 0); }
-      20% { transform: translate(-4px, 4px); }
-      40% { transform: translate(4px, -3px); }
-      60% { transform: translate(-3px, -4px); }
-      80% { transform: translate(3px, 3px); }
-    }
+/* Section-title text shatter */
+.word{display:inline-block;white-space:nowrap;margin-right:.25em}
+.char{display:inline-block;transition:transform 5s cubic-bezier(.1,1,.1,1),opacity 5s ease;will-change:transform,opacity}
+.char.br{transform:translate(var(--rx),var(--ry)) rotate(var(--rr)) scale(.6);opacity:.1}
+.vib{animation:vib .3s ease-in-out}
+@keyframes vib{0%,100%{transform:translate(0)}20%{transform:translate(-4px,4px)}40%{transform:translate(4px,-3px)}60%{transform:translate(-3px,-4px)}80%{transform:translate(3px,3px)}}
 
-    /* Robotic Electric Saber Border Effect (Blue & Yellow Lightning Streaks, No Blocky Squares) */
-    .electric-parent {
-      position: relative;
-    }
-    .electric-border::after {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 20px;
-      pointer-events: none;
-      z-index: 30;
-      background: linear-gradient(90deg, #00f0ff, #ffea00, #00f0ff, #ffea00, #00f0ff);
-      background-size: 400% 400%;
-      animation: lightningThunderPulse 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      padding: 4px;
-    }
-    @keyframes lightningThunderPulse {
-      0% { background-position: 0% 50%; opacity: 1; filter: drop-shadow(0 0 16px #00f0ff); }
-      50% { background-position: 200% 50%; opacity: 1; filter: drop-shadow(0 0 24px #ffea00); }
-      100% { background-position: 400% 50%; opacity: 0; }
-    }
+/* Tappable surfaces */
+.flip-card,.card,.vid{touch-action:manipulation;-webkit-user-select:none;user-select:none}
 
-    /* Sharp Robotic Saber Lightning Streaks (Non-blocky, lightning thunder style) */
-    .border-lightning {
-      position: fixed;
-      pointer-events: none;
-      width: 20px;
-      height: 2px;
-      background: #00f0ff;
-      z-index: 99999;
-      box-shadow: 0 0 12px #00f0ff, 0 0 20px #ffea00;
-      transform: rotate(45deg);
-      animation: lightningStreak 0.4s ease-out forwards;
-    }
-    @keyframes lightningStreak {
-      0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
-      100% { transform: translate(var(--lx), var(--ly)) scale(0.1) rotate(180deg); opacity: 0; }
-    }
+/* Flip cards: front (.ff) and info side (.fb) */
+.flip-card{position:relative;height:400px;cursor:pointer;border:1px solid rgba(217,146,31,.3);border-radius:16px;box-shadow:0 10px 30px rgba(114,17,33,.3);background:var(--card)}
+.ff,.fb{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--card);transition:opacity .45s .1s}
+.ff img,.ff video{width:100%;height:100%;object-fit:cover;background:#000;display:block}
+.ff img.fit{object-fit:contain}
+.ff::after{content:"TAP FOR INFO";position:absolute;right:12px;bottom:12px;z-index:3;padding:4px 10px;border:1px solid var(--gold);border-radius:6px;background:rgba(11,7,8,.7);color:var(--gold);font:700 .7rem monospace;pointer-events:none}
+.fb{padding:1.1rem;align-items:stretch;justify-content:flex-start;overflow-y:auto;background:#130a0d;text-align:left;opacity:0;pointer-events:none;transition:none}
+.fb::after{content:"[ Tap for info to go back ]";margin-top:auto;padding-top:.6rem;color:var(--gold);font:.7rem monospace}
+.fb h3{color:var(--gold);font-size:1.1rem;margin-bottom:.4rem}
+.fb p{font-size:.85rem;line-height:1.5;color:var(--muted);margin-bottom:.5rem}
+.fb img{width:100%;height:120px;object-fit:contain;background:#000;border-radius:6px}
+.meta{font-size:.75rem;color:var(--gold);text-transform:uppercase;letter-spacing:.05rem;font-weight:600;margin-bottom:.4rem}
+.flipped .ff{opacity:0;pointer-events:none;transition:none}
+.flipped .fb{opacity:1;pointer-events:auto;transition:opacity .45s .1s}
 
-    /* Seamless Two-Way Toggle Card Transition */
-    .flip-card {
-      background-color: transparent; width: 100%; height: 400px; cursor: pointer; margin-bottom: 1.5rem;
-      border-radius: 16px; position: relative; overflow: hidden;
-    }
-    .flip-card-inner {
-      position: relative; width: 100%; height: 100%; text-align: center;
-      border-radius: 16px; border: 1px solid rgba(217, 146, 31, 0.3); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3);
-      background: var(--card-bg);
-    }
-    .flip-card-front, .flip-card-back {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      border-radius: 16px; overflow: hidden; background: var(--card-bg);
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.8s ease, filter 0.8s ease;
-    }
-    .flip-card-back {
-      opacity: 0; pointer-events: none; padding: 1.5rem; text-align: left; justify-content: flex-start; overflow-y: auto; background: #130a0d;
-      transform: translateY(30px) scale(0.9);
-      filter: blur(10px);
-    }
-    .flip-card.card-shattering .flip-card-front {
-      transform: translateY(60px) scale(0.4) rotate(10deg);
-      filter: blur(15px);
-      opacity: 0;
-    }
-    .flip-card.card-shattering .flip-card-back {
-      transform: translateY(-60px) scale(0.4) rotate(-10deg);
-      filter: blur(15px);
-      opacity: 0;
-    }
-    .flip-card.flipped .flip-card-front {
-      opacity: 0; pointer-events: none; filter: blur(10px); transform: scale(0.9);
-    }
-    .flip-card.flipped .flip-card-back {
-      opacity: 1; pointer-events: auto; filter: blur(0); transform: translateY(0) scale(1) rotate(0deg);
-    }
-    .flip-card img, .flip-card video { width: 100%; height: 100%; object-fit: cover; background: #000; }
-    .tap-hint {
-      position: absolute; bottom: 12px; right: 12px; z-index: 10;
-      background: rgba(217, 146, 31, 0.25); border: 1px solid var(--gold); color: var(--gold);
-      padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 0.7rem; font-weight: bold;
-    }
+/* Shatter shards */
+.shards{position:absolute;inset:0;z-index:5;pointer-events:none}
+.shard{position:absolute;inset:0;border-radius:16px;overflow:hidden;will-change:transform,opacity;transition:transform .85s cubic-bezier(.2,.7,.3,1),opacity .85s ease-in}
+.shard>*{opacity:1!important;transform:none!important;transition:none!important}
 
-    /* Particle & Smoke Canvas/Overlay Effects for Text (Blended Gold & Red/Burgundy, No Blocks) */
-    .particle {
-      position: fixed;
-      pointer-events: none;
-      width: 4px;
-      height: 4px;
-      background: #d9921f;
-      border-radius: 50%;
-      z-index: 99999;
-      box-shadow: 0 0 8px #721121;
-      animation: burstParticle 0.8s ease-out forwards;
-    }
-    @keyframes burstParticle {
-      0% { transform: translate(0, 0) scale(1.5); opacity: 1; }
-      100% { transform: translate(var(--vx), var(--vy)) scale(0); opacity: 0; }
-    }
+/* Robotic saber: cyan + yellow lightning around the border */
+.saber{position:absolute;z-index:99999;pointer-events:none;overflow:visible;filter:drop-shadow(0 0 4px #00f0ff) drop-shadow(0 0 10px #ffea00)}
+.saber path{fill:none;stroke-linejoin:bevel;stroke-linecap:round}
+.sb{stroke:#00f0ff;stroke-width:2;animation:fl .5s ease-out forwards}
+.sc{stroke:#00f0ff;stroke-width:4;stroke-dasharray:10 15;animation:zap .9s linear forwards}
+.sy{stroke:#ffea00;stroke-width:3;stroke-dasharray:7 18;animation:zap2 .9s linear forwards}
+@keyframes fl{to{opacity:0}}
+@keyframes zap{0%,70%{opacity:1}100%{stroke-dashoffset:-100;opacity:0}}
+@keyframes zap2{0%,70%{opacity:1}100%{stroke-dashoffset:100;opacity:0}}
 
-    .smoke {
-      position: fixed;
-      pointer-events: none;
-      width: 12px;
-      height: 12px;
-      background: rgba(114, 17, 33, 0.35);
-      border-radius: 50%;
-      filter: blur(5px);
-      z-index: 99998;
-      animation: burstSmoke 1s ease-out forwards;
-    }
-    @keyframes burstSmoke {
-      0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-      100% { transform: translate(var(--sx), var(--sy)) scale(3); opacity: 0; }
-    }
+/* Filter tabs + project cards */
+.tabs{display:flex;justify-content:center;gap:.6rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.tab{background:var(--card);border:1px solid rgba(114,17,33,.5);color:var(--text);padding:.55rem 1.1rem;border-radius:999px;cursor:pointer;font:500 .9rem 'Inter',sans-serif;transition:.3s}
+.tab.on,.tab:hover{background:var(--bur);border-color:var(--gold);color:#fff}
+.card{background:var(--card);border:1px solid rgba(217,146,31,.15);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .4s,border-color .4s,box-shadow .4s}
+.card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 10px 30px rgba(114,17,33,.3)}
+.card a{display:block;color:inherit;text-decoration:none}
+.card img{display:block;width:100%;height:220px;object-fit:contain;background:#000}
+.cc{padding:1.2rem}
+.card h3{font-size:clamp(1.1rem,2.5vw,1.3rem);line-height:1.35;margin-bottom:.5rem}
+.card p{color:var(--muted);font-size:.9rem;line-height:1.6}
+.more{display:inline-block;margin-top:.8rem;color:var(--gold);font-weight:600;font-size:.9rem}
 
-    /* Ambient Background Glows */
-    .ambient{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-    .orb{position:absolute;width:clamp(340px,75vw,900px);aspect-ratio:1;border-radius:50%;will-change:transform;animation:drift 24s ease-in-out infinite alternate}
-    .o1{top:-18%;left:-22%;background:radial-gradient(circle,rgba(114,17,33,.55),transparent 65%)}
-    .o2{bottom:-22%;right:-25%;background:radial-gradient(circle,rgba(217,146,31,.2),transparent 65%);animation-duration:30s;animation-delay:-11s}
-    .o3{top:38%;left:35%;background:radial-gradient(circle,rgba(114,17,33,.3),transparent 65%);animation-duration:36s;animation-direction:alternate-reverse}
-    @keyframes drift{to{transform:translate3d(14vw,9vh,0) scale(1.18)}}
+/* Reels */
+.vid{border-radius:16px;overflow:hidden;border:2px solid var(--bur);box-shadow:0 10px 30px rgba(114,17,33,.3);background:var(--card)}
+.vid video{display:block;width:100%;height:260px;object-fit:cover;background:#000}
+.vid div{padding:1rem;text-align:left}
+.vid h3{font-size:1.1rem;color:var(--gold);margin-bottom:.3rem}
+.vid p{color:var(--muted);font-size:.85rem}
 
-    /* Navigation Header */
-    header {
-      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-      background: rgba(11, 7, 8, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(114, 17, 33, 0.3);
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.8rem 3%;
-    }
-    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .brand img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); }
-    .brand span { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--gold); font-size: 0.95rem; letter-spacing: 0.05rem; }
-    
-    nav { display: flex; gap: 1rem; flex-wrap: wrap; }
-    nav a { color: var(--text); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: color 0.3s; position: relative; }
-    nav a:hover { color: var(--gold); }
+/* AI assistant: locked bottom-right */
+#ai{position:fixed!important;bottom:max(20px,env(safe-area-inset-bottom))!important;right:20px!important;z-index:99999!important;transform:none!important}
+#tg{display:block;width:60px;height:60px;padding:0;border-radius:50%;background:var(--bur);border:2px solid var(--gold);cursor:pointer;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.5);animation:pulse 2s infinite}
+#tg img{width:100%;height:100%;object-fit:cover}
+#chat{position:absolute;bottom:75px;right:0;width:min(310px,calc(100vw - 40px));background:#130a0d;border:1px solid var(--bur);border-radius:16px;box-shadow:0 15px 40px rgba(0,0,0,.6);overflow:hidden}
+#chat.hidden{display:none}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;background:var(--bur);color:#fff;font-weight:700;font-size:.95rem}
+.ch button{background:none;border:0;color:#fff;font-size:1.3rem;cursor:pointer}
+.cb{display:flex;flex-direction:column;gap:8px;height:210px;overflow-y:auto;padding:14px;font-size:.85rem;line-height:1.5}
+.cb a{color:var(--gold)}
+.ci{display:flex;border-top:1px solid rgba(255,255,255,.1);background:var(--bg)}
+.ci input{flex:1;min-width:0;padding:12px;background:transparent;border:0;outline:0;color:#fff;font-size:16px}
+.ci button{padding:0 16px;background:var(--gold);border:0;color:#000;font-weight:700;cursor:pointer}
+@keyframes pulse{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(114,17,33,.6)}70%{transform:scale(1.08);box-shadow:0 0 0 12px rgba(114,17,33,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(114,17,33,0)}}
 
-    /* Hero Section */
-    .hero {
-      min-height: 75vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 6rem 1.5rem 2rem; position: relative;
-      background: radial-gradient(circle at center, var(--burgundy-glow) 0%, transparent 70%);
-    }
-    .hero h1 { font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: 1.15; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
-    .hero h1 span { color: var(--gold); display: block; }
-    .hero p { max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.05rem; color: var(--muted); line-height: 1.7; }
-
-    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn {
-      padding: 0.8rem 1.8rem; border-radius: 999px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer; display: inline-block;
-    }
-    .btn-primary { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold-glow); }
-    .btn-primary:hover { transform: translateY(-3px); background: #e09f2b; }
-    .btn-outline { border: 2px solid var(--burgundy); color: #fff; background: transparent; }
-    .btn-outline:hover { background: var(--burgundy); border-color: var(--burgundy); transform: translateY(-3px); }
-
-    /* Sections Container */
-    section { padding: 3rem 4%; max-width: 1300px; margin: 0 auto; }
-    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1rem; text-align: center; }
-    .section-desc { text-align: center; max-width: 650px; margin: 0 auto 3rem; color: var(--muted); font-size: 1rem; }
-
-    /* Filter Category Tabs */
-    .tabs { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
-    .tab-btn { background: var(--card-bg); border: 1px solid rgba(114, 17, 33, 0.5); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 999px; cursor: pointer; font-weight: 500; font-size: 0.9rem; transition: all 0.3s; }
-    .tab-btn.active, .tab-btn:hover { background: var(--burgundy); border-color: var(--gold); color: #fff; }
-
-    /* Grid & Cards */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-    .card {
-      background: var(--card-bg); border: 1px solid rgba(217, 146, 31, 0.15); border-radius: 16px; overflow: hidden;
-      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; position: relative;
-    }
-    .card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); }
-    .card img { width: 100%; height: 220px; object-fit: contain; background: #000; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .card-content { padding: 1.5rem; }
-    .card-meta { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05rem; margin-bottom: 0.6rem; font-weight: 600; }
-    .card h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); margin-bottom: 0.8rem; line-height: 1.35; }
-    .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
-
-    /* Floating AI Assistant Widget - Locked in place */
-    #ai-widget { 
-      position: fixed !important; 
-      bottom: 20px !important; 
-      right: 20px !important; 
-      z-index: 99999 !important; 
-      font-family: 'Inter', sans-serif; 
-      transform: none !important;
-    }
-    #chat-toggle {
-      width: 60px; height: 60px; border-radius: 50%; background: var(--burgundy); border: 2px solid var(--gold);
-      cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
-      animation: pulse-glow 2s infinite; font-size: 1.6rem; color: #fff; overflow: hidden;
-    }
-    #chat-toggle img { width: 100%; height: 100%; object-fit: cover; }
-    #chat-box {
-      position: absolute; bottom: 75px; right: 0; width: 310px; background: #130a0d; border: 1px solid var(--burgundy);
-      border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; overflow: hidden;
-      transition: all 0.3s ease;
-    }
-    #chat-box.hidden { display: none; }
-    .chat-header { background: var(--burgundy); color: #fff; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; font-weight: bold; font-size: 0.95rem; }
-    .chat-header button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
-    .chat-body { padding: 15px; height: 200px; overflow-y: auto; font-size: 0.85rem; color: var(--text); display: flex; flex-direction: column; gap: 10px; }
-    .chat-input-area { display: flex; border-top: 1px solid rgba(255,255,255,0.1); background: #0b0708; }
-    .chat-input-area input { flex: 1; background: transparent; border: none; padding: 12px; color: #fff; outline: none; font-size: 0.85rem; }
-    .chat-input-area button { background: var(--gold); border: none; padding: 0 16px; font-weight: bold; cursor: pointer; color: #000; font-size: 0.85rem; }
-
-    @keyframes pulse-glow {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(114, 17, 33, 0.6); }
-      70% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(114, 17, 33, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(114, 17, 33, 0); }
-    }
-
-    @media(max-width: 768px) {
-      nav { display: none; }
-      .hero { padding-top: 6rem; }
-      .o3 { display: none; }
-    }
-  </style>
+@media(max-width:768px){nav{display:none}.hero{min-height:50vh;padding-top:5rem}section{padding:1.5rem 5%}.desc{margin-bottom:1.2rem}.flip-card{height:340px}}
+@media(prefers-reduced-motion:reduce){.orb,#tg{animation:none}}
+</style>
 </head>
 <body>
 
-  <!-- Ambient Background Orbs -->
-  <div class="ambient" aria-hidden="true">
-    <i class="orb o1"></i>
-    <i class="orb o2"></i>
-    <i class="orb o3"></i>
+<div class="amb" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i></div>
+
+<header>
+  <a href="#" class="brand"><img src="Yan's cartoon headshot.png" alt="Yancarlos"><span>YANCARLOS MARTINEZ</span></a>
+  <nav>
+    <a href="#workshop-section">Workshop &amp; Robot</a>
+    <a href="#sylvia-section">Sylvia VFX</a>
+    <a href="#broccoli-section">Broccarlos</a>
+    <a href="#victor-section">Victor Blueprint</a>
+    <a href="#portfolio-gallery">Portfolio</a>
+    <a href="#reels">Reels</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Multi-Disciplinary Creator <span>Coder, Editor &amp; 3D Artist</span></h1>
+    <p>Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
+    <div class="btns"><a href="#portfolio-gallery" class="btn btn-primary">Explore Work</a><a href="#contact" class="btn btn-outline">Get in Touch</a></div>
   </div>
+</section>
 
-  <!-- Navigation -->
-  <header>
-    <a href="#" class="brand">
-      <img src="Yan's cartoon headshot.png" alt="Yancarlos">
-      <span>YANCARLOS MARTINEZ</span>
-    </a>
-    <nav>
-      <a href="#workshop-section">Workshop & Robot</a>
-      <a href="#sylvia-section">Sylvia VFX</a>
-      <a href="#broccoli-section">Broccarlos</a>
-      <a href="#victor-section">Victor Blueprint</a>
-      <a href="#portfolio-gallery">Portfolio</a>
-      <a href="#reels">Reels</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div>
-      <h1>Multi-Disciplinary Creator <span>Coder, Editor & 3D Artist</span></h1>
-      <p>Award-winning film editor, Unreal/Unity game developer, and commercial print model delivering high-end digital experiences from first frame to final deploy.</p>
-      <div class="btn-group">
-        <a href="#portfolio-gallery" class="btn btn-primary">Explore Work</a>
-        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+<!-- Workshop & robot -->
+<section id="workshop-section">
+  <h2 class="ttl shatter">Workshop &amp; Robot Universe</h2>
+  <p class="desc shatter">Explore the workshop scene preview. Tap for info to shatter the card and reveal the turnaround sheet.</p>
+  <div class="grid wide">
+    <div class="flip-card">
+      <div class="ff"><video src="Yan%27s%20first%20scene.mp4" poster="Yan%27s%20first%20scene.png" autoplay muted loop playsinline preload="auto"></video></div>
+      <div class="fb">
+        <h3>Yancarlos Turnaround &amp; Workshop</h3>
+        <p><b>Story:</b> Deep in the workshop, precision engineering meets imagination. Built for the animated short script, Yancarlos designs and assembles advanced robotics in real-time Unreal Engine lighting.</p>
+        <img src="Yan's turnaround sheet.png" alt="Yancarlos Turnaround Sheet">
       </div>
     </div>
-  </section>
-
-  <!-- SECTION 1: WORKSHOP & YANCARLOS TURNAROUND (Video playing first on front) -->
-  <section id="workshop-section" style="text-align: center;">
-    <h2 class="section-title shatter-text">Workshop & Robot Universe</h2>
-    <p class="section-desc shatter-text">Explore the workshop scene preview. Tap the card for info to shatter and reveal turnaround sheet.</p>
-    
-    <div class="grid" style="max-width: 950px; margin: 0 auto;">
-      <!-- Flip Card 1: Video playing first on front -->
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="padding: 0; background: #000;">
-            <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Yancarlos Turnaround & Workshop</h3>
-            <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;" class="shatter-text"><strong>Story:</strong> Deep in the workshop, precision engineering meets imagination. Built for the animated short script, Yancarlos designs and assembles advanced robotics in real-time Unreal Engine lighting.</p>
-            <img src="Yan's turnaround sheet.png" alt="Yancarlos Turnaround Sheet" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Flip Card 2: Yancel Robot Turnaround -->
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Yancel Robot Turnaround</h3>
-            <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;" class="shatter-text">Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p>
-            <img src="Yancel full_body turnaround sheet.png" alt="Full Body Robot" style="width: 100%; height: 130px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
+    <div class="flip-card">
+      <div class="ff"><img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround"></div>
+      <div class="fb">
+        <h3>Yancel Robot Turnaround</h3>
+        <p>Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p>
+        <img src="Yancel full_body turnaround sheet.png" alt="Yancel Full Body Robot">
       </div>
     </div>
-  </section>
-
-  <!-- SECTION 2: LAWYER SYLVIA'S ANIMATION PRESENTATION -->
-  <section id="sylvia-section" style="text-align: center; background: rgba(114, 17, 33, 0.05);">
-    <h2 class="section-title shatter-text">Sylvia's Animation Presentation</h2>
-    <p class="section-desc shatter-text">Explore Sylvia's presentation preview. Tap for info to shatter and reveal turnaround sheet.</p>
-    
-    <div style="max-width: 650px; margin: 0 auto;">
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="padding: 0; background: #000;">
-            <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Rendered Presentation & Turnaround</h3>
-            <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;" class="shatter-text">High-end character presentation and virtual environment showcase.</p>
-            <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 3: BROCCARLOS UNIVERSE -->
-  <section id="broccoli-section">
-    <h2 class="section-title shatter-text">The Broccarlos Universe</h2>
-    <p class="section-desc shatter-text">An original superhero concept born from creative imagination—tap any card below for info to shatter and reveal lore.</p>
-
-    <div class="grid">
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Character Anatomy</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Full character design and rigging sheet showing front, side, and back views for Broccarlos in high-end animation pipelines.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Costume & Gear</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccarlos.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="Broccoli Hero in the Enchanted Forest.png" alt="Enchanted Forest">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">The Legend</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Standing tall in the enchanted forest, Broccarlos protects nature's realm with unmatched power and resilience.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 4: VICTOR / AVICTOR 3D BLUEPRINT (Combined into a single interactive flip card with "TAP FOR INFO") -->
-  <section id="victor-section" style="text-align: center;">
-    <h2 class="section-title shatter-text">Victor / Avictor 3D Blueprint</h2>
-    <p class="section-desc shatter-text">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe. Tap card for info.</p>
-    
-    <div style="max-width: 650px; margin: 0 auto;">
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front" style="padding: 0; background: #000;">
-            <img src="Blender Avictor.png" alt="Blender Avictor Rig" style="width: 100%; height: 100%; object-fit: contain;">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Character Blueprint</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.5rem;" class="shatter-text">Anatomical guides, prop distribution, and texture mapping matrices designed for cinematic game engines.</p>
-            <img src="Victor Character Blueprint.jpg" alt="Victor Blueprint" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 5: PROJECT SHOWCASE & MILESTONES -->
-  <section id="portfolio-gallery">
-    <h2 class="section-title shatter-text">Project Showcase & Milestones</h2>
-    <p class="section-desc shatter-text">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
-
-    <div class="tabs">
-      <button class="tab-btn active" data-filter="all">All Projects</button>
-      <button class="tab-btn" data-filter="film">Film & Editing</button>
-      <button class="tab-btn" data-filter="3d">3D & Unreal Dev</button>
-      <button class="tab-btn" data-filter="modeling">Commercial Modeling</button>
-      <button class="tab-btn" data-filter="awards">Awards & Diplomas</button>
-    </div>
-
-    <div class="grid">
-      <div class="card" data-category="film">
-        <img src="The Families Feud.jpg" alt="The Families Feud">
-        <div class="card-content">
-          <div class="card-meta">February 2022 • Lead Editor</div>
-          <h3 class="shatter-text">The Families Feud</h3>
-          <p class="shatter-text">IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery.</p>
-        </div>
-      </div>
-
-      <!-- Fable Manny Book Card with Direct Amazon Order Link -->
-      <div class="card" data-category="modeling">
-        <a href="https://a.co/d/0feif4ZH" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-          <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover" style="cursor: pointer;">
-          <div class="card-content">
-            <div class="card-meta">2026 • Commercial Print Model</div>
-            <h3 class="shatter-text">Fable Manny Book Cover</h3>
-            <p class="shatter-text">Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p>
-            <span style="display: inline-block; margin-top: 1rem; color: var(--gold); font-weight: 600; font-size: 0.9rem;">Order on Amazon →</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="card" data-category="awards" id="awards">
-        <img src="IMDbProCard.png" alt="Awards and Diplomas">
-        <div class="card-content">
-          <div class="card-meta">New York Film Academy (Class of 2019) • Goodwin College</div>
-          <h3 class="shatter-text">Awards & Academic Diplomas</h3>
-          <p class="shatter-text">Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 6: FAMILY & CREATIVE COLLABORATIONS (Interactive Tap-to-Shatter Cards with Glow Effect) -->
-  <section style="background: rgba(217, 146, 31, 0.04);">
-    <h2 class="section-title shatter-text">Family & Creative Collaborations</h2>
-    <p class="section-desc shatter-text">Character Creator 5 character designs and digital portrait studies dedicated to loved ones. Tap any card for info.</p>
-    
-    <div class="grid">
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="Bri CC5.png" alt="Bri CC5 Portrait">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="card-meta">Character Creator 5</div>
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Bridgitte "Bri"</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Custom facial sculpting, hair simulation, and lifelike skin shader render dedicated to mi amor.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="Emmanuel CC5.png" alt="Emmanuel Portrait">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="card-meta">Character Creator 5</div>
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Emmanuel</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Advanced lighting and styling studio render test.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card electric-parent" onclick="triggerCardShatterTransition(this, event);">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="Olivia CC5.png" alt="Olivia Portrait">
-            <div class="tap-hint">TAP FOR INFO</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="card-meta">Character Creator 5</div>
-            <h3 style="color: var(--gold); margin-bottom: 0.5rem;" class="shatter-text">Olivia</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;" class="shatter-text">Detailed expression rigging and dynamic portrait lighting.</p>
-            <span style="display: block; margin-top: 1rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap for info to go back ]</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 7: ENDING SCENE & CHARACTER REELS (WITH FULL UNMUTED AUDIO CONTROLS) -->
-  <section id="reels" style="text-align: center;">
-    <h2 class="section-title shatter-text">Scene & Character Reels</h2>
-    <p class="section-desc shatter-text">Cinematic test renders and video reels with full sound. Use the built-in player controls to play with audio sound.</p>
-    
-    <div class="grid" style="max-width: 1100px; margin: 0 auto;">
-      <div class="electric-parent" style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg); position:relative;" onclick="triggerElectricLightning(this, event);">
-        <video src="Yan's first scene.mp4" controls playsinline style="width: 100%; height: 260px; object-fit: cover; display: block; background: #000;"></video>
-        <div style="padding: 1.2rem; text-align: left;">
-          <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);" class="shatter-text">First Scene Render</h3>
-          <p style="color: var(--muted); font-size: 0.85rem;" class="shatter-text">Real-time lighting and cinematic composition test in Unreal Engine.</p>
-        </div>
-      </div>
-
-      <div class="electric-parent" style="border-radius: 16px; overflow: hidden; border: 2px solid var(--burgundy); box-shadow: 0 10px 30px rgba(114, 17, 33, 0.3); background: var(--card-bg); position:relative;" onclick="triggerElectricLightning(this, event);">
-        <video src="Sylvia speech-1.mp4" controls playsinline style="width: 100%; height: 260px; object-fit: cover; display: block; background: #000;"></video>
-        <div style="padding: 1.2rem; text-align: left;">
-          <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--gold);" class="shatter-text">Rendered Animation Presentation</h3>
-          <p style="color: var(--muted); font-size: 0.85rem;" class="shatter-text">High-end character presentation and virtual environment showcase.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social & Professional Links Section -->
-  <section id="socials" style="text-align: center;">
-    <h3 style="font-size: 1.6rem; margin-bottom: 2rem; color: var(--gold);" class="shatter-text">Professional Profiles & Socials</h3>
-    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-      <a href="https://www.facebook.com/share/19sGsR39n8/" target="_blank" class="btn btn-outline">Facebook</a>
-      <a href="https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info" target="_blank" class="btn btn-outline">LinkedIn</a>
-      <a href="https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk" target="_blank" class="btn btn-outline">IMDb</a>
-      <a href="https://www.backstage.com" target="_blank" class="btn btn-outline">Backstage</a>
-      <a href="https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl" target="_blank" class="btn btn-outline">Instagram</a>
-      <a href="https://www.tiktok.com/@yancarlosmart1nez?_r=1&_t=ZP-9Ahc36fQtxv" target="_blank" class="btn btn-outline">TikTok</a>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" style="text-align: center;">
-    <h2 class="section-title shatter-text">Let's Build Something Great</h2>
-    <p class="section-desc shatter-text">Have a film project, web build, or 3D development inquiry? Let's connect.</p>
-    <a href="mailto:yanmartinez92@gmail.com" class="btn btn-primary">Email Me Directly</a>
-  </section>
-
-  <!-- Floating Animated AI Assistant Widget with Minimize -->
-  <div id="ai-widget">
-    <div id="chat-box" class="hidden">
-      <div class="chat-header">
-        <span>Yancarlos AI Assistant</span>
-        <button id="close-chat">&times;</button>
-      </div>
-      <div class="chat-body" id="chat-messages">
-        <p>👋 Hey! I'm Yancarlos's virtual assistant. Ask me about his IMDb award-winning editing, Unreal Engine 5 projects, or character universes!</p>
-      </div>
-      <div class="chat-input-area">
-        <input type="text" id="chat-input" placeholder="Type a question...">
-        <button id="send-chat">Send</button>
-      </div>
-    </div>
-    <button id="chat-toggle" title="Toggle AI Chat">
-      <img src="Yan's cartoon headshot.png" alt="Yancarlos Chat Head">
-    </button>
   </div>
+</section>
 
-  <script>
-    // Group section titles and descriptions into words and letters for shatter animation (Main Hero Title strictly excluded)
-    document.querySelectorAll('.shatter-text').forEach(el => {
-      const text = el.textContent;
-      const words = text.split(' ');
-      el.innerHTML = words.map(word => {
-        const chars = word.split('').map(char => {
-          const rx = (Math.random() - 0.5) * 180;
-          const ry = (Math.random() - 0.5) * 180;
-          const rrot = (Math.random() - 0.5) * 360;
-          return `<span class="char" style="--rx: ${rx}px; --ry: ${ry}px; --rrot: ${rrot}deg;">${char}</span>`;
-        }).join('');
-        return `<span class="word">${chars}</span>`;
-      }).join(' ');
+<!-- Sylvia -->
+<section id="sylvia-section" class="tint">
+  <h2 class="ttl shatter">Sylvia’s Animation Presentation</h2>
+  <p class="desc shatter">Explore Sylvia’s presentation preview. Tap for info to shatter the card and reveal the turnaround sheet.</p>
+  <div class="mid">
+    <div class="flip-card">
+      <div class="ff"><video src="Sylvia%20speech-1.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+      <div class="fb">
+        <h3>Rendered Presentation &amp; Turnaround</h3>
+        <p>High-end character presentation and virtual environment showcase.</p>
+        <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Broccarlos -->
+<section id="broccoli-section">
+  <h2 class="ttl shatter">The Broccarlos Universe</h2>
+  <p class="desc shatter">An original superhero concept born from creative imagination. Tap any card for info to shatter it and reveal the lore.</p>
+  <div class="grid">
+    <div class="flip-card">
+      <div class="ff"><img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround"></div>
+      <div class="fb"><h3>Character Anatomy</h3><p>Full character design and rigging sheet showing front, side, and back views for Broccarlos in high-end animation pipelines.</p></div>
+    </div>
+    <div class="flip-card">
+      <div class="ff"><img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown"></div>
+      <div class="fb"><h3>Costume &amp; Gear</h3><p>Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccarlos.</p></div>
+    </div>
+    <div class="flip-card">
+      <div class="ff"><img src="Broccoli Hero in the Enchanted Forest.png" alt="Broccarlos in the Enchanted Forest"></div>
+      <div class="fb"><h3>The Legend</h3><p>Standing tall in the enchanted forest, Broccarlos protects nature’s realm with unmatched power and resilience.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Victor / Avictor: one combined card -->
+<section id="victor-section">
+  <h2 class="ttl shatter">Victor / Avictor 3D Blueprint</h2>
+  <p class="desc shatter">Technical rigging sheets, armor breakdowns, and Blender sculpting specs for the Avictor universe. Tap the card for info.</p>
+  <div class="mid">
+    <div class="flip-card">
+      <div class="ff"><img class="fit" src="Blender Avictor.png" alt="Blender Avictor Rig"></div>
+      <div class="fb">
+        <h3>Character Blueprint</h3>
+        <p>Anatomical guides, prop distribution, and texture mapping matrices designed for cinematic game engines.</p>
+        <img src="Victor Character Blueprint.jpg" alt="Victor Blueprint">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Showcase -->
+<section id="portfolio-gallery">
+  <h2 class="ttl shatter">Project Showcase &amp; Milestones</h2>
+  <p class="desc shatter">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
+  <div class="tabs">
+    <button class="tab on" data-f="all">All Projects</button>
+    <button class="tab" data-f="film">Film &amp; Editing</button>
+    <button class="tab" data-f="3d">3D &amp; Unreal Dev</button>
+    <button class="tab" data-f="modeling">Commercial Modeling</button>
+    <button class="tab" data-f="awards">Awards &amp; Diplomas</button>
+  </div>
+  <div class="grid">
+    <div class="card" data-cat="film">
+      <img src="The Families Feud.jpg" alt="The Families Feud">
+      <div class="cc"><div class="meta">February 2022 • Lead Editor</div><h3>The Families Feud</h3><p>IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery.</p></div>
+    </div>
+    <div class="card" data-cat="modeling">
+      <a href="https://a.co/d/0feif4ZH" target="_blank" rel="noopener">
+        <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover">
+        <div class="cc"><div class="meta">2026 • Commercial Print Model</div><h3>Fable Manny Book Cover</h3><p>Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p><span class="more">Order on Amazon →</span></div>
+      </a>
+    </div>
+    <div class="card" data-cat="awards" id="awards">
+      <img src="IMDbProCard.png" alt="Awards and Diplomas">
+      <div class="cc"><div class="meta">New York Film Academy (Class of 2019) • Goodwin College</div><h3>Awards &amp; Academic Diplomas</h3><p>Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Family: short film cast -->
+<section class="tint2">
+  <h2 class="ttl shatter">Family &amp; Creative Collaborations</h2>
+  <p class="desc shatter">Character Creator 5 designs for the upcoming short film, starring the family. Tap any card for info.</p>
+  <div class="grid">
+    <div class="flip-card">
+      <div class="ff"><img src="Bri CC5.png" alt="Bridget, Character Creator 5 portrait"></div>
+      <div class="fb"><div class="meta">Short Film • Mom</div><h3>Bridget</h3><p>Mom in the upcoming short film. Professional modeling, facial sculpting, hair simulation, and rigging with texture-ready specs, built in Character Creator 5.</p></div>
+    </div>
+    <div class="flip-card">
+      <div class="ff"><img src="Emmanuel CC5.png" alt="Emmanuel, Character Creator 5 portrait"></div>
+      <div class="fb"><div class="meta">Short Film • Son</div><h3>Emmanuel</h3><p>Son in the upcoming short film. Character Creator 5 build with advanced lighting and styling studio render tests.</p></div>
+    </div>
+    <div class="flip-card">
+      <div class="ff"><img src="Olivia CC5.png" alt="Olivia, Character Creator 5 portrait"></div>
+      <div class="fb"><div class="meta">Short Film • Daughter</div><h3>Olivia</h3><p>Daughter in the upcoming short film. Detailed expression rigging and dynamic portrait lighting, built in Character Creator 5.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Reels (full player controls with sound) -->
+<section id="reels">
+  <h2 class="ttl shatter">Scene &amp; Character Reels</h2>
+  <p class="desc shatter">Cinematic test renders and video reels with full sound. Use the player controls to play with audio.</p>
+  <div class="grid" style="max-width:1100px;margin:0 auto">
+    <div class="vid">
+      <video src="Yan%27s%20first%20scene.mp4#t=0.1" poster="Yan%27s%20first%20scene.png" controls playsinline preload="metadata"></video>
+      <div><h3>First Scene Render</h3><p>Real-time lighting and cinematic composition test in Unreal Engine.</p></div>
+    </div>
+    <div class="vid">
+      <video src="Sylvia%20speech-1.mp4#t=0.1" controls playsinline preload="metadata"></video>
+      <div><h3>Rendered Animation Presentation</h3><p>High-end character presentation and virtual environment showcase.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="socials">
+  <h3 class="shatter">Professional Profiles &amp; Socials</h3>
+  <div class="row">
+    <a href="https://www.facebook.com/share/19sGsR39n8/" target="_blank" rel="noopener" class="btn btn-outline">Facebook</a>
+    <a href="https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn</a>
+    <a href="https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk" target="_blank" rel="noopener" class="btn btn-outline">IMDb</a>
+    <a href="https://www.backstage.com" target="_blank" rel="noopener" class="btn btn-outline">Backstage</a>
+    <a href="https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
+    <a href="https://www.tiktok.com/@yancarlosmart1nez?_r=1&amp;_t=ZP-9Ahc36fQtxv" target="_blank" rel="noopener" class="btn btn-outline">TikTok</a>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="ttl shatter">Let’s Build Something Great</h2>
+  <p class="desc shatter">Have a film project, web build, or 3D development inquiry? Let’s connect.</p>
+  <div class="btns"><a href="mailto:yanmartinez92@gmail.com" class="btn btn-primary">Email Me Directly</a></div>
+</section>
+
+<!-- AI assistant (fixed bottom-right) -->
+<div id="ai">
+  <div id="chat" class="hidden">
+    <div class="ch"><span>Yancarlos AI Assistant</span><button id="xc" aria-label="Close chat">&times;</button></div>
+    <div class="cb" id="msgs"><p>👋 Hey! I’m Yancarlos’s virtual assistant. Ask me about his IMDb-recognized editing, Unreal Engine 5 projects, modeling, or character universes!</p></div>
+    <div class="ci"><input id="q" type="text" placeholder="Type a question..." aria-label="Your question"><button id="snd">Send</button></div>
+  </div>
+  <button id="tg" title="Toggle AI Chat" aria-label="Toggle AI chat"><img src="Yan's cartoon headshot.png" alt="Yancarlos"></button>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),Q=s=>[...document.querySelectorAll(s)],rnd=(a,b)=>a+Math.random()*(b-a);
+
+/* 1. Section titles and descriptions break apart letter by letter on tap (the hero is not included) */
+Q('.shatter').forEach(el=>{
+  el.innerHTML=el.textContent.split(' ').map(w=>'<span class="word">'+[...w].map(c=>`<span class="char" style="--rx:${rnd(-90,90)}px;--ry:${rnd(-90,90)}px;--rr:${rnd(-180,180)}deg">${c}</span>`).join('')+'</span>').join(' ');
+  el.addEventListener('click',e=>{
+    el.classList.add('vib');setTimeout(()=>el.classList.remove('vib'),300);
+    el.querySelectorAll('.char').forEach(c=>{
+      const b=c.getBoundingClientRect();
+      if(Math.hypot(e.clientX-b.left-b.width/2,e.clientY-b.top-b.height/2)<150){c.classList.add('br');setTimeout(()=>c.classList.remove('br'),5000)}
     });
+  });
+});
 
-    // Particle & Smoke Burst Generator for Tapped Text Areas (Blended golden red/burgundy tones)
-    function createTextExplosion(x, y) {
-      const particleCount = 20;
-      for (let i = 0; i < particleCount; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = x + 'px';
-        p.style.top = y + 'px';
-        p.style.background = Math.random() > 0.4 ? '#d9921f' : '#721121';
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 30 + Math.random() * 90;
-        p.style.setProperty('--vx', Math.cos(angle) * speed + 'px');
-        p.style.setProperty('--vy', Math.sin(angle) * speed + 'px');
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 800);
-      }
-      for (let j = 0; j < 6; j++) {
-        const s = document.createElement('div');
-        s.className = 'smoke';
-        s.style.left = x + 'px';
-        s.style.top = y + 'px';
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 20 + Math.random() * 50;
-        s.style.setProperty('--sx', Math.cos(angle) * speed + 'px');
-        s.style.setProperty('--sy', Math.sin(angle) * speed + 'px');
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 1000);
-      }
+/* 2. Saber lightning: jagged cyan + yellow bolts racing around the whole border */
+function bolt(w,h){
+  const p=[],s=10,j=()=>rnd(-4.5,4.5);
+  for(let x=0;x<w;x+=s)p.push([x,j()]);
+  for(let y=0;y<h;y+=s)p.push([w+j(),y]);
+  for(let x=w;x>0;x-=s)p.push([x,h+j()]);
+  for(let y=h;y>0;y-=s)p.push([j(),y]);
+  return 'M'+p.map(a=>a[0].toFixed(1)+','+a[1].toFixed(1)).join('L')+'Z';
+}
+function saber(el){
+  const r=el.getBoundingClientRect(),w=r.width,h=r.height,m=8,ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('class','saber');
+  svg.setAttribute('viewBox',`${-m} ${-m} ${w+2*m} ${h+2*m}`);
+  svg.style.cssText=`left:${r.left+scrollX-m}px;top:${r.top+scrollY-m}px;width:${w+2*m}px;height:${h+2*m}px`;
+  const ps=['sb','sc','sy'].map(c=>{const p=document.createElementNS(ns,'path');p.setAttribute('class',c);p.setAttribute('pathLength',100);svg.appendChild(p);return p});
+  const draw=()=>ps.forEach(p=>p.setAttribute('d',bolt(w,h)));
+  draw();document.body.appendChild(svg);
+  const t=setInterval(draw,70);
+  setTimeout(()=>{clearInterval(t);svg.remove()},950);
+}
+
+/* 3. Cards shatter into shards and reveal the other side; tap again to reverse */
+const COLS=4,ROWS=3;
+function snap(v){
+  try{if(!v.videoWidth)throw 0;const c=document.createElement('canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);return c.toDataURL('image/jpeg',.6)}
+  catch(_){return v.poster}
+}
+function flip(card){
+  if(card.dataset.busy)return;card.dataset.busy=1;
+  const face=card.querySelector(card.classList.contains('flipped')?'.fb':'.ff'),tpl=face.cloneNode(true),vs=tpl.querySelectorAll('video');
+  face.querySelectorAll('video').forEach((v,i)=>{const im=new Image(),s=snap(v);if(s)im.src=s;vs[i].replaceWith(im)});
+  const P=[...Array(ROWS+1)].map((_,r)=>[...Array(COLS+1)].map((_,c)=>[c*100/COLS+(c%COLS?rnd(-7,7):0),r*100/ROWS+(r%ROWS?rnd(-8,8):0)]));
+  const box=document.createElement('div'),W=card.offsetWidth,H=card.offsetHeight,parts=[];
+  box.className='shards';
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    const a=P[r][c],b=P[r][c+1],d=P[r+1][c],e=P[r+1][c+1];
+    for(const t of [[a,b,d],[b,e,d]]){
+      const s=document.createElement('div'),x=(t[0][0]+t[1][0]+t[2][0])/3,y=(t[0][1]+t[1][1]+t[2][1])/3;
+      s.className='shard';
+      s.style.clipPath='polygon('+t.map(p=>p[0]+'% '+p[1]+'%').join(',')+')';
+      s.style.transformOrigin=x+'% '+y+'%';
+      s.appendChild(tpl.cloneNode(true));box.appendChild(s);parts.push([s,x-50,y-50]);
     }
+  }
+  card.appendChild(box);card.classList.toggle('flipped');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>parts.forEach(([s,x,y])=>{
+    s.style.transform=`translate(${x/50*W*rnd(.6,1.4)}px,${y/50*H*rnd(.6,1.4)+rnd(0,90)}px) rotate(${rnd(-90,90)}deg) scale(.3)`;
+    s.style.opacity=0;
+  })));
+  setTimeout(()=>{box.remove();delete card.dataset.busy},900);
+}
 
-    // Localized Tap-to-Break Script with exact reassembly timing (5 seconds)
-    document.querySelectorAll('.shatter-text').forEach(titleEl => {
-      titleEl.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        createTextExplosion(e.clientX, e.clientY);
+/* Any tap on a flip card, project card, or video container fires the saber; flip cards also shatter-toggle */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.flip-card,.card,.vid');
+  if(!t)return;
+  saber(t);
+  if(t.classList.contains('flip-card'))flip(t);
+});
 
-        // Trigger local vibration ONLY on this specific text element
-        titleEl.classList.add('vibrate-local');
-        setTimeout(() => {
-          titleEl.classList.remove('vibrate-local');
-        }, 300);
+/* 4. Reliable video: muted inline autoplay, retried on load, tab return, and the first touch (covers Low Power Mode) */
+const auto=Q('video[autoplay]'),kick=()=>auto.forEach(v=>{v.muted=true;try{v.play().catch(()=>{})}catch(_){}});
+kick();addEventListener('load',kick);document.addEventListener('visibilitychange',kick);
+['touchstart','pointerdown','scroll','keydown'].forEach(n=>addEventListener(n,kick,{once:true,passive:true}));
 
-        // Shatter characters near the tap point
-        const chars = titleEl.querySelectorAll('.char');
-        chars.forEach(char => {
-          const rect = char.getBoundingClientRect();
-          const dist = Math.hypot(e.clientX - (rect.left + rect.width/2), e.clientY - (rect.top + rect.height/2));
-          if (dist < 150) {
-            char.classList.add('shattered');
-            setTimeout(() => {
-              char.classList.remove('shattered');
-            }, 5000); // 5 seconds to re-form back into place
-          }
-        });
-      });
-    });
+/* 5. Category filter */
+const tabs=Q('.tab'),cards=Q('.card');
+tabs.forEach(b=>b.onclick=()=>{
+  tabs.forEach(t=>t.classList.toggle('on',t===b));
+  cards.forEach(c=>c.style.display=b.dataset.f==='all'||c.dataset.cat===b.dataset.f?'':'none');
+});
 
-    // Card Shatter / Disassemble Transition (Tapping toggles back and forth instantly)
-    function triggerCardShatterTransition(cardEl, event) {
-      if (event.target.closest('.flip-card-back') && event.target.tagName !== 'SPAN') return;
-
-      triggerElectricLightning(cardEl, event);
-
-      cardEl.classList.add('card-shattering');
-      setTimeout(() => {
-        cardEl.classList.toggle('flipped');
-        cardEl.classList.remove('card-shattering');
-      }, 450);
-    }
-
-    // Electric Lightning Saber effect with sharp traveling thunder dashes around the border (Blue & Yellow, No Blocks)
-    function triggerElectricLightning(element, event) {
-      const parentCard = element.closest('.electric-parent') || element;
-      parentCard.classList.add('electric-border');
-
-      const rect = parentCard.getBoundingClientRect();
-      
-      // Spawn sharp lightning thunder dashes along the border perimeter
-      for (let i = 0; i < 28; i++) {
-        const p = document.createElement('div');
-        p.className = 'border-lightning';
-        const side = Math.floor(Math.random() * 4);
-        let x, y;
-        if (side === 0) { x = rect.left + Math.random() * rect.width; y = rect.top; }
-        else if (side === 1) { x = rect.left + Math.random() * rect.width; y = rect.bottom; }
-        else if (side === 2) { x = rect.left; y = rect.top + Math.random() * rect.height; }
-        else { x = rect.right; y = rect.top + Math.random() * rect.height; }
-
-        p.style.left = x + 'px';
-        p.style.top = y + 'px';
-        p.style.background = Math.random() > 0.5 ? '#00f0ff' : '#ffea00';
-        
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 40 + Math.random() * 80;
-        p.style.setProperty('--lx', Math.cos(angle) * speed + 'px');
-        p.style.setProperty('--ly', Math.sin(angle) * speed + 'px');
-        
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 500);
-      }
-
-      setTimeout(() => {
-        parentCard.classList.remove('electric-border');
-      }, 700);
-    }
-
-    // Category Filtering Script
-    const filterBtns = document.querySelectorAll('.tab-btn');
-    const cards = document.querySelectorAll('.card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.getAttribute('data-filter');
-
-        cards.forEach(card => {
-          if (filter === 'all' || card.getAttribute('data-category') === filter) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-
-    // AI Assistant Widget Script with Full User Knowledge Base
-    const toggleBtn = document.getElementById('chat-toggle');
-    const chatBox = document.getElementById('chat-box');
-    const closeBtn = document.getElementById('close-chat');
-    const sendBtn = document.getElementById('send-chat');
-    const chatInput = document.getElementById('chat-input');
-    const chatMessages = document.getElementById('chat-messages');
-
-    toggleBtn.addEventListener('click', () => chatBox.classList.toggle('hidden'));
-    closeBtn.addEventListener('click', () => chatBox.classList.add('hidden'));
-
-    sendBtn.addEventListener('click', handleChat);
-    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
-
-    function handleChat() {
-      const text = chatInput.value.trim();
-      if(!text) return;
-
-      chatMessages.innerHTML += `<p><strong>You:</strong> ${text}</p>`;
-      chatInput.value = '';
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-
-      setTimeout(() => {
-        let reply = "Yancarlos Martinez is a multi-disciplinary creator specializing in film editing, 3D character design, game development, and commercial modeling!";
-        const lower = text.toLowerCase();
-
-        if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie') || lower.includes('editor')) {
-          reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He graduated from the New York Film Academy (Class of 2019) and Goodwin College.";
-        } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel') || lower.includes('broccarlos') || lower.includes('victor')) {
-          reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccarlos and Avictor!";
-        } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable') || lower.includes('manny') || lower.includes('bri') || lower.includes('emmanuel') || lower.includes('olivia')) {
-          reply = "Yancarlos is a commercial print model featured on the book cover of 'Fable Manny' (ISBN: 978454818982). View his portfolio on <a href='https://www.backstage.com' target='_blank' style='color:var(--gold);'>Backstage</a>.";
-        } else if(lower.includes('social') || lower.includes('instagram') || lower.includes('tiktok') || lower.includes('linkedin') || lower.includes('facebook')) {
-          reply = "Connect with Yancarlos across his professional profiles:<br>" +
-                  "• <a href='https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info' target='_blank' style='color:var(--gold);'>LinkedIn</a><br>" +
-                  "• <a href='https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl' target='_blank' style='color:var(--gold);'>Instagram</a><br>" +
-                  "• <a href='https://www.tiktok.com/@yancarlosmart1nez?_r=1&_t=ZP-9Ahc36fQtxv' target='_blank' style='color:var(--gold);'>TikTok</a><br>" +
-                  "• <a href='https://www.facebook.com/share/19sGsR39n8/' target='_blank' style='color:var(--gold);'>Facebook</a>";
-        } else if(lower.htmlincludes?.('contact') || lower.includes('contact') || lower.includes('hire') || lower.includes('email')) {
-          reply = "You can reach out directly via email at yanmartinez92@gmail.com!";
-        }
-
-        chatMessages.innerHTML += `<p style="color:var(--text); margin-top:5px;"><strong>AI:</strong> ${reply}</p>`;
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }, 500);
-    }
-  </script>
+/* 6. AI assistant */
+const L=(u,t)=>`<a href='${u}' target='_blank' rel='noopener'>${t}</a>`;
+const IMDB=L('https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk','IMDb');
+const ABOUT=`Yancarlos Martinez is a multi-disciplinary creator: a film editor recognized on ${IMDB} for “The Families Feud,” a New York Film Academy graduate (Class of 2019) who also studied at Goodwin College, a game developer and 3D artist (Unreal Engine 5, Unity, Blender, Character Creator 5), and a commercial print model on the cover of ${L('https://a.co/d/0feif4ZH','Fable Manny')}.`;
+const KB=[
+[/family|short film|bridget|emmanuel|olivia|\bmom\b|\bson\b|daughter/i,'His upcoming short film stars Character Creator 5 versions of Bridget (mom), Emmanuel (son), and Olivia (daughter).'],
+[/3d|game|unreal|unity|blender|\bcod(e|er|ing)\b|character|yancel|robot|broccarlos|broccoli|victor|sylvia/i,'He builds games, shaders, and 3D virtual environments with Unreal Engine 5, Unity, Blender, and Character Creator 5, plus original universes like Broccarlos and Avictor.'],
+[/model|book|print|backstage|fable|manny|amazon/i,`Yancarlos is a commercial print model featured on the cover of “Fable Manny.” ${L('https://a.co/d/0feif4ZH','Order it on Amazon')} or see his ${L('https://www.backstage.com','Backstage')} profile.`],
+[/film|edit|award|imdb|movie|feud|nyfa|academy|goodwin|school|educat|diploma|graduat/i,`Yancarlos is recognized on ${IMDB} for editing the feature film “The Families Feud.” He studied at the New York Film Academy (Class of 2019) and Goodwin College.`],
+[/social|instagram|tiktok|linkedin|facebook/i,'Connect with Yancarlos:<br>• '+L('https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info','LinkedIn')+'<br>• '+L('https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl','Instagram')+'<br>• '+L('https://www.tiktok.com/@yancarlosmart1nez?_r=1&_t=ZP-9Ahc36fQtxv','TikTok')+'<br>• '+L('https://www.facebook.com/share/19sGsR39n8/','Facebook')],
+[/contact|hire|email|reach/i,`You can reach Yancarlos directly at ${L('mailto:yanmartinez92@gmail.com','yanmartinez92@gmail.com')}.`]
+];
+const chat=$('chat'),msgs=$('msgs'),q=$('q');
+function say(who,txt,html){
+  const p=document.createElement('p'),b=document.createElement('b');
+  b.textContent=who+': ';p.appendChild(b);
+  if(html)p.insertAdjacentHTML('beforeend',txt);else p.append(txt);
+  msgs.appendChild(p);msgs.scrollTop=msgs.scrollHeight;
+}
+function ask(){
+  const t=q.value.trim();if(!t)return;
+  q.value='';say('You',t);
+  setTimeout(()=>say('AI',(KB.find(k=>k[0].test(t))||[0,ABOUT])[1],1),400);
+}
+$('tg').onclick=()=>chat.classList.toggle('hidden');
+$('xc').onclick=()=>chat.classList.add('hidden');
+$('snd').onclick=ask;
+q.onkeydown=e=>{if(e.key==='Enter')ask()};
+</script>
 </body>
 </html>
