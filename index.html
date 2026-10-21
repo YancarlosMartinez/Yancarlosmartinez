@@ -203,9 +203,9 @@
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Yancarlos / John Turnaround & Workshop</h3>
-            <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;">Full character anatomy breakdown paired with the workshop scene preview.</p>
-            <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px; background: #000;"></video>
-            <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
+            <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;"><strong>Story:</strong> Deep in the workshop, precision engineering meets imagination. Built for the animated short script, Yancarlos designs and assembles advanced robotics in real-time Unreal Engine lighting.</p>
+            <video src="Yan's first scene.mp4" autoplay muted loop playsinline style="width: 100%; height: 130px; object-fit: cover; border-radius: 6px; background: #000;"></video>
+            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
@@ -221,7 +221,7 @@
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Yancel Robot Turnaround</h3>
             <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;">Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p>
             <img src="Yancel full_body turnaround sheet.png" alt="Full Body Robot" style="width: 100%; height: 130px; object-fit: contain; background: #000; border-radius: 6px;">
-            <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
+            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
@@ -243,8 +243,8 @@
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Rendered Presentation</h3>
             <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem;">High-end character presentation and virtual environment showcase.</p>
-            <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px; background: #000;"></video>
-            <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
+            <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline style="width: 100%; height: 140px; object-fit: cover; border-radius: 6px; background: #000;"></video>
+            <span style="display: block; margin-top: 0.4rem; font-size: 0.7rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
@@ -348,21 +348,25 @@
         </div>
       </div>
 
+      <!-- Fable Manny Book Card with Direct Amazon Order Link -->
       <div class="card" data-category="modeling">
-        <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover">
-        <div class="card-content">
-          <div class="card-meta">2026 • Commercial Print Model</div>
-          <h3>Fable Manny Book Cover</h3>
-          <p>Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p>
-        </div>
+        <a href="https://a.co/d/0feif4ZH" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+          <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover" style="cursor: pointer;">
+          <div class="card-content">
+            <div class="card-meta">2026 • Commercial Print Model</div>
+            <h3>Fable Manny Book Cover</h3>
+            <p>Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p>
+            <span style="display: inline-block; margin-top: 1rem; color: var(--gold); font-weight: 600; font-size: 0.9rem;">Order on Amazon →</span>
+          </div>
+        </a>
       </div>
 
       <div class="card" data-category="awards" id="awards">
         <img src="IMDbProCard.png" alt="Awards and Diplomas">
         <div class="card-content">
-          <div class="card-meta">New York Film Academy • Goodwin College</div>
+          <div class="card-meta">New York Film Academy (Class of 2019) • Goodwin College</div>
           <h3>Awards & Academic Diplomas</h3>
-          <p>Formal academic training in film production, advanced post-production, and technical direction.</p>
+          <p>Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p>
         </div>
       </div>
     </div>
@@ -515,7 +519,7 @@
         const lower = text.toLowerCase();
 
         if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie') || lower.includes('editor')) {
-          reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He also studied at the New York Film Academy and Goodwin College.";
+          reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He graduated from the New York Film Academy (Class of 2019) and Goodwin College.";
         } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel') || lower.includes('broccarlos') || lower.includes('victor')) {
           reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccarlos and Avictor!";
         } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable') || lower.includes('manny') || lower.includes('bri') || lower.includes('emmanuel') || lower.includes('olivia')) {
