@@ -186,10 +186,11 @@
       <span>YANCARLOS MARTINEZ</span>
     </a>
     <nav>
-      <a href="#vfx-transformation">VFX</a>
-      <a href="#portfolio-gallery">Portfolio</a>
-      <a href="#broccoli-section">Broccoli Hero</a>
+      <a href="#workshop-section">Workshop & Robot</a>
+      <a href="#sylvia-section">Sylvia VFX</a>
+      <a href="#broccoli-section">Broccoli Carlos</a>
       <a href="#victor-section">Victor Blueprint</a>
+      <a href="#portfolio-gallery">Portfolio</a>
       <a href="#reels">Reels</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -207,39 +208,76 @@
     </div>
   </section>
 
-  <!-- VIRTUAL PRODUCTION & HOVER-REVEAL TURNAROUND SECTION -->
-  <section id="vfx-transformation" style="text-align: center;">
-    <h2 class="section-title">Virtual Production & VFX Pipeline</h2>
-    <p class="section-desc">Tap or hover across the full-body character turnaround to reveal the live green-screen video composite.</p>
+  <!-- SECTION 1: WORKSHOP & YANCEL'S ROBOT STORY -->
+  <section id="workshop-section" style="text-align: center;">
+    <h2 class="section-title">Workshop & Robot Universe</h2>
+    <p class="section-desc">Experience the first story chapter: real-time lighting and robotics assembly in the workshop, paired with Yancel's interactive character turnaround sheet.</p>
     
-    <div class="hover-vfx-container">
-      <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Character Turnaround" class="vfx-base-image">
-      <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline class="vfx-hover-video"></video>
-      <div class="vfx-badge">HOVER / TAP TO REVEAL GREEN SCREEN</div>
+    <div style="max-width: 950px; margin: 0 auto 3rem; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 25px 50px rgba(114, 17, 33, 0.6); background: var(--card-bg);">
+      <video src="Yan's first scene.mp4" controls playsinline style="width: 100%; height: 400px; object-fit: cover; display: block; background: #000;"></video>
+      <div style="padding: 1.5rem; text-align: left;">
+        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">The Workshop Scene</h3>
+        <p style="color: var(--muted); font-size: 0.95rem;">Yancarlos building and assembling robotics in an immersive Unreal Engine 5 environment.</p>
+      </div>
     </div>
-  </section>
 
-  <!-- BROCCOLI HERO STORY & LORE SECTION (CLICK-TO-FLIP) -->
-  <section id="broccoli-section" style="background: rgba(114, 17, 33, 0.08);">
-    <h2 class="section-title">The Broccoli Hero Universe</h2>
-    <p class="section-desc">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
-
-    <div class="grid">
-      <!-- Flip Card 1: Turnaround -->
+    <!-- Interactive Flip Card for Yancel's Robot Turnaround -->
+    <div style="max-width: 600px; margin: 0 auto;">
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
-            <img src="Broccoli Boy Character Turnaround.png" alt="Broccoli Boy Turnaround">
+            <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Head Turnaround">
+          </div>
+          <div class="flip-card-back">
+            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Yancel Robot - Full Turnaround</h3>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem;">Tap to view the complete front, side, and back body rigging sheet designed for the robot character universe.</p>
+            <img src="Yancel full_body turnaround sheet.png" alt="Full Body Turnaround" style="width: 100%; height: 140px; object-fit: contain; background: #000; border-radius: 6px;">
+            <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: LAWYER SYLVIA'S PROJECT PRESENTATION -->
+  <section id="sylvia-section" style="text-align: center; background: rgba(114, 17, 33, 0.05);">
+    <h2 class="section-title">Sylvia's Animation Presentation</h2>
+    <p class="section-desc">Explore Sylvia's professional project presentation and interactive character turnaround sheet.</p>
+    
+    <div class="hover-vfx-container" style="margin-bottom: 3rem;">
+      <img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround Sheet" class="vfx-base-image">
+      <video src="Sylvia speech-1.mp4" autoplay muted loop playsinline class="vfx-hover-video"></video>
+      <div class="vfx-badge">HOVER / TAP TO REVEAL PRESENTATION</div>
+    </div>
+
+    <div style="max-width: 950px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 25px 50px rgba(114, 17, 33, 0.6); background: var(--card-bg);">
+      <video src="Sylvia speech-1.mp4" controls playsinline style="width: 100%; height: 400px; object-fit: cover; display: block; background: #000;"></video>
+      <div style="padding: 1.5rem; text-align: left;">
+        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Rendered Animation Presentation</h3>
+        <p style="color: var(--muted); font-size: 0.95rem;">High-end character presentation and virtual environment showcase.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: BROCCOLI CARLOS UNIVERSE -->
+  <section id="broccoli-section">
+    <h2 class="section-title">The Broccoli Carlos Universe</h2>
+    <p class="section-desc">An original superhero concept born from creative imagination—tap any card below to flip it and reveal the story and character lore.</p>
+
+    <div class="grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="Broccoli Boy Character Turnaround.png" alt="Broccoli Carlos Turnaround">
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Character Anatomy</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Full character design and rigging sheet showing front, side, and back views for high-end animation pipelines. Created with intricate detail to bring the Broccoli Hero to life.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Full character design and rigging sheet showing front, side, and back views for Broccoli Carlos in high-end animation pipelines.</p>
             <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
 
-      <!-- Flip Card 2: Costume Breakdown -->
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
@@ -247,13 +285,12 @@
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Costume & Gear</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for legendary quests.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Detailed breakdown of tactical armor, signature crimson cape, utility belt, and custom superhero accessories forged for Broccoli Carlos.</p>
             <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
       </div>
 
-      <!-- Flip Card 3: Enchanted Forest -->
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
@@ -261,7 +298,7 @@
           </div>
           <div class="flip-card-back">
             <h3 style="color: var(--gold); margin-bottom: 0.5rem;">The Legend</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Standing tall in the enchanted forest, the Broccoli Hero protects nature's realm with unmatched power, inspiring courage and growth across the universe.</p>
+            <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Standing tall in the enchanted forest, Broccoli Carlos protects nature's realm with unmatched power and resilience.</p>
             <span style="display: block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: monospace;">[ Tap to flip back ]</span>
           </div>
         </div>
@@ -269,7 +306,7 @@
     </div>
   </section>
 
-  <!-- VICTOR / AVICTOR CHARACTER BLUEPRINT SECTION -->
+  <!-- SECTION 4: VICTOR / AVICTOR 3D BLUEPRINT -->
   <section id="victor-section" style="text-align: center;">
     <h2 class="section-title">Victor / Avictor 3D Blueprint</h2>
     <p class="section-desc">Technical rigging sheets, armor breakdowns, and blender sculpting specs for the Avictor universe.</p>
@@ -293,7 +330,7 @@
     </div>
   </section>
 
-  <!-- Interactive Portfolio Gallery Section -->
+  <!-- SECTION 5: PROJECT SHOWCASE & MILESTONES -->
   <section id="portfolio-gallery">
     <h2 class="section-title">Project Showcase & Milestones</h2>
     <p class="section-desc">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
@@ -307,7 +344,6 @@
     </div>
 
     <div class="grid">
-      <!-- Item 1: Film -->
       <div class="card" data-category="film">
         <img src="The Families Feud.jpg" alt="The Families Feud">
         <div class="card-content">
@@ -317,28 +353,6 @@
         </div>
       </div>
 
-      <!-- Item 2: Yancel Robot 3D Turnaround Flip Card (Separated & Interactive) -->
-      <div class="card" data-category="3d" id="3d-section">
-        <div class="flip-card" style="height: 280px; margin-bottom: 0;" onclick="this.classList.toggle('flipped')">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Head">
-            </div>
-            <div class="flip-card-back">
-              <h3 style="color: var(--gold); margin-bottom: 0.4rem; font-size: 1.1rem;">Full Turnaround Sheet</h3>
-              <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.5;">Tap to view the complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p>
-              <img src="Yancel full_body turnaround sheet.png" alt="Full Body Turnaround" style="width: 100%; height: 120px; object-fit: contain; margin-top: 0.5rem; background: #000; border-radius: 6px;">
-            </div>
-          </div>
-        </div>
-        <div class="card-content">
-          <div class="card-meta">2026 • Unreal Engine / Blender</div>
-          <h3>Interactive 3D Environments</h3>
-          <p>Custom 3D character design, rigging in Character Creator 5, and immersive game engine prototyping.</p>
-        </div>
-      </div>
-
-      <!-- Item 3: Commercial Modeling / Book Cover (Separated Cleanly) -->
       <div class="card" data-category="modeling">
         <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover">
         <div class="card-content">
@@ -348,7 +362,6 @@
         </div>
       </div>
 
-      <!-- Item 4: Awards -->
       <div class="card" data-category="awards" id="awards">
         <img src="IMDbProCard.png" alt="Awards and Diplomas">
         <div class="card-content">
@@ -360,7 +373,7 @@
     </div>
   </section>
 
-  <!-- FAMILY & COLLABORATORS SHOWCASE -->
+  <!-- SECTION 6: FAMILY & CREATIVE COLLABORATIONS -->
   <section style="background: rgba(217, 146, 31, 0.04);">
     <h2 class="section-title">Family & Creative Collaborations</h2>
     <p class="section-desc">Character Creator 5 character designs and digital portrait studies dedicated to loved ones.</p>
@@ -395,7 +408,7 @@
     </div>
   </section>
 
-  <!-- SCENE & CHARACTER REELS (WITH UNMUTED AUDIO CONTROLS) -->
+  <!-- SECTION 7: ENDING SCENE & CHARACTER REELS (WITH AUDIO) -->
   <section id="reels" style="text-align: center;">
     <h2 class="section-title">Scene & Character Reels</h2>
     <p class="section-desc">Cinematic test renders and video reels. Use the built-in player controls to play with audio sound.</p>
@@ -509,7 +522,7 @@
         if(lower.includes('film') || lower.includes('award') || lower.includes('imdb') || lower.includes('movie') || lower.includes('editor')) {
           reply = "Yancarlos is an award-winning film editor recognized on <a href='https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk' target='_blank' style='color:var(--gold);'>IMDb</a> for his work on feature films like 'The Families Feud'. He also studied at the New York Film Academy and Goodwin College.";
         } else if(lower.includes('3d') || lower.includes('game') || lower.includes('unreal') || lower.includes('blender') || lower.includes('coder') || lower.includes('character') || lower.includes('son') || lower.includes('yancel') || lower.includes('broccoli') || lower.includes('victor')) {
-          reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccoli Hero and Avictor!";
+          reply = "He builds games, shaders, and 3D virtual environments using Unreal Engine 5, Unity, Blender, and Character Creator 5, alongside original character universes like Broccoli Carlos and Avictor!";
         } else if(lower.includes('model') || lower.includes('book') || lower.includes('print') || lower.includes('backstage') || lower.includes('fable') || lower.includes('manny') || lower.includes('bri') || lower.includes('emmanuel') || lower.includes('olivia')) {
           reply = "Yancarlos is a commercial print model featured on the book cover of 'Fable Manny' (ISBN: 978454818982). View his portfolio on <a href='https://www.backstage.com' target='_blank' style='color:var(--gold);'>Backstage</a>.";
         } else if(lower.includes('social') || lower.includes('instagram') || lower.includes('tiktok') || lower.includes('linkedin') || lower.includes('facebook')) {
