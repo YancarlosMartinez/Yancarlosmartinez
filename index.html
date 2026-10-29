@@ -183,6 +183,21 @@ footer.site img{width:110px;margin:0 auto .7rem;border-radius:10px}
 .fb.sheet p{font-size:.82rem;line-height:1.5}
 @media(max-width:768px){.fam .stage{height:470px}}
 @media(prefers-reduced-motion:reduce){.orb,#tg{animation:none}}
+/* Portfolio project cards + viewer */
+.pgrid .card img{object-fit:cover}
+.card.proj:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+#pv{width:min(980px,94vw);max-height:92vh;margin:auto;padding:0;border:1px solid rgba(217,146,31,.4);border-radius:16px;background:var(--card);color:var(--text);overflow:hidden}
+#pv::backdrop{background:rgba(5,3,4,.82)}
+.pv-in{position:relative;max-height:92vh;overflow:auto;padding:1.3rem 1.3rem 1.5rem}
+.pv-x{position:sticky;top:0;float:right;width:42px;height:42px;margin:-.4rem -.4rem 0 .6rem;border-radius:50%;border:1px solid var(--gold);background:rgba(11,7,8,.85);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;z-index:2}
+#pv h3{font-size:clamp(1.3rem,3vw,1.7rem);margin-bottom:.4rem}
+#pvD{color:var(--muted);max-width:68ch;margin-bottom:.8rem}
+#pvL a{display:inline-block;margin:0 0 1rem;color:var(--gold);font-weight:600}
+.pv-media{display:grid;gap:1rem}
+.pv-media figure{margin:0;background:#000;border-radius:12px;overflow:hidden}
+.pv-media video,.pv-media img{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain;margin:0 auto;background:#000}
+.pv-media figcaption{padding:.5rem .8rem;color:var(--muted);font-size:.85rem;background:var(--card)}
+@media(min-width:760px){.pv-media.two{grid-template-columns:1fr 1fr}.pv-media.two figure.wide{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -285,43 +300,150 @@ footer.site img{width:110px;margin:0 auto .7rem;border-radius:10px}
   </div>
 </section>
 
-<!-- Showcase -->
+<!-- Portfolio: projects from the Drive "Projects" folder, sorted by category; a project card opens its videos and photos -->
 <section id="portfolio-gallery">
-  <h2 class="ttl shatter">Project Showcase &amp; Milestones</h2>
-  <p class="desc shatter">Filter through professional media, 3D character work, modeling print campaigns, and verified credentials.</p>
-  <div class="tabs">
-    <button class="tab on" data-f="all">All Projects</button>
-    <button class="tab" data-f="film">Film &amp; Editing</button>
-    <button class="tab" data-f="3d">3D &amp; Unreal Dev</button>
-    <button class="tab" data-f="modeling">Commercial Modeling</button>
-    <button class="tab" data-f="awards">Awards &amp; Diplomas</button>
+  <h2 class="ttl shatter">Portfolio</h2>
+  <p class="desc shatter">Movies, music videos, reels, cartoons and animation. Tap a project to see its videos and photos.</p>
+  <div class="tabs" role="group" aria-label="Filter projects">
+    <button class="tab on" data-f="all">All</button>
+    <button class="tab" data-f="movies">Movies</button>
+    <button class="tab" data-f="music">Music Videos</button>
+    <button class="tab" data-f="reels">Reels &amp; Commercials</button>
+    <button class="tab" data-f="cartoons">Cartoons</button>
+    <button class="tab" data-f="animation">Animation</button>
+    <button class="tab" data-f="awards">Awards</button>
   </div>
-  <div class="grid">
-    <div class="card" data-cat="3d">
-      <a href="salon/">
-        <img src="salon/img/salon-full.webp" alt="3D model of the Ms. Trish Self-Care Salon" loading="lazy" decoding="async">
-        <div class="cc"><div class="meta">October 2026 • 3D Design &amp; Presentation</div><h3 class="shatter">Ms. Trish Self-Care Salon</h3><p class="shatter">Trish’s vision of a self-care salon for hospital patients, parents and staff: the full salon in 3D, 17 modeled pieces, and a narrated interactive presentation for a charity luncheon.</p><span class="more">See the project →</span></div>
+  <div class="grid pgrid">
+    <div class="card proj" data-cat="movies" data-p="costly-mistake" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/costly-mistake/thumb.webp" alt="Costly Mistake title card over a man working at a laptop" loading="lazy" decoding="async" style="object-position:center">
+      <div class="cc"><div class="meta">Short Film • Filmed, Edited &amp; Acted</div><h3>Costly Mistake</h3><p>A short film for Ubong Inyang Production with a message against domestic violence.</p><span class="more">Open 5 photos →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="fable-manny" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/fable-manny/thumb.webp" alt="Fable Manny book: front cover, spine and back cover" loading="lazy" decoding="async" style="object-position:center 15%">
+      <div class="cc"><div class="meta">Video &amp; Book • Filmed, Edited &amp; Graphic Design</div><h3>Fable Manny</h3><p>Cover model, book cover design and video for Fable Manny by Michaelangelo.</p><span class="more">Open 1 photo →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="for-bobby" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/for-bobby/thumb.webp" alt="Yancarlos on set with the For Bobby cast and crew" loading="lazy" decoding="async" style="object-position:center 30%">
+      <div class="cc"><div class="meta">Film • Behind the Scenes</div><h3>For Bobby</h3><p>On set with the cast and crew of For Bobby.</p><span class="more">Open 1 photo →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="reflections" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/reflections/thumb.webp" alt="Crew filming beside a classic car" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">Series • Filmed, Edited &amp; Acted</div><h3>Reflections: Project Chameleon</h3><p>The episode 6 scene with visual effects, filmed with McGee Productions.</p><span class="more">Open 1 video and 5 photos →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="santa-gets-served" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/santa-gets-served/thumb.webp" alt="Santa Gets Served title card" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">SideFlick • Filmed, Edited &amp; Acted</div><h3>Santa Gets Served</h3><p>A Christmas comedy short from SideFlick.</p><span class="more">Open 4 photos →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="sunita" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/sunita/thumb.webp" alt="Filming a scene at an outdoor table" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">Film • Behind the Scenes</div><h3>Sunita</h3><p>Behind the camera on the set of Sunita.</p><span class="more">Open 4 photos →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="the-families-feud" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/the-families-feud/thumb.webp" alt="The Families Feud movie poster" loading="lazy" decoding="async" style="object-position:center 20%">
+      <div class="cc"><div class="meta">February 2022 • Lead Editor, VFX &amp; Sizzle Reel</div><h3>The Families Feud</h3><p>IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery. Includes a before-and-after of the visual effects.</p><span class="more">Open 2 videos and 1 photo →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="the-tremont" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/the-tremont/thumb.webp" alt="The Tremont coming soon poster" loading="lazy" decoding="async" style="object-position:center 30%">
+      <div class="cc"><div class="meta">6Q Studios • Cinematography &amp; Edit</div><h3>The Tremont</h3><p>Written by David Torres Jr. and directed by Koby Gartner, with cinematography by Yancarlos Martinez.</p><span class="more">Open 2 videos and 1 photo →</span></div>
+    </div>
+    <div class="card proj" data-cat="movies" data-p="ubs-secret" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/ubs-secret/thumb.webp" alt="UB’s Secret title card over a house" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">Ubong Inyang Production • Filmed &amp; Edited</div><h3>UB’s Secret</h3><p>A drama for Ubong Inyang Production, including clone shots that put UB in the same room more than once.</p><span class="more">Open 4 photos →</span></div>
+    </div>
+    <div class="card proj" data-cat="music" data-p="alerta" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/alerta/thumb.webp" alt="El Coco by a truck with his name on screen" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">El Coco x D.Ozi • Filmed &amp; Edited</div><h3>Alerta</h3><p>Music video for El Coco x D.Ozi.</p><span class="more">Open 4 photos →</span></div>
+    </div>
+    <div class="card proj" data-cat="reels" data-p="bruce-busta-reel" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/bruce-busta-reel/thumb.webp" alt="Joe McGee, Bruce “Busta” Soscia and Yancarlos" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">Actor Reel • Edit &amp; Intro</div><h3>Bruce “Busta” Soscia Actor Reel</h3><p>Edited the actor reel and its intro for Bruce “Busta” Soscia.</p><span class="more">Open 1 photo →</span></div>
+    </div>
+    <div class="card proj" data-cat="reels" data-p="billsbury-grand-opening" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/billsbury-grand-opening/thumb.webp" alt="Yancarlos filming the Billsbury Turtle mascot at the grand opening" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">Event • Filmed</div><h3>Billsbury Turtle Grand Opening</h3><p>Filming the Billsbury Turtle store’s grand opening.</p><span class="more">Open 1 photo →</span></div>
+    </div>
+    <div class="card proj" data-cat="reels" data-p="virtual-cons-intro" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/virtual-cons-intro/thumb.webp" alt="Virtual Cons Intro" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">Title Sequence • Edit &amp; Motion Graphics</div><h3>Virtual Cons Intro</h3><p>A cigar-burn title intro for Virtual Cons, featuring Armand Assante.</p><span class="more">Open 1 video →</span></div>
+    </div>
+    <div class="card proj" data-cat="reels" data-p="joe-young-studio" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/joe-young-studio/thumb.webp" alt="Camera, monitor, sound recorder and softbox set up in the studio" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">Studio Shoot • Behind the Scenes</div><h3>Joe Young Studio</h3><p>Camera, sound and lighting set up for a studio shoot.</p><span class="more">Open 1 photo →</span></div>
+    </div>
+    <div class="card proj" data-cat="reels" data-p="dont-feel-nun" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/dont-feel-nun/thumb.webp" alt="Don’t Feel Nun" loading="lazy" decoding="async" style="object-position:center">
+      <div class="cc"><div class="meta">Zaza Davinchi • Album Cover &amp; Motion Graphics</div><h3>Don’t Feel Nun</h3><p>An animated album cover for Zaza Davinchi featuring Billsbury Turtle.</p><span class="more">Open 1 video →</span></div>
+    </div>
+    <div class="card proj" data-cat="cartoons" data-p="ub-cartoon" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/ub-cartoon/thumb.webp" alt="UB as a 3D cartoon character, pointing" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">3D Cartoon Character • Character Creator</div><h3>UB in 3D</h3><p>A cartoon version of UB, posed and rendered in Character Creator.</p><span class="more">Open 3 photos →</span></div>
+    </div>
+    <div class="card" data-cat="cartoons">
+      <a href="#broccoli-section">
+        <img src="img/broccoli-hero-in-the-enchanted-forest.webp" alt="Broccarlos in the enchanted forest" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">Original Superhero</div><h3>The Broccarlos Universe</h3><p>Turnarounds, the costume breakdown and the legend of Broccarlos.</p><span class="more">Go to section →</span></div>
       </a>
     </div>
-    <div class="card" data-cat="film">
-      <img src="img/the-families-feud.webp" alt="The Families Feud" loading="lazy" decoding="async">
-      <div class="cc"><div class="meta">February 2022 • Lead Editor</div><h3 class="shatter">The Families Feud</h3><p class="shatter">IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery.</p></div>
+    <div class="card" data-cat="cartoons">
+      <a href="#family-section">
+        <img src="img/olivia-cc5.webp" alt="Olivia, a 3D cartoon character" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">Short Film Cast</div><h3>The Family Characters</h3><p>Bridgitte, Emmanuel, Olivia and Yancel, with their turnaround sheets.</p><span class="more">Go to section →</span></div>
+      </a>
     </div>
-    <div class="card" data-cat="modeling">
-      <a href="https://a.co/d/0feif4ZH" target="_blank" rel="noopener">
-        <img src="img/fable-manny-the-book-front-spine-back-covers.webp" alt="Fable Manny Book Cover" loading="lazy" decoding="async">
-        <div class="cc"><div class="meta">2026 • Commercial Print Model</div><h3 class="shatter">Fable Manny Book Cover</h3><p class="shatter">Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p><span class="more">Order on Amazon →</span></div>
+    <div class="card" data-cat="cartoons">
+      <a href="#workshop-section">
+        <img src="img/yancel-robot-head-turnaround-sheet.webp" alt="Yancel robot head turnaround" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">Animated Short</div><h3>Workshop &amp; Robot Universe</h3><p>Yancarlos in the workshop and the Yancel robot turnarounds.</p><span class="more">Go to section →</span></div>
+      </a>
+    </div>
+    <div class="card proj" data-cat="animation" data-p="cc-timelapse" tabindex="0" role="button" aria-haspopup="dialog">
+      <img src="work/cc-timelapse/thumb.webp" alt="Character Creator timelapse thumbnail with a tattooed 3D character" loading="lazy" decoding="async">
+      <div class="cc"><div class="meta">@YanAnimations • 2024</div><h3>Character Creator Timelapse</h3><p>Building a 3D character in Reallusion Character Creator, from the base body to clothing and tattoos.</p><span class="more">Open 1 photo →</span></div>
+    </div>
+    <div class="card" data-cat="animation">
+      <a href="#sylvia-section">
+        <img src="img/sylvia-speech-poster.jpg" alt="Sylvia’s animated welcome" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">Rendered Animation</div><h3>Sylvia’s Animation Presentation</h3><p>Sylvia’s animated welcome for the Ms. Trish Self-Care Salon presentation.</p><span class="more">Go to section →</span></div>
+      </a>
+    </div>
+    <div class="card" data-cat="animation">
+      <a href="#victor-section">
+        <img src="img/blender-avictor.webp" alt="Avictor rigged in Blender" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">Blender • 3D Blueprint</div><h3>Victor / Avictor</h3><p>Rigging sheets, armor breakdowns and Blender sculpting for the Avictor universe.</p><span class="more">Go to section →</span></div>
+      </a>
+    </div>
+    <div class="card" data-cat="animation">
+      <a href="#reels">
+        <img src="img/first-scene-poster.jpg" alt="First scene render in Unreal Engine" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">Unreal Engine</div><h3>Scene &amp; Character Reels</h3><p>The first scene render, Sylvia’s welcome and the creature animation test.</p><span class="more">Go to section →</span></div>
+      </a>
+    </div>
+    <div class="card" data-cat="animation">
+      <a href="salon/">
+        <img src="salon/img/salon-full.webp" alt="3D model of the Ms. Trish Self-Care Salon" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">October 2026 • 3D Design &amp; Presentation</div><h3>Ms. Trish Self-Care Salon</h3><p>Trish’s vision of a self-care salon for hospital patients, parents and staff: the full salon in 3D, 17 modeled pieces, and a narrated interactive presentation for a charity luncheon.</p><span class="more">See the project →</span></div>
       </a>
     </div>
     <div class="card" data-cat="awards" id="awards">
       <img src="img/imdbprocard.webp" alt="Awards and Diplomas" loading="lazy" decoding="async">
-      <div class="cc"><div class="meta">New York Film Academy (Class of 2019) • Goodwin College</div><h3 class="shatter">Awards &amp; Academic Diplomas</h3><p class="shatter">Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p></div>
+      <div class="cc"><div class="meta">New York Film Academy (Class of 2019) • Goodwin College</div><h3>Awards &amp; Academic Diplomas</h3><p>Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p></div>
     </div>
   </div>
 </section>
 
+<dialog id="pv" aria-labelledby="pvT">
+  <div class="pv-in">
+    <button class="pv-x" type="button" aria-label="Close">&times;</button>
+    <div class="meta" id="pvM"></div>
+    <h3 id="pvT"></h3>
+    <p id="pvD"></p>
+    <div id="pvL"></div>
+    <div class="pv-media" id="pvG"></div>
+  </div>
+</dialog>
+
 <!-- Family: short film cast (tap a portrait to shatter it into the turnaround sheet with the character's details) -->
-<section class="tint2">
+<section class="tint2" id="family-section">
   <h2 class="ttl shatter">Family &amp; Creative Collaborations</h2>
   <p class="desc shatter">3D cartoon characters for the upcoming animated short film, starring the family. Built in Character Creator 5 and Blender, then lit and rendered in Unreal Engine 5. Tap a portrait to break it open and see the turnaround sheet.</p>
   <div class="grid fam">
@@ -538,12 +660,35 @@ const auto=Q('video[autoplay]'),kick=()=>auto.forEach(v=>{v.muted=true;try{v.pla
 kick();addEventListener('load',kick);document.addEventListener('visibilitychange',kick);
 ['touchstart','pointerdown','scroll','keydown'].forEach(n=>addEventListener(n,kick,{once:true,passive:true}));
 
-/* 5. Category filter */
-const tabs=Q('.tab'),cards=Q('.card');
+/* 5. Category filter (Portfolio) */
+const tabs=Q('#portfolio-gallery .tab'),cards=Q('#portfolio-gallery .card');
 tabs.forEach(b=>b.onclick=()=>{
   tabs.forEach(t=>t.classList.toggle('on',t===b));
   cards.forEach(c=>c.style.display=b.dataset.f==='all'||c.dataset.cat===b.dataset.f?'':'none');
 });
+
+/* 5b. Project viewer: a project card opens its videos and photos */
+const PJ={"costly-mistake": {"t": "Costly Mistake", "m": "Short Film • Filmed, Edited &amp; Acted", "d": "A short film for Ubong Inyang Production with a message against domestic violence.", "l": null, "f": 0, "v": [], "i": [{"src": "work/costly-mistake/1.webp", "w": 1600, "h": 785, "alt": "Costly Mistake title card over a man working at a laptop"}, {"src": "work/costly-mistake/2.webp", "w": 1600, "h": 792, "alt": "A woman sitting up in bed in a hotel room"}, {"src": "work/costly-mistake/3.webp", "w": 1600, "h": 787, "alt": "UB and Isabelle on a red couch with the domestic violence hotline number"}, {"src": "work/costly-mistake/4.webp", "w": 1600, "h": 787, "alt": "Closing message: say no to domestic violence"}, {"src": "work/costly-mistake/5.webp", "w": 758, "h": 1600, "alt": "Yancarlos on set in a studio chair"}]}, "fable-manny": {"t": "Fable Manny", "m": "Video &amp; Book • Filmed, Edited &amp; Graphic Design", "d": "Cover model, book cover design and video for Fable Manny by Michaelangelo.", "l": ["https://a.co/d/0feif4ZH", "Order on Amazon"], "f": 0, "v": [], "i": [{"src": "work/fable-manny/1.webp", "w": 1600, "h": 1164, "alt": "Fable Manny book: front cover, spine and back cover"}]}, "for-bobby": {"t": "For Bobby", "m": "Film • Behind the Scenes", "d": "On set with the cast and crew of For Bobby.", "l": null, "f": 0, "v": [], "i": [{"src": "work/for-bobby/1.webp", "w": 758, "h": 1600, "alt": "Yancarlos on set with the For Bobby cast and crew"}]}, "reflections": {"t": "Reflections: Project Chameleon", "m": "Series • Filmed, Edited &amp; Acted", "d": "The episode 6 scene with visual effects, filmed with McGee Productions.", "l": null, "f": 0, "v": [{"src": "work/reflections/v1.mp4", "poster": "work/reflections/v1.jpg", "label": "Episode 6 scene with effects", "w": 1280, "h": 720, "mb": 5.9, "sec": 14.6, "muted": false}], "i": [{"src": "work/reflections/1.webp", "w": 1080, "h": 778, "alt": "Crew filming beside a classic car"}, {"src": "work/reflections/2.webp", "w": 1080, "h": 526, "alt": "Yancarlos framing a shot in a restaurant"}, {"src": "work/reflections/3.webp", "w": 1069, "h": 597, "alt": "Cast and crew in front of a red Hummer"}, {"src": "work/reflections/4.webp", "w": 960, "h": 466, "alt": "Yancarlos rigging the camera"}, {"src": "work/reflections/5.webp", "w": 1600, "h": 901, "alt": "Yancarlos and a crew member at the camera on a bridge"}]}, "santa-gets-served": {"t": "Santa Gets Served", "m": "SideFlick • Filmed, Edited &amp; Acted", "d": "A Christmas comedy short from SideFlick.", "l": null, "f": 0, "v": [], "i": [{"src": "work/santa-gets-served/1.webp", "w": 1600, "h": 758, "alt": "Santa Gets Served title card"}, {"src": "work/santa-gets-served/2.webp", "w": 1440, "h": 1440, "alt": "Santa with elves and a dog by the Christmas tree"}, {"src": "work/santa-gets-served/3.webp", "w": 1600, "h": 900, "alt": "Cast rehearsing on the Christmas set"}, {"src": "work/santa-gets-served/4.webp", "w": 1440, "h": 1440, "alt": "Camera and light set up in the living room"}]}, "sunita": {"t": "Sunita", "m": "Film • Behind the Scenes", "d": "Behind the camera on the set of Sunita.", "l": null, "f": 0, "v": [], "i": [{"src": "work/sunita/1.webp", "w": 1600, "h": 898, "alt": "Filming a scene at an outdoor table"}, {"src": "work/sunita/2.webp", "w": 1080, "h": 1350, "alt": "Boom and camera on a forest path"}, {"src": "work/sunita/3.webp", "w": 1080, "h": 1087, "alt": "Yancarlos with the camera on a tripod in the woods"}, {"src": "work/sunita/4.webp", "w": 900, "h": 900, "alt": "Yancarlos at the camera rig"}]}, "the-families-feud": {"t": "The Families Feud", "m": "February 2022 • Lead Editor, VFX &amp; Sizzle Reel", "d": "IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery. Includes a before-and-after of the visual effects.", "l": null, "f": 1, "v": [{"src": "work/the-families-feud/v1.mp4", "poster": "work/the-families-feud/v1.jpg", "label": "Before: no effects", "w": 640, "h": 368, "mb": 0.3, "sec": 3.9, "muted": false}, {"src": "work/the-families-feud/v2.mp4", "poster": "work/the-families-feud/v2.jpg", "label": "After: with effects", "w": 640, "h": 368, "mb": 0.3, "sec": 3.9, "muted": false}], "i": [{"src": "work/the-families-feud/1.webp", "w": 820, "h": 1024, "alt": "The Families Feud movie poster"}]}, "the-tremont": {"t": "The Tremont", "m": "6Q Studios • Cinematography &amp; Edit", "d": "Written by David Torres Jr. and directed by Koby Gartner, with cinematography by Yancarlos Martinez.", "l": null, "f": 1, "v": [{"src": "work/the-tremont/v1.mp4", "poster": "work/the-tremont/v1.jpg", "label": "Behind the scenes", "w": 604, "h": 1280, "mb": 5.9, "sec": 17.5, "muted": false}, {"src": "work/the-tremont/v2.mp4", "poster": "work/the-tremont/v2.jpg", "label": "Behind the scenes 2", "w": 720, "h": 1280, "mb": 3.5, "sec": 13.7, "muted": false}], "i": [{"src": "work/the-tremont/1.webp", "w": 456, "h": 640, "alt": "The Tremont coming soon poster"}]}, "ubs-secret": {"t": "UB’s Secret", "m": "Ubong Inyang Production • Filmed &amp; Edited", "d": "A drama for Ubong Inyang Production, including clone shots that put UB in the same room more than once.", "l": null, "f": 0, "v": [], "i": [{"src": "work/ubs-secret/1.webp", "w": 1600, "h": 806, "alt": "UB’s Secret title card over a house"}, {"src": "work/ubs-secret/2.webp", "w": 1600, "h": 807, "alt": "Clone shot: UB appears more than once in the living room"}, {"src": "work/ubs-secret/3.webp", "w": 1600, "h": 803, "alt": "UB and Amanda in a bedroom"}, {"src": "work/ubs-secret/4.webp", "w": 1600, "h": 804, "alt": "UB aiming a pistol down a hallway"}]}, "alerta": {"t": "Alerta", "m": "El Coco x D.Ozi • Filmed &amp; Edited", "d": "Music video for El Coco x D.Ozi.", "l": null, "f": 0, "v": [], "i": [{"src": "work/alerta/1.webp", "w": 1600, "h": 900, "alt": "El Coco by a truck with his name on screen"}, {"src": "work/alerta/2.webp", "w": 1600, "h": 899, "alt": "Filming El Coco at night by the river"}, {"src": "work/alerta/3.webp", "w": 1600, "h": 899, "alt": "Night shoot with the city skyline behind"}, {"src": "work/alerta/4.webp", "w": 1600, "h": 900, "alt": "Stacks of cash on a table"}]}, "bruce-busta-reel": {"t": "Bruce “Busta” Soscia Actor Reel", "m": "Actor Reel • Edit &amp; Intro", "d": "Edited the actor reel and its intro for Bruce “Busta” Soscia.", "l": null, "f": 0, "v": [], "i": [{"src": "work/bruce-busta-reel/1.webp", "w": 1200, "h": 1600, "alt": "Joe McGee, Bruce “Busta” Soscia and Yancarlos"}]}, "billsbury-grand-opening": {"t": "Billsbury Turtle Grand Opening", "m": "Event • Filmed", "d": "Filming the Billsbury Turtle store’s grand opening.", "l": null, "f": 0, "v": [], "i": [{"src": "work/billsbury-grand-opening/1.webp", "w": 1440, "h": 1440, "alt": "Yancarlos filming the Billsbury Turtle mascot at the grand opening"}]}, "virtual-cons-intro": {"t": "Virtual Cons Intro", "m": "Title Sequence • Edit &amp; Motion Graphics", "d": "A cigar-burn title intro for Virtual Cons, featuring Armand Assante.", "l": null, "f": 0, "v": [{"src": "work/virtual-cons-intro/v1.mp4", "poster": "work/virtual-cons-intro/v1.jpg", "label": "Cigar intro", "w": 1280, "h": 720, "mb": 2.9, "sec": 29.5, "muted": false}], "i": []}, "joe-young-studio": {"t": "Joe Young Studio", "m": "Studio Shoot • Behind the Scenes", "d": "Camera, sound and lighting set up for a studio shoot.", "l": null, "f": 0, "v": [], "i": [{"src": "work/joe-young-studio/1.webp", "w": 1280, "h": 1600, "alt": "Camera, monitor, sound recorder and softbox set up in the studio"}]}, "dont-feel-nun": {"t": "Don’t Feel Nun", "m": "Zaza Davinchi • Album Cover &amp; Motion Graphics", "d": "An animated album cover for Zaza Davinchi featuring Billsbury Turtle.", "l": null, "f": 0, "v": [{"src": "work/dont-feel-nun/v1.mp4", "poster": "work/dont-feel-nun/v1.jpg", "label": "Animated album cover", "w": 640, "h": 640, "mb": 6.7, "sec": 30.1, "muted": false}], "i": []}, "ub-cartoon": {"t": "UB in 3D", "m": "3D Cartoon Character • Character Creator", "d": "A cartoon version of UB, posed and rendered in Character Creator.", "l": null, "f": 0, "v": [], "i": [{"src": "work/ub-cartoon/1.webp", "w": 1600, "h": 900, "alt": "UB as a 3D cartoon character, pointing"}, {"src": "work/ub-cartoon/2.webp", "w": 1600, "h": 900, "alt": "UB as a 3D cartoon character, front view"}, {"src": "work/ub-cartoon/3.webp", "w": 1600, "h": 900, "alt": "Close-up of the 3D cartoon UB"}]}, "cc-timelapse": {"t": "Character Creator Timelapse", "m": "@YanAnimations • 2024", "d": "Building a 3D character in Reallusion Character Creator, from the base body to clothing and tattoos.", "l": null, "f": 0, "v": [], "i": [{"src": "work/cc-timelapse/1.webp", "w": 1600, "h": 850, "alt": "Character Creator timelapse thumbnail with a tattooed 3D character"}]}};
+const pv=$('pv'),pvG=$('pvG');
+function openProject(id){
+  const p=PJ[id];if(!p)return;
+  $('pvM').innerHTML=p.m;$('pvT').innerHTML=p.t;$('pvD').innerHTML=p.d;
+  $('pvL').innerHTML=p.l?`<a href="${p.l[0]}" target="_blank" rel="noopener">${p.l[1]} →</a>`:'';
+  let h='',hv='',hi='';
+  p.v.forEach(v=>{hv+=`<figure class="wide"><video controls playsinline preload="metadata" poster="${v.poster}" width="${v.w}" height="${v.h}"${v.muted?' muted':''}><source src="${v.src}" type="video/mp4"></video><figcaption>${v.label}</figcaption></figure>`});
+  p.i.forEach(i=>{hi+=`<figure${p.i.length===1?' class="wide"':''}><img src="${i.src}" alt="${i.alt}" width="${i.w}" height="${i.h}" loading="lazy" decoding="async"></figure>`});
+  h=p.f?hi+hv:hv+hi;
+  pvG.className='pv-media'+(p.i.length>1?' two':'');pvG.innerHTML=h;
+  pv.showModal();pv.querySelector('.pv-in').scrollTop=0;
+}
+function closeProject(){pvG.querySelectorAll('video').forEach(v=>v.pause());pv.close()}
+Q('.card.proj').forEach(c=>{
+  c.addEventListener('click',()=>openProject(c.dataset.p));
+  c.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();openProject(c.dataset.p)}});
+});
+pv.querySelector('.pv-x').onclick=closeProject;
+pv.addEventListener('click',ev=>{if(ev.target===pv)closeProject()});
+pv.addEventListener('close',()=>{pvG.querySelectorAll('video').forEach(v=>v.pause());pvG.innerHTML=''});
 
 /* 7. Mobile menu */
 const mn=$('mn'),nv=$('nv');
