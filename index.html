@@ -7,12 +7,21 @@
 <meta name="description" content="Award-winning film editor, Unreal/Unity game developer, and commercial print model portfolio.">
 
 <!-- Link-share preview: Yancarlos in the workshop with the robot head -->
+<link rel="canonical" href="https://www.yancarlosmartinez.com/">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://www.yancarlosmartinez.com/">
 <meta property="og:title" content="Yancarlos Martinez | Coder, Editor, Game Dev &amp; 3D Artist">
 <meta property="og:description" content="Award-winning film editor, Unreal/Unity game developer, and commercial print model portfolio.">
-<meta property="og:image" content="Yan's first scene.png">
+<meta property="og:image" content="https://www.yancarlosmartinez.com/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="Yan's first scene.png">
+<meta name="twitter:image" content="https://www.yancarlosmartinez.com/img/og-cover.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Yancarlos Martinez","url":"https://www.yancarlosmartinez.com/","image":"https://www.yancarlosmartinez.com/img/og-cover.jpg","jobTitle":"Film Editor, Game Developer and 3D Artist","email":"mailto:yanmartinez92@gmail.com","alumniOf":["New York Film Academy","Goodwin College"],"sameAs":["https://www.imdb.com/name/nm11192416/","https://www.linkedin.com/in/yancarlos-martinez-56a610203","https://www.instagram.com/yancarlosmart1nez","https://www.tiktok.com/@yancarlosmart1nez","https://www.facebook.com/share/19sGsR39n8/"]}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,6 +156,23 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
 .ci button{padding:0 16px;background:var(--gold);border:0;color:#000;font-weight:700;cursor:pointer}
 @keyframes pulse{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(114,17,33,.6)}70%{transform:scale(1.08);box-shadow:0 0 0 12px rgba(114,17,33,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(114,17,33,0)}}
 
+/* Mobile menu */
+#mn{display:none;background:none;border:1px solid rgba(217,146,31,.5);color:var(--gold);border-radius:8px;width:40px;height:36px;font-size:1.2rem;cursor:pointer}
+/* Featured salon project */
+.feat{display:grid;grid-template-columns:1.1fr 1fr;gap:2.2rem;align-items:center;max-width:1100px;margin:0 auto;padding:1.6rem;border:1px solid rgba(201,166,255,.3);border-radius:22px;background:linear-gradient(135deg,rgba(106,44,168,.2),rgba(114,17,33,.15));box-shadow:0 14px 40px rgba(106,44,168,.18)}
+.feat-media{display:block;border-radius:14px;overflow:hidden;border:1px solid rgba(201,166,255,.35)}
+.feat-media video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.feat .ttl{text-align:left;margin:0 0 .6rem}
+.feat p{color:var(--muted);margin-bottom:1.2rem}
+.feat .btns{justify-content:flex-start}
+.feat .meta{color:#c9a6ff}
+.mail{display:block;text-align:center;margin-top:.9rem;color:var(--muted);font-size:.95rem}
+.mail a{color:var(--gold)}
+footer.site{text-align:center;padding:1.5rem 5% 2rem;color:var(--muted);font-size:.85rem}
+footer.site img{width:110px;margin:0 auto .7rem;border-radius:10px}
+.grid.fam{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.stage:focus-visible,.tab:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+@media(max-width:768px){#mn{display:block}nav.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:.9rem;padding:1rem 5% 1.3rem;background:rgba(11,7,8,.97);border-bottom:1px solid rgba(114,17,33,.4)}nav.open a{font-size:1rem}.feat{grid-template-columns:1fr;padding:1.1rem}}
 @media(max-width:768px){nav{display:none}.hero{min-height:50vh;padding-top:5rem}section{padding:1.5rem 5%}.desc{margin-bottom:1.2rem}.stage{height:240px}}
 @media(prefers-reduced-motion:reduce){.orb,#tg{animation:none}}
 </style>
@@ -156,8 +182,10 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
 <div class="amb" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i></div>
 
 <header>
-  <a href="#" class="brand"><img src="Yan's cartoon headshot.png" alt="Yancarlos"><span>YANCARLOS MARTINEZ</span></a>
-  <nav>
+  <a href="#" class="brand"><img src="img/yans-cartoon-headshot.webp" alt="Yancarlos"><span>YANCARLOS MARTINEZ</span></a>
+  <button id="mn" aria-label="Open menu" aria-expanded="false" aria-controls="nv">&#9776;</button>
+  <nav id="nv">
+    <a href="salon/">Salon Project</a>
     <a href="#workshop-section">Workshop &amp; Robot</a>
     <a href="#sylvia-section">Sylvia VFX</a>
     <a href="#broccoli-section">Broccarlos</a>
@@ -176,18 +204,35 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   </div>
 </section>
 
+<!-- Featured: Ms. Trish Self-Care Salon -->
+<section id="salon-section">
+  <div class="feat">
+    <a class="feat-media" href="salon/" aria-label="Open the Ms. Trish Self-Care Salon project"><video src="salon/media/salon-preview-loop.mp4" poster="salon/img/preview-poster.jpg" autoplay muted loop playsinline preload="metadata"></video></a>
+    <div>
+      <div class="meta">Featured project &bull; 3D design &bull; Charity</div>
+      <h2 class="ttl shatter">Ms. Trish Self-Care Salon</h2>
+      <p>Patricia &ldquo;Ms.&nbsp;Trish&rdquo; Candillo spent her life caring for others. After weeks in the hospital herself, she imagined a self-care salon inside it for patients, parents and staff. Her family is now raising the funds to build it at Connecticut Children&rsquo;s Medical Center. I built the salon in 3D, modeled every piece of furniture, and produced the narrated presentation for the CCMC Charity Luncheon.</p>
+      <div class="btns"><a href="salon/" class="btn btn-primary">See the project</a><a href="salon/#luncheon" class="btn btn-outline">Luncheon highlights</a><a href="salon/#support" class="btn btn-outline">Support the salon</a></div>
+    </div>
+  </div>
+</section>
+
 <!-- Workshop & robot -->
 <section id="workshop-section">
   <h2 class="ttl shatter">Workshop &amp; Robot Universe</h2>
   <p class="desc shatter">Explore the workshop scene preview. Tap the card to view and reveal the turnaround sheet.</p>
-  <div class="grid wide">
+  <div class="grid">
     <div class="flip-card">
-      <div class="stage"><div class="ff"><video src="Yan%27s%20first%20scene.mp4" poster="Yan%27s%20first%20scene.png" autoplay muted loop playsinline preload="auto"></video></div><div class="fb"><img src="Yan's turnaround sheet.png" alt="Yancarlos Turnaround Sheet"></div></div>
+      <div class="stage"><div class="ff"><video src="Yan%27s%20first%20scene.mp4" poster="img/first-scene-poster.jpg" autoplay muted loop playsinline preload="auto"></video></div><div class="fb"><img src="img/yans-turnaround-sheet.webp" alt="Yancarlos Turnaround Sheet" loading="lazy" decoding="async"></div></div>
       <div class="info"><h3 class="shatter">Yancarlos Turnaround &amp; Workshop</h3><p class="shatter">Story: Deep in the workshop, precision engineering meets imagination. Built for the animated short script, Yancarlos designs and assembles advanced robotics in real-time Unreal Engine lighting.</p></div>
     </div>
     <div class="flip-card">
-      <div class="stage"><div class="ff"><img src="Yancel Robot head turnaround sheet.png" alt="Yancel Robot Turnaround"></div><div class="fb"><img src="Yancel full_body turnaround sheet.png" alt="Yancel Full Body Robot"></div></div>
+      <div class="stage"><div class="ff"><img src="img/yancel-robot-head-turnaround-sheet.webp" alt="Yancel Robot Turnaround" loading="lazy" decoding="async"></div><div class="fb"><img src="img/yancel-full-body-turnaround-sheet.webp" alt="Yancel Full Body Robot" loading="lazy" decoding="async"></div></div>
       <div class="info"><h3 class="shatter">Yancel Robot Turnaround</h3><p class="shatter">Complete front, side, and back body rigging sheet designed in Character Creator 5 and Unreal Engine 5.</p></div>
+    </div>
+    <div class="flip-card">
+      <div class="stage"><div class="ff"><img src="img/yan-headshot.webp" alt="Yancarlos 3D character headshot" loading="lazy" decoding="async"></div><div class="fb"><img src="img/yan-tattoos.webp" alt="Yancarlos 3D character full-body turnaround with tattoos" loading="lazy" decoding="async"></div></div>
+      <div class="info"><h3 class="shatter">Yancarlos 3D Character</h3><p class="shatter">Digital double built in Character Creator 5: headshot, side profile, and full-body turnaround with tattoo detail.</p></div>
     </div>
   </div>
 </section>
@@ -195,11 +240,11 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
 <!-- Sylvia -->
 <section id="sylvia-section" class="tint">
   <h2 class="ttl shatter">Sylvia’s Animation Presentation</h2>
-  <p class="desc shatter">Explore Sylvia’s presentation preview. Tap the card to view and reveal the turnaround sheet.</p>
+  <p class="desc shatter">Sylvia’s animated welcome from the Ms. Trish Self-Care Salon presentation. Tap the card to reveal the turnaround sheet.</p>
   <div class="mid">
     <div class="flip-card">
-      <div class="stage"><div class="ff"><video src="Sylvia%20speech-1.mp4" autoplay muted loop playsinline preload="auto"></video></div><div class="fb"><img src="Sylvia Reid Character Turnaround Sheet-1.png" alt="Sylvia Turnaround"></div></div>
-      <div class="info"><h3 class="shatter">Rendered Presentation &amp; Turnaround</h3><p class="shatter">High-end character presentation and virtual environment showcase.</p></div>
+      <div class="stage"><div class="ff"><video src="Sylvia%20speech-1.mp4" poster="img/sylvia-speech-poster.jpg" autoplay muted loop playsinline preload="auto"></video></div><div class="fb"><img src="img/sylvia-reid-character-turnaround-sheet-1.webp" alt="Sylvia Turnaround" loading="lazy" decoding="async"></div></div>
+      <div class="info"><h3 class="shatter">Rendered Presentation &amp; Turnaround</h3><p class="shatter">Animated character of Sylvia welcoming guests to the salon, with her full turnaround sheet.</p><a class="more" href="salon/">See the salon project &rarr;</a></div>
     </div>
   </div>
 </section>
@@ -210,11 +255,11 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">An original superhero concept born from creative imagination. Tap any card to view and reveal the lore.</p>
   <div class="grid">
     <div class="flip-card">
-      <div class="stage"><div class="ff"><img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround"></div><div class="fb"><img src="Broccoli Hero Costume Breakdown Sheet.png" alt="Costume Breakdown"></div></div>
+      <div class="stage"><div class="ff"><img src="img/broccoli-boy-character-turnaround.webp" alt="Broccarlos Turnaround" loading="lazy" decoding="async"></div><div class="fb"><img src="img/broccoli-hero-costume-breakdown-sheet.webp" alt="Costume Breakdown" loading="lazy" decoding="async"></div></div>
       <div class="info"><h3 class="shatter">Character Anatomy &amp; Costume</h3><p class="shatter">Full character design, rigging sheet, tactical armor, signature crimson cape, and utility belt accessories.</p></div>
     </div>
     <div class="flip-card">
-      <div class="stage"><div class="ff"><img src="Broccoli Hero in the Enchanted Forest.png" alt="Broccarlos in the Enchanted Forest"></div><div class="fb"><img src="Broccoli Boy Character Turnaround.png" alt="Broccarlos Turnaround"></div></div>
+      <div class="stage"><div class="ff"><img src="img/broccoli-hero-in-the-enchanted-forest.webp" alt="Broccarlos in the Enchanted Forest" loading="lazy" decoding="async"></div><div class="fb"><img src="img/broccoli-boy-character-turnaround.webp" alt="Broccarlos Turnaround" loading="lazy" decoding="async"></div></div>
       <div class="info"><h3 class="shatter">The Legend</h3><p class="shatter">Standing tall in the enchanted forest, Broccarlos protects nature’s realm with unmatched power and resilience.</p></div>
     </div>
   </div>
@@ -226,7 +271,7 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">Technical rigging sheets, armor breakdowns, and Blender sculpting specs for the Avictor universe. Tap the card to view.</p>
   <div class="mid">
     <div class="flip-card">
-      <div class="stage"><div class="ff"><img class="fit" src="Blender Avictor.png" alt="Blender Avictor Rig"></div><div class="fb"><img src="Victor Character Blueprint.jpg" alt="Victor Blueprint"></div></div>
+      <div class="stage"><div class="ff"><img class="fit" src="img/blender-avictor.webp" alt="Blender Avictor Rig" loading="lazy" decoding="async"></div><div class="fb"><img src="img/victor-character-blueprint.webp" alt="Victor Blueprint" loading="lazy" decoding="async"></div></div>
       <div class="info"><h3 class="shatter">Character Blueprint</h3><p class="shatter">Anatomical guides, prop distribution, and texture mapping matrices designed for cinematic game engines.</p></div>
     </div>
   </div>
@@ -244,18 +289,24 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
     <button class="tab" data-f="awards">Awards &amp; Diplomas</button>
   </div>
   <div class="grid">
+    <div class="card" data-cat="3d">
+      <a href="salon/">
+        <img src="salon/img/salon-full.webp" alt="3D model of the Ms. Trish Self-Care Salon" loading="lazy" decoding="async">
+        <div class="cc"><div class="meta">October 2026 • 3D Design &amp; Presentation</div><h3 class="shatter">Ms. Trish Self-Care Salon</h3><p class="shatter">Trish’s vision of a self-care salon for hospital patients, parents and staff: the full salon in 3D, 17 modeled pieces, and a narrated interactive presentation for a charity luncheon.</p><span class="more">See the project →</span></div>
+      </a>
+    </div>
     <div class="card" data-cat="film">
-      <img src="The Families Feud.jpg" alt="The Families Feud">
+      <img src="img/the-families-feud.webp" alt="The Families Feud" loading="lazy" decoding="async">
       <div class="cc"><div class="meta">February 2022 • Lead Editor</div><h3 class="shatter">The Families Feud</h3><p class="shatter">IMDb award-winning feature film edit recognized for elite narrative pacing and deep post-production mastery.</p></div>
     </div>
     <div class="card" data-cat="modeling">
       <a href="https://a.co/d/0feif4ZH" target="_blank" rel="noopener">
-        <img src="Fable Manny The Book Front, Spine, Back Covers.jpg" alt="Fable Manny Book Cover">
+        <img src="img/fable-manny-the-book-front-spine-back-covers.webp" alt="Fable Manny Book Cover" loading="lazy" decoding="async">
         <div class="cc"><div class="meta">2026 • Commercial Print Model</div><h3 class="shatter">Fable Manny Book Cover</h3><p class="shatter">Featured cover model and brand print campaigns for luxury apparel, watches, and print media.</p><span class="more">Order on Amazon →</span></div>
       </a>
     </div>
     <div class="card" data-cat="awards" id="awards">
-      <img src="IMDbProCard.png" alt="Awards and Diplomas">
+      <img src="img/imdbprocard.webp" alt="Awards and Diplomas" loading="lazy" decoding="async">
       <div class="cc"><div class="meta">New York Film Academy (Class of 2019) • Goodwin College</div><h3 class="shatter">Awards &amp; Academic Diplomas</h3><p class="shatter">Formal academic training in film production, advanced post-production, and technical direction completed around 2019.</p></div>
     </div>
   </div>
@@ -265,10 +316,10 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
 <section class="tint2">
   <h2 class="ttl shatter">Family &amp; Creative Collaborations</h2>
   <p class="desc shatter">Character Creator 5 designs for the upcoming short film, starring the family. Tap any card to view.</p>
-  <div class="grid">
+  <div class="grid fam">
     <div class="flip-card">
       <div class="stage">
-        <div class="ff"><img src="Bri CC5.png" alt="Bridgitte portrait"></div>
+        <div class="ff"><img src="img/bri-cc5.webp" alt="Bridgitte portrait" loading="lazy" decoding="async"></div>
         <div class="fb">
           <div class="meta">Short Film • Mom</div>
           <h3>Bridgitte</h3>
@@ -278,7 +329,7 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
     </div>
     <div class="flip-card">
       <div class="stage">
-        <div class="ff"><img src="Emmanuel CC5.png" alt="Emmanuel portrait"></div>
+        <div class="ff"><img src="img/emmanuel-cc5.webp" alt="Emmanuel portrait" loading="lazy" decoding="async"></div>
         <div class="fb">
           <div class="meta">Short Film • Son</div>
           <h3>Emmanuel</h3>
@@ -288,7 +339,7 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
     </div>
     <div class="flip-card">
       <div class="stage">
-        <div class="ff"><img src="Olivia CC5.png" alt="Olivia portrait"></div>
+        <div class="ff"><img src="img/olivia-cc5.webp" alt="Olivia portrait" loading="lazy" decoding="async"></div>
         <div class="fb">
           <div class="meta">Short Film • Daughter</div>
           <h3>Olivia</h3>
@@ -296,6 +347,17 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
         </div>
       </div>
     </div>
+    <div class="flip-card">
+      <div class="stage">
+        <div class="ff"><img src="img/yancel-headshot.webp" alt="Yancel portrait" loading="lazy" decoding="async"></div>
+        <div class="fb"><img src="img/yancel-side-profile.webp" alt="Yancel side profile" loading="lazy" decoding="async"></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:1.4rem">
+    <div class="card"><img src="img/yancel.webp" alt="Yancel full-body turnaround" loading="lazy" decoding="async"><div class="cc"><div class="meta">Turnaround</div><h3>Yancel</h3></div></div>
+    <div class="card"><img src="img/emmanuel.webp" alt="Emmanuel full-body turnaround" loading="lazy" decoding="async"><div class="cc"><div class="meta">Turnaround</div><h3>Emmanuel</h3></div></div>
+    <div class="card"><img src="img/olivia.webp" alt="Olivia full-body turnaround" loading="lazy" decoding="async"><div class="cc"><div class="meta">Turnaround</div><h3>Olivia</h3></div></div>
   </div>
 </section>
 
@@ -305,12 +367,16 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <p class="desc shatter">Cinematic test renders and video reels with full sound. Use the player controls to play with audio.</p>
   <div class="grid" style="max-width:1100px;margin:0 auto">
     <div class="vid">
-      <video src="Yan%27s%20first%20scene.mp4#t=0.1" poster="Yan%27s%20first%20scene.png" controls playsinline preload="metadata"></video>
+      <video src="Yan%27s%20first%20scene.mp4#t=0.1" poster="img/first-scene-poster.jpg" controls playsinline preload="metadata"></video>
       <div><h3>First Scene Render</h3><p>Real-time lighting and cinematic composition test in Unreal Engine.</p></div>
     </div>
     <div class="vid">
-      <video src="Sylvia%20speech-1.mp4#t=0.1" controls playsinline preload="metadata"></video>
-      <div><h3>Rendered Animation Presentation</h3><p>High-end character presentation and virtual environment showcase.</p></div>
+      <video src="Sylvia%20speech-1.mp4#t=0.1" poster="img/sylvia-speech-poster.jpg" controls playsinline preload="metadata"></video>
+      <div><h3>Rendered Animation Presentation</h3><p>Sylvia’s animated welcome for the Ms. Trish Self-Care Salon presentation.</p></div>
+    </div>
+    <div class="vid">
+      <video src="ResultVideo.mp4#t=0.1" poster="img/result-video-poster.jpg" controls playsinline preload="metadata"></video>
+      <div><h3>Creature Animation Test</h3><p>Stylized wolf character and food render, a short look-development test.</p></div>
     </div>
   </div>
 </section>
@@ -331,7 +397,13 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
   <h2 class="ttl shatter">Let’s Build Something Great</h2>
   <p class="desc shatter">Have a film project, web build, or 3D development inquiry? Let’s connect.</p>
   <div class="btns"><a href="mailto:yanmartinez92@gmail.com" class="btn btn-primary">Email Me Directly</a></div>
+  <span class="mail"><a href="mailto:yanmartinez92@gmail.com">yanmartinez92@gmail.com</a></span>
 </section>
+
+<footer class="site">
+  <img src="img/me-and-my-son-2d-art.webp" alt="Illustration of Yancarlos Martinez and his son" loading="lazy" decoding="async">
+  <p>&copy; 2026 Yancarlos Martinez</p>
+</footer>
 
 <!-- AI assistant (fixed bottom-right) -->
 <div id="ai">
@@ -340,7 +412,7 @@ section{max-width:1300px;margin:0 auto;padding:2.2rem 4%;scroll-margin-top:56px}
     <div class="cb" id="msgs"><p>👋 Hey! I’m Yancarlos’s virtual assistant. Ask me about his IMDb-recognized editing, Unreal Engine 5 projects, modeling, or character universes!</p></div>
     <div class="ci"><input id="q" type="text" placeholder="Type a question..." aria-label="Your question"><button id="snd">Send</button></div>
   </div>
-  <button id="tg" title="Toggle AI Chat" aria-label="Toggle AI chat"><img src="Yan's cartoon headshot.png" alt="Yancarlos"></button>
+  <button id="tg" title="Toggle AI Chat" aria-label="Toggle AI chat"><img src="img/yans-cartoon-headshot.webp" alt="Yancarlos" loading="lazy" decoding="async"></button>
 </div>
 
 <script>
@@ -454,11 +526,24 @@ tabs.forEach(b=>b.onclick=()=>{
   cards.forEach(c=>c.style.display=b.dataset.f==='all'||c.dataset.cat===b.dataset.f?'':'none');
 });
 
+/* 7. Mobile menu */
+const mn=$('mn'),nv=$('nv');
+mn.onclick=()=>{const o=nv.classList.toggle('open');mn.setAttribute('aria-expanded',o)};
+Q('#nv a').forEach(a=>a.addEventListener('click',()=>{nv.classList.remove('open');mn.setAttribute('aria-expanded',false)}));
+
+/* 8. Keyboard access: tap cards also open with Enter / Space */
+Q('.stage').forEach(st=>{
+  st.tabIndex=0;st.setAttribute('role','button');
+  const a=st.querySelector('img,video');st.setAttribute('aria-label',(a&&a.getAttribute('alt')||'Card')+'. Press Enter to flip.');
+  st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();saber(st);flip(st)}});
+});
+
 /* 6. AI assistant */
 const L=(u,t)=>`<a href='${u}' target='_blank' rel='noopener'>${t}</a>`;
 const IMDB=L('https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk','IMDb');
 const ABOUT=`Yancarlos Martinez is a multi-disciplinary creator: a film editor recognized on ${IMDB} for “The Families Feud,” a New York Film Academy graduate (Class of 2019) who also studied at Goodwin College, a game developer and 3D artist (Unreal Engine 5, Unity, Blender, Character Creator 5), and a commercial print model on the cover of ${L('https://a.co/d/0feif4ZH','Fable Manny')}.`;
 const KB=[
+[/salon|trish|donat|charity|children|ccmc|luncheon|hospital/i,`The Ms. Trish Self-Care Salon was Patricia “Ms. Trish” Candillo’s vision: a salon inside the hospital for patients, parents and staff. Her family is raising the funds to build it at Connecticut Children’s Medical Center. Yancarlos designed it in 3D and built the narrated presentation for the CCMC Charity Luncheon. ${L('salon/','See the project and how to support it')}.`],
 [/family|short film|bridg|emmanuel|olivia|\bmom\b|\bson\b|daughter/i,'His upcoming short film stars Character Creator 5 versions of Bridgitte (mom), Emmanuel (son), and Olivia (daughter).'],
 [/3d|game|unreal|unity|blender|\bcod(e|er|ing)\b|character|yancel|robot|broccarlos|broccoli|victor|sylvia/i,'He builds games, shaders, and 3D virtual environments with Unreal Engine 5, Unity, Blender, and Character Creator 5, plus original universes like Broccarlos and Avictor.'],
 [/model|book|print|backstage|fable|manny|amazon/i,`Yancarlos is a commercial print model featured on the cover of “Fable Manny.” ${L('https://a.co/d/0feif4ZH','Order it on Amazon')} or see his ${L('https://www.backstage.com','Backstage')} profile.`],
