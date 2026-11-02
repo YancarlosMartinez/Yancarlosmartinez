@@ -228,3 +228,5 @@ footer.site nav.fnav a:hover{color:var(--gold)}
 .intro button{font:600 .95rem 'Inter',sans-serif;padding:.6rem 1.2rem;border-radius:999px;border:1px solid var(--gold);background:rgba(11,7,8,.75);color:#fff;cursor:pointer}
 .intro button.skip{background:var(--gold);color:#000}
 #web-projects .grid{max-width:1100px;margin:0 auto;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+/* Menu button from tablet width down, so the seven links never wrap under the name */
+@media(max-width:1024px){#mn{display:block}nav#nv{display:none}nav#nv.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:.9rem;padding:1rem 5% 1.3rem;background:rgba(11,7,8,.97);border-bottom:1px solid rgba(114,17,33,.4)}nav#nv.open a{font-size:1rem}}
