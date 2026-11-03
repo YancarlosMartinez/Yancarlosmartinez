@@ -260,3 +260,6 @@ footer.site nav.fnav a:hover{color:var(--gold)}
 @keyframes ttTap{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 @media(prefers-reduced-motion:reduce){.taptip .tt-i{animation:none}}
 @media(max-width:600px){.taptip{font-size:.8rem;padding:.6rem .6rem .6rem .8rem}.taptip .tt-long{display:none}}
+.ba-grid{display:grid;gap:1.6rem;max-width:1180px;margin:0 auto}
+@media(min-width:900px){.ba-grid{grid-template-columns:1fr 1fr;align-items:start}}
+.ba-item{margin:0}
