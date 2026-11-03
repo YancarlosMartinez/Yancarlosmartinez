@@ -96,9 +96,23 @@ document.addEventListener('click',e=>{
   flip(st);
 });
 
-/* 4. Reliable video autoplay */
-const auto=Q('video[autoplay]'),kick=()=>auto.forEach(v=>{v.muted=true;try{v.play().catch(()=>{})}catch(_){}});
-kick();addEventListener('load',kick);document.addEventListener('visibilitychange',kick);
+/* 4. Videos play by themselves (muted, looping) while they're on screen and pause when they scroll away.
+   Videos with controls can still be tapped for sound; a video someone paused stays paused. */
+const onScreen=new Set();
+const vio='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{
+  const v=e.target;
+  if(e.isIntersecting){onScreen.add(v);if(!v.getAttribute('src')&&v.dataset.src)v.src=v.dataset.src;if(!v.dataset.hold)v.play().catch(()=>{})}
+  else{onScreen.delete(v);if(!v.paused){v._sys=1;v.pause()}}
+}),{threshold:.3}):null;
+function watchVideo(v){
+  v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.removeAttribute('autoplay');
+  v.addEventListener('pause',()=>{if(!v._sys)v.dataset.hold=1;v._sys=0});
+  v.addEventListener('play',()=>{delete v.dataset.hold});
+  if(vio)vio.observe(v);else{if(v.dataset.src&&!v.getAttribute('src'))v.src=v.dataset.src;v.play().catch(()=>{})}
+}
+Q('video').forEach(v=>{if(v.id!=='introV'&&!v.closest('dialog,.ba'))watchVideo(v)});
+const kick=()=>onScreen.forEach(v=>{if(v.paused&&!v.dataset.hold)v.play().catch(()=>{})});
+addEventListener('load',kick);document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick()});
 ['touchstart','pointerdown','scroll','keydown'].forEach(n=>addEventListener(n,kick,{once:true,passive:true}));
 
 /* 5. Category filter (Portfolio) */
@@ -117,13 +131,18 @@ function openProject(id){
   $('pvM').innerHTML=p.m;$('pvT').innerHTML=p.t;$('pvD').innerHTML=p.d;
   $('pvL').innerHTML=p.l?`<a href="${p.l[0]}" target="_blank" rel="noopener">${p.l[1]} →</a>`:'';
   let h='',hv='',hi='';
-  p.v.forEach(v=>{hv+=v.embed
+  p.v.forEach(v=>{hv+=v.ba
+    ?`<figure class="wide">${baHTML(v)}<figcaption>${v.label}</figcaption></figure>`
+    :v.embed
     ?`<figure class="wide"><div class="emb${v.ar==='1/1'?' sq':''}"><iframe src="https://drive.google.com/file/d/${v.embed}/preview" title="${v.label}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div><figcaption>${v.label} &middot; <a href="https://drive.google.com/file/d/${v.embed}/view" target="_blank" rel="noopener">Open in Google Drive ↗</a></figcaption></figure>`
     :`<figure class="wide"><video controls playsinline preload="metadata" poster="${v.poster}" width="${v.w}" height="${v.h}"${v.muted?' muted':''}><source src="${v.src}" type="video/mp4"></video><figcaption>${v.label}</figcaption></figure>`});
   p.i.forEach(i=>{hi+=`<figure${p.i.length===1?' class="wide"':''}><img src="${i.src}" alt="${i.alt}" width="${i.w}" height="${i.h}" loading="lazy" decoding="async"></figure>`});
   h=p.f?hi+hv:hv+hi;
   pvG.className='pv-media'+(p.i.length>1?' two':'');pvG.innerHTML=h;
-  pv.showModal();pv.querySelector('.pv-in').scrollTop=0;
+  pv.showModal();pv.querySelector('.pv-in').scrollTop=0;const tt=document.querySelector('.taptip');if(tt)tt.remove();
+  pvG.querySelectorAll('.ba').forEach(baSlider);
+  const fv=pvG.querySelector('video[controls]');   /* opening a project starts its first video, with sound when the browser allows it */
+  if(fv&&!pvG.querySelector('.ba'))fv.play().catch(()=>{fv.muted=true;fv.play().catch(()=>{})});
 }
 function closeProject(){pvG.querySelectorAll('video').forEach(v=>v.pause());pv.close()}
 Q('.card.proj').forEach(c=>{
@@ -134,6 +153,58 @@ pv.querySelector('.pv-x').onclick=closeProject;
 pv.addEventListener('click',ev=>{if(ev.target===pv)closeProject()});
 pv.addEventListener('close',()=>{pvG.querySelectorAll('video').forEach(v=>v.pause());pvG.innerHTML=''});
 }
+
+/* 11. Before / after slider. One video holds both versions stacked (before on top, after underneath);
+   a canvas shows "before" left of the line and "after" right of it, so both halves stay frame-perfect.
+   Mouse: just move over it. Touch: drag sideways. Keyboard: arrow keys. It sweeps by itself until someone uses it. */
+function baHTML(v){return `<div class="ba" data-src="${v.ba}" data-poster="${v.poster}" style="--ar:${v.ar||'2/1'}" tabindex="0" role="slider" aria-label="${v.alt||'Before and after the visual effects'}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><canvas></canvas><span class="ba-tag l">Before</span><span class="ba-tag r">After</span><div class="ba-bar"><span class="ba-knob" aria-hidden="true">&#8644;</span></div><div class="ba-hint">Drag to compare</div></div>`}
+const baHint=matchMedia('(hover:hover) and (pointer:fine)').matches?'Move your mouse across to compare':'Drag sideways to compare';
+function baSlider(el){
+  if(el._ba)return;el._ba=1;
+  const c=el.querySelector('canvas'),x=c.getContext('2d'),v=document.createElement('video'),img=new Image();
+  v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('muted','');v.preload='auto';v.className='ba-v';v.setAttribute('aria-hidden','true');
+  el.appendChild(v);img.src=el.dataset.poster;const hn=el.querySelector('.ba-hint');if(hn)hn.textContent=baHint;
+  let p=.5,vis=false,raf=0,t0=0,last=-1e9,drag=false;
+  const set=q=>{p=Math.min(1,Math.max(0,q));el.style.setProperty('--p',(p*100).toFixed(2)+'%');el.setAttribute('aria-valuenow',Math.round(p*100))};
+  const used=()=>{last=performance.now();el.classList.add('used')};
+  function draw(ts){
+    raf=0;if(!el.isConnected){v.pause();v.removeAttribute('src');return}
+    if(ts-last>3500){if(!t0)t0=ts;const k=((ts-t0)/1000)%8,g=k<5?.5+.36*Math.sin(k/5*2*Math.PI):.5;set(p+(g-p)*.1)}else t0=0;
+    const s=v.readyState>=2?v:(img.complete&&img.naturalWidth?img:null);
+    if(s){const W=s.videoWidth||s.naturalWidth,H=(s.videoHeight||s.naturalHeight)/2;
+      if(c.width!==W||c.height!==H){c.width=W;c.height=H}
+      x.drawImage(s,0,H,W,H,0,0,W,H);
+      const cw=Math.round(W*p);if(cw>0)x.drawImage(s,0,0,cw,H,0,0,cw,H)}
+    if(vis)raf=requestAnimationFrame(draw);
+  }
+  const go=()=>{if(!raf)raf=requestAnimationFrame(draw)};
+  const at=e=>{const r=el.getBoundingClientRect();set((e.clientX-r.left)/r.width);used();go()};
+  el.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||drag)at(e)});
+  el.addEventListener('pointerdown',e=>{drag=true;try{el.setPointerCapture(e.pointerId)}catch(_){}at(e)});
+  ['pointerup','pointercancel'].forEach(n=>el.addEventListener(n,()=>{drag=false}));
+  el.addEventListener('keydown',e=>{const d={ArrowLeft:-.05,ArrowRight:.05,Home:-1,End:1}[e.key];if(d!==undefined){e.preventDefault();set(p+d);used();go()}});
+  const on=()=>{vis=true;if(!v.getAttribute('src'))v.src=el.dataset.src;v.play().catch(()=>{});go()},
+        off=()=>{vis=false;v.pause()};
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?on():off()),{threshold:.25}).observe(el);else on();
+  img.onload=go;set(.5);
+}
+Q('.ba').forEach(baSlider);
+
+/* 12. A one-time tip so visitors know the headings and text break apart when tapped */
+(()=>{const first=document.querySelector('.shatter');if(!first||!('IntersectionObserver' in window))return;
+ let seen=false;try{seen=sessionStorage.getItem('tapTip')==='1'}catch(_){}
+ if(seen)return;
+ const tip=document.createElement('div');tip.className='taptip';tip.setAttribute('role','status');
+ tip.innerHTML='<span class="tt-i" aria-hidden="true">&#128070;</span><span><b>Psst&hellip;</b> tap any heading or line of text and watch it break apart.<span class="tt-long"> It puts itself back together.</span></span><button type="button" aria-label="Close tip">&times;</button>';
+ let shown=false;
+ const done=()=>{try{sessionStorage.setItem('tapTip','1')}catch(_){}if(!shown)return;tip.classList.remove('on');setTimeout(()=>tip.remove(),450)};
+ tip.querySelector('button').onclick=done;
+ const io=new IntersectionObserver(es=>{if(!es.some(e=>e.isIntersecting))return;io.disconnect();shown=true;
+   document.body.appendChild(tip);requestAnimationFrame(()=>requestAnimationFrame(()=>tip.classList.add('on')));
+   first.classList.add('vib');setTimeout(()=>first.classList.remove('vib'),300);setTimeout(done,10000)},{threshold:1});
+ io.observe(first);
+ Q('.shatter').forEach(el=>el.addEventListener('click',done,{once:true}));
+})();
 
 /* 7. Mobile menu */
 const mn=$('mn'),nv=$('nv');

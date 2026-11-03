@@ -230,3 +230,33 @@ footer.site nav.fnav a:hover{color:var(--gold)}
 #web-projects .grid{max-width:1100px;margin:0 auto;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
 /* Menu button from tablet width down, so the seven links never wrap under the name */
 @media(max-width:1024px){#mn{display:block}nav#nv{display:none}nav#nv.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:.9rem;padding:1rem 5% 1.3rem;background:rgba(11,7,8,.97);border-bottom:1px solid rgba(114,17,33,.4)}nav#nv.open a{font-size:1rem}}
+
+/* Card previews: short silent loops that play while the card is on screen */
+.pgrid .card video.cv{display:block;width:100%;height:220px;object-fit:cover;background:#000}
+
+/* Before / after slider */
+.ba-wrap{max-width:960px;margin:0 auto}
+.ba{position:relative;width:100%;aspect-ratio:var(--ar,2/1);background:#000;border-radius:14px;overflow:hidden;touch-action:pan-y;cursor:ew-resize;--p:50%;-webkit-user-select:none;user-select:none;border:1px solid rgba(217,146,31,.35);box-shadow:0 10px 30px rgba(114,17,33,.3)}
+.ba canvas{display:block;width:100%;height:100%}
+.ba .ba-v{position:absolute;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none}
+.ba-bar{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--gold);box-shadow:0 0 12px rgba(217,146,31,.85);pointer-events:none}
+.ba-knob{position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(11,7,8,.85);border:2px solid var(--gold);color:var(--gold);display:grid;place-items:center;font:700 1.15rem/1 system-ui,sans-serif}
+.ba-tag{position:absolute;top:10px;padding:3px 10px;border-radius:6px;background:rgba(11,7,8,.75);color:#fff;font:700 .72rem/1.4 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
+.ba-tag.l{left:10px}.ba-tag.r{right:10px;color:var(--gold)}
+.ba-hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:999px;background:rgba(11,7,8,.78);color:#fff;font:600 .8rem system-ui,sans-serif;white-space:nowrap;pointer-events:none;transition:opacity .5s}
+.ba.used .ba-hint{opacity:0}
+.ba:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.ba-cap{margin-top:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+.ba-cap a{color:var(--gold);font-weight:600}
+.pv-media .ba{border-radius:0;border:0;box-shadow:none}
+
+/* One-time tip: the text breaks when tapped */
+.shatter{cursor:pointer}
+.taptip{position:fixed;left:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:1000;display:flex;align-items:center;gap:.7rem;max-width:min(430px,calc(100vw - 110px));padding:.75rem .8rem .75rem 1rem;border-radius:14px;background:#170b0e;border:1px solid var(--gold);box-shadow:0 12px 30px rgba(0,0,0,.6);color:#f3e9e4;font-size:.88rem;line-height:1.45;opacity:0;transform:translateY(16px);transition:opacity .4s,transform .4s}
+.taptip.on{opacity:1;transform:none}
+.taptip .tt-i{font-size:1.4rem;animation:ttTap 1.2s ease-in-out infinite}
+.taptip b{color:var(--gold)}
+.taptip button{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid rgba(217,146,31,.6);background:transparent;color:#fff;font-size:1.1rem;line-height:1;cursor:pointer}
+@keyframes ttTap{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media(prefers-reduced-motion:reduce){.taptip .tt-i{animation:none}}
+@media(max-width:600px){.taptip{font-size:.8rem;padding:.6rem .6rem .6rem .8rem}.taptip .tt-long{display:none}}
