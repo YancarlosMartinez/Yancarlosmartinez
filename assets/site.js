@@ -117,9 +117,11 @@ addEventListener('load',kick);document.addEventListener('visibilitychange',()=>{
 
 /* 5. Category filter (Portfolio) */
 const tabs=Q('#portfolio-gallery .tab'),cards=Q('#portfolio-gallery .card');
+const tabNote=$('tabNote');
 tabs.forEach(b=>b.onclick=()=>{
-  tabs.forEach(t=>t.classList.toggle('on',t===b));
+  tabs.forEach(t=>{t.classList.toggle('on',t===b);t.setAttribute('aria-pressed',t===b)});
   cards.forEach(c=>c.style.display=b.dataset.f==='all'||c.dataset.cat.split(' ').includes(b.dataset.f)?'':'none');
+  if(tabNote){tabNote.textContent=b.dataset.note||'';tabNote.hidden=!b.dataset.note}
 });
 
 /* 5b. Project viewer: a project card opens its videos and photos */
@@ -221,14 +223,14 @@ Q('.stage').forEach(st=>{
 /* 6. AI assistant */
 const L=(u,t)=>`<a href='${u}' target='_blank' rel='noopener'>${t}</a>`;
 const IMDB=L('https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk','IMDb');
-const ABOUT=`Yancarlos Martinez is a multi-disciplinary creator: a film editor recognized on ${IMDB} for “The Families Feud,” a New York Film Academy graduate (Class of 2019) who also studied at Goodwin College, a game developer and 3D artist (Unreal Engine 5, Unity, Blender, Character Creator 5), and a commercial print model on the cover of ${L('https://a.co/d/0feif4ZH','Fable Manny')}.`;
+const ABOUT=`Yancarlos Martinez is a multi-disciplinary creator: a film editor recognized on ${IMDB} for “The Families Feud,” a New York Film Academy graduate (Class of 2019) who also studied at Goodwin College, a game developer and 3D artist (Unreal Engine 5, Unity, Blender, Character Creator 5), and a commercial print model.`;
 const KB=[
 [/salon|trish|donat|charity|children|ccmc|luncheon|hospital/i,`The Ms. Trish Self-Care Salon was Patricia “Ms. Trish” Candillo’s vision: a salon inside the hospital for patients, parents and staff. Her family is raising the funds to build it at Connecticut Children’s Medical Center. Yancarlos designed it in 3D and built the narrated presentation for the CCMC Charity Luncheon. ${L('/salon/','See the project and how to support it')}.`],
 [/family|short film|bridg|emmanuel|olivia|\bmom\b|\bson\b|daughter/i,'His upcoming animated short stars Character Creator 5 versions of his family: Bridgitte (mom), Emmanuel (son), Olivia (daughter) and his youngest son.'],
 [/web|site|develop|html|javascript|three/i,`He builds websites and interactive 3D pages, including this site and the Ms. Trish salon 3D tour. ${L('/web-development/','See his web development work')}.`],
 [/sylvia|presentation|welcome/i,`Sylvia’s animated character welcomed guests at the CCMC Charity Luncheon. ${L('/sylvia/','See Sylvia’s page')}.`],
 [/3d|game|unreal|unity|blender|\bcod(e|er|ing)\b|character|dot|robot|broccarlos|broccoli|victor|animat/i,`He builds games, shaders, and 3D virtual environments with Unreal Engine 5, Unity, Blender, and Character Creator 5, plus original universes like Broccarlos, Avictor and Dot Robot. ${L('/','See his animation work')}.`],
-[/model|book|print|backstage|fable|manny|amazon/i,`Yancarlos is a commercial print model featured on the cover of “Fable Manny.” ${L('https://a.co/d/0feif4ZH','Order it on Amazon')} or see his ${L('https://www.backstage.com','Backstage')} profile.`],
+[/model|print|backstage|fashion|photo ?shoot/i,`Yancarlos works as a commercial print model for product and fashion shoots. ${L('/films/#portfolio-gallery','See his modeling work')} or his ${L('https://www.backstage.com','Backstage')} profile.`],
 [/film|edit|award|imdb|movie|feud|nyfa|academy|goodwin|school|educat|diploma|graduat/i,`Yancarlos is recognized on ${IMDB} for editing the feature film “The Families Feud.” He studied at the New York Film Academy (Class of 2019) and Goodwin College. ${L('/films/','See his films')}.`],
 [/social|instagram|tiktok|linkedin|facebook/i,'Connect with Yancarlos:<br>• '+L('https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info','LinkedIn')+'<br>• '+L('https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl','Instagram')+'<br>• '+L('https://www.tiktok.com/@yancarlosmart1nez?_r=1&_t=ZP-9Ahc36fQtxv','TikTok')+'<br>• '+L('https://www.facebook.com/share/19sGsR39n8/','Facebook')],
 [/contact|hire|email|reach/i,`You can reach Yancarlos directly at ${L('mailto:yanmartinez92@gmail.com','yanmartinez92@gmail.com')}, or see ${L('/about/','About &amp; Contact')}.`]
