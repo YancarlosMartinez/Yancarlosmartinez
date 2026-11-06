@@ -2,7 +2,8 @@
    1. A message / free-quote form. It opens from any "Get a Free Quote" or email button and from every price on /rates/.
       Messages go to Yan's Google Apps Script: saved in the "Quotes" tab, sent to his phone (ntfy) and to his email.
    2. Yan's assistant (the chat bubble): greets visitors with something about the page they're on, answers common
-      questions about services, prices and booking, and hands anything else to Yan through the same form. */
+      questions about services, prices and booking, and hands anything else to Yan through the same form.
+   3. Yan's voice: a short hello in his own voice on each page (files in /media/voice/). */
 (function () {
   'use strict';
   var API = window.BOOKING_API || 'https://script.google.com/macros/s/AKfycbwyh70_6a0W65XfKHByQXqwP1vt4v0Vx1SxMeOgPkIbHFioa1XgMop_qjCdRe4Z4lw/exec';
@@ -230,7 +231,7 @@
       text: 'Welcome to Yan’s films. He shoots, edits and does the VFX, and he’s recognized on ' + IMDB + ' for editing “The Families Feud.” Some of these are streaming on Tubi and Prime Video. Tap any project to watch.',
       chips: [['Editing prices', ask('How much is video editing?')], ['Green screen & VFX', ask('How much is green screen removal?')], ['Filming prices', ask('How much is filming?')], C_QUOTE] },
     sylvia: { tease: 'Want your own animated welcome video like Sylvia?',
-      text: 'This is Sylvia, a 3D animated version of attorney Sylvia D. Reid. Yan built her from photos, gave her a voice and animated her welcome speech. He can make one of you or your business: a character plus a 30-second welcome video starts at $1,000.',
+      text: 'This is Sylvia, a 3D animated version of attorney Sylvia D. Reid. Yan designed her 3D character and animated her welcome for the Ms. Trish Self-Care Salon presentation at the CCMC Charity Luncheon. He can make one for you or your business: a character plus a 30-second welcome video starts at $1,000.',
       chips: [['Get one like Sylvia', quote('3D character or animation', 'I’d like an animated welcome video like Sylvia.\n\n')], ['3D prices', ask('How much is a 3D character?')], C_PRICES] },
     web: { tease: 'Need a website? I can show you prices and examples.',
       text: 'Yan builds fast, mobile-friendly websites with videos, 3D tours and online booking, like this site and his haircut booking page. One-page sites start at $500.',
@@ -281,8 +282,159 @@
     msgs.innerHTML = '';
     bot(intro.text, intro.chips, true);
   }
-  var bubble = null;
-  function hideBubble() { if (bubble) { bubble.classList.remove('on'); var b = bubble; bubble = null; setTimeout(function () { b.remove(); }, 300); } }
+
+  /* ================================================================ 3. Yan's voice
+     A short hello in Yan's own voice (made with ElevenLabs) for each page. It plays by itself when the browser allows it;
+     browsers that block sound until the visitor touches the page start it on their first tap. Visitors can pause it,
+     replay it from the chat, or turn it off for every page ("Voice off" is remembered on their device).
+     It only plays once per page per visit, and it pauses when a video with sound starts. */
+  var VOICE = { home: 19, films: 22, sylvia: 18, web: 14, rates: 24, about: 20, barber: 12 };   // seconds
+  var voiceLen = VOICE[page] || 0, voiceSrc = voiceLen ? '/media/voice/' + page + '.mp3?v=1' : '';
+  var audio = null, voiceState = 'idle', waitingOff = null;   // idle | waiting (for a tap) | playing | paused | done
+  var ICON = {
+    play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>',
+    pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+    speaker: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+  };
+  var voiceOff = function () { return store.get('yanVoice') === 'off'; };
+  var clock = function (s) { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); };
+  var bubble = null, bubbleTimer = 0;
+
+  // the voice button in the chat header
+  var vc = null;
+  if (voiceSrc) {
+    vc = el('button'); vc.id = 'vc'; vc.type = 'button';
+    vc.addEventListener('click', function () { toggleVoice(); });
+    var xcBtn = $('#xc', chat); if (xcBtn) xcBtn.parentNode.insertBefore(vc, xcBtn);
+  }
+
+  function talking() { return !!audio && !audio.paused && !audio.ended; }
+  function soundVideoPlaying() {
+    return $$('video').some(function (v) { return !v.paused && !v.ended && !v.muted && v.volume > 0; });
+  }
+  function ensureAudio() {
+    if (audio) return audio;
+    audio = new Audio(voiceSrc); audio.preload = 'auto';
+    audio.addEventListener('play', function () { voiceState = 'playing'; paint(); });
+    audio.addEventListener('pause', function () { if (!audio.ended) { voiceState = 'paused'; paint(); } });
+    audio.addEventListener('ended', function () {
+      voiceState = 'done'; paint();
+      clearTimeout(bubbleTimer); bubbleTimer = setTimeout(hideBubble, 5000);
+    });
+    audio.addEventListener('timeupdate', paint);
+    audio.addEventListener('error', function () { voiceState = 'idle'; voiceLen = 0; if (vc) vc.hidden = true; paint(); });
+    return audio;
+  }
+  // returns a promise: true if the voice started
+  function playVoice() {
+    if (!voiceSrc || !voiceLen) return Promise.resolve(false);
+    var a = ensureAudio();
+    if (a.ended) a.currentTime = 0;
+    var p;
+    try { p = a.play(); } catch (e) { return Promise.resolve(false); }
+    return p && p.then ? p.then(function () { return true; }, function () { return false; }) : Promise.resolve(!a.paused);
+  }
+  function pauseVoice() { if (talking()) audio.pause(); }
+  function toggleVoice() {
+    stopWaiting();
+    if (talking()) return pauseVoice();
+    if (voiceOff()) store.set('yanVoice', 'on');        // pressing play turns the voice back on
+    playVoice().then(function (ok) { if (ok && !chatOpen()) showBubble(); });
+  }
+  function turnVoiceOff() {
+    store.set('yanVoice', 'off'); stopWaiting(); pauseVoice(); paint();
+    clearTimeout(bubbleTimer); bubbleTimer = setTimeout(hideBubble, 2500);
+  }
+
+  // sound is blocked until the visitor touches the page: start on their first tap, unless that tap is on a video,
+  // a project, a price, a link to another page or a form field (they're busy with that)
+  var BUSY = 'video, iframe, .card, .proj, .quotable, dialog, a[href]:not([href^="#"]), input, textarea, select, .ai-bubble, #vc';
+  function waitForTap() {
+    voiceState = 'waiting'; paint();
+    var evs = ['pointerdown', 'pointerup', 'touchend', 'keydown'];
+    var go = function (e) {
+      if (voiceState !== 'waiting') return stopWaiting();
+      if (e.type === 'keydown' && (e.key === 'Escape' || e.key === 'Tab' || e.key === 'Shift')) return;
+      var t = e.target;
+      if (t && t.closest && t.closest(BUSY)) { if (!t.closest('.ai-bubble, #vc')) { stopWaiting(); voiceState = 'idle'; paint(); } return; }
+      if (voiceOff() || soundVideoPlaying()) return stopWaiting();
+      playVoice().then(function (ok) { if (ok) { stopWaiting(); if (!chatOpen()) showBubble(); } });
+    };
+    evs.forEach(function (n) { addEventListener(n, go, true); });
+    waitingOff = function () { evs.forEach(function (n) { removeEventListener(n, go, true); }); waitingOff = null; };
+  }
+  function stopWaiting() { if (waitingOff) waitingOff(); }
+
+  // a video with sound always wins; so does leaving the tab
+  document.addEventListener('play', function (e) { var m = e.target; if (m !== audio && m.tagName === 'VIDEO' && !m.muted) { pauseVoice(); stopWaiting(); } }, true);
+  document.addEventListener('volumechange', function (e) { var m = e.target; if (m !== audio && m.tagName === 'VIDEO' && !m.muted && !m.paused) { pauseVoice(); stopWaiting(); } }, true);
+  document.addEventListener('visibilitychange', function () { if (document.hidden) pauseVoice(); });
+
+  // keep the buttons and the status line in step with the voice
+  function paint() {
+    var on = talking();
+    if (vc) {
+      vc.innerHTML = on ? ICON.pause : ICON.speaker;
+      vc.classList.toggle('on', on);
+      vc.setAttribute('aria-label', on ? 'Pause Yan’s voice' : 'Hear Yan say hi');
+      vc.title = on ? 'Pause' : 'Hear Yan say hi';
+    }
+    if (!bubble) return;
+    bubble.classList.toggle('talking', on);
+    var pb = $('.ai-b-play', bubble), st = $('.ai-b-st span', bubble), bar = $('.ai-b-bar i', bubble), mute = $('.ai-b-mute', bubble);
+    if (pb) { pb.innerHTML = on ? ICON.pause : ICON.play; pb.setAttribute('aria-label', on ? 'Pause Yan’s voice' : 'Play Yan’s hello'); }
+    if (st) {
+      var len = (audio && isFinite(audio.duration) && audio.duration) || voiceLen, at = audio ? audio.currentTime : 0;
+      st.textContent = on ? 'Yan is talking · ' + clock(at) + ' / ' + clock(len)
+        : voiceOff() && voiceState !== 'idle' ? 'Voice is off on every page. Tap ▶ to hear it.'
+        : voiceState === 'paused' ? 'Paused · ' + clock(at) + ' / ' + clock(len)
+        : voiceState === 'done' ? 'Tap ▶ to hear it again'
+        : 'Tap ▶ to hear Yan say hi (' + clock(len) + ')';
+      if (bar) bar.style.width = (len ? Math.min(100, at / len * 100) : 0) + '%';
+    }
+    if (mute) mute.hidden = voiceOff();
+  }
+
+  function hideBubble() {
+    clearTimeout(bubbleTimer);
+    if (bubble) { bubble.classList.remove('on'); var b = bubble; bubble = null; setTimeout(function () { b.remove(); }, 300); }
+  }
+  function showBubble() {
+    clearTimeout(bubbleTimer);
+    if (!bubble) {
+      bubble = el('div', 'ai-bubble' + (voiceSrc ? ' has-voice' : '')); bubble.setAttribute('role', 'status');
+      if (voiceSrc && voiceLen) {
+        var pb = el('button', 'ai-b-play'); pb.type = 'button';
+        pb.addEventListener('click', toggleVoice);
+        bubble.appendChild(pb);
+      }
+      var body = el('div', 'ai-b-body');
+      var txt = el('button', 'ai-b-txt'); txt.type = 'button';
+      txt.appendChild(el('b', null, 'Yan’s Assistant')); txt.appendChild(el('span', null, intro.tease));
+      txt.addEventListener('click', function () { toggleChat(true); });
+      body.appendChild(txt);
+      if (voiceSrc && voiceLen) {
+        var st = el('div', 'ai-b-st'); st.appendChild(el('span'));
+        var mute = el('button', 'ai-b-mute', 'Voice off'); mute.type = 'button';
+        mute.title = 'Turn off Yan’s voice on every page';
+        mute.addEventListener('click', turnVoiceOff);
+        st.appendChild(mute);
+        var bar = el('i', 'ai-b-bar'); bar.appendChild(el('i'));
+        body.appendChild(st); body.appendChild(bar);
+      }
+      bubble.appendChild(body);
+      var x = el('button', 'ai-b-x'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); x.innerHTML = '&times;';
+      x.addEventListener('click', function () { stopWaiting(); pauseVoice(); hideBubble(); });
+      bubble.appendChild(x);
+      document.body.appendChild(bubble);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { if (bubble) bubble.classList.add('on'); }); });
+    }
+    paint();
+    // the bubble stays while Yan is talking, then goes away by itself
+    var later = function () { if (talking()) bubbleTimer = setTimeout(later, 4000); else hideBubble(); };
+    bubbleTimer = setTimeout(later, voiceState === 'done' ? 5000 : 14000);
+  }
+
   function toggleChat(open) {
     if (open === undefined) open = !chatOpen();
     chat.classList.toggle('hidden', !open);
@@ -295,22 +447,19 @@
   var snd = $('#snd'); if (snd) snd.onclick = send;
   q.onkeydown = function (e) { if (e.key === 'Enter') send(); };
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && chatOpen() && !dlg.open) toggleChat(false); });
+  paint();
 
-  // the assistant says hi a few seconds after the page opens (once per page per visit)
+  // the assistant says hi (and Yan's voice plays) shortly after the page opens, once per page per visit
   if (!store.seen('chatSeen-' + page)) {
-    setTimeout(function () {
+    var greet = function () {
+      var introBox = $('#intro');                                // wait for the home intro video, if it's showing
+      if (introBox && !introBox.hidden) return setTimeout(greet, 800);
       if (chatOpen() || dlg.open || store.seen('chatSeen-' + page)) return;
       store.mark('chatSeen-' + page);
-      bubble = el('div', 'ai-bubble'); bubble.setAttribute('role', 'status');
-      var txt = el('button', 'ai-b-txt'); txt.type = 'button';
-      txt.appendChild(el('b', null, 'Yan’s Assistant')); txt.appendChild(el('span', null, intro.tease));
-      var x = el('button', 'ai-b-x'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); x.innerHTML = '&times;';
-      txt.addEventListener('click', function () { toggleChat(true); });
-      x.addEventListener('click', hideBubble);
-      bubble.appendChild(txt); bubble.appendChild(x);
-      document.body.appendChild(bubble);
-      requestAnimationFrame(function () { requestAnimationFrame(function () { if (bubble) bubble.classList.add('on'); }); });
-      setTimeout(hideBubble, 14000);
-    }, 2500);
+      showBubble();
+      if (!voiceSrc || voiceOff() || soundVideoPlaying()) return;
+      playVoice().then(function (ok) { if (!ok && !talking()) waitForTap(); });
+    };
+    setTimeout(greet, 1500);
   }
 })();

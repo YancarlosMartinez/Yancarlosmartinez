@@ -330,3 +330,22 @@ dialog.qf::backdrop{background:rgba(5,2,3,.72);-webkit-backdrop-filter:blur(3px)
 .page-rates .rows li.quotable:hover,.page-rates .rows li.quotable:focus-visible{background:rgba(217,146,31,.08);outline:none}
 .page-rates .rows li.quotable:focus-visible{box-shadow:0 0 0 2px var(--gold) inset}
 .page-rates .rows li.quotable .amt::after{content:"Get quote \2192";display:block;margin-top:.3rem;font:600 .72rem 'Inter',sans-serif;color:var(--gold);letter-spacing:0;text-transform:none}
+/* Yan's voice: play/pause in the greeting bubble and in the chat header */
+.ai-bubble.has-voice{max-width:min(320px,calc(100vw - 40px))}
+.ai-b-play{flex:none;align-self:center;position:relative;display:grid;place-items:center;width:42px;height:42px;margin-left:.7rem;padding:0;border:0;border-radius:50%;background:var(--gold);color:#140a03;cursor:pointer}
+.ai-b-play svg{width:18px;height:18px;fill:currentColor}
+.ai-bubble.talking .ai-b-play::after{content:'';position:absolute;inset:-4px;border:2px solid var(--gold);border-radius:50%;animation:vRing 1.4s ease-out infinite;pointer-events:none}
+@keyframes vRing{from{transform:scale(1);opacity:.7}to{transform:scale(1.4);opacity:0}}
+.ai-b-body{display:grid;gap:.3rem;flex:1;min-width:0;padding:.65rem .35rem .7rem .9rem}
+.ai-bubble.has-voice .ai-b-body{padding-left:.65rem}
+.ai-b-body .ai-b-txt{padding:0}
+.ai-b-st{display:flex;flex-wrap:wrap;align-items:baseline;gap:.15rem .6rem;color:var(--muted);font:400 .74rem/1.35 'Inter',sans-serif}
+.ai-b-st span{font-variant-numeric:tabular-nums}
+.ai-b-mute{padding:0;border:0;background:none;color:var(--gold);font:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.ai-b-bar{display:block;height:3px;border-radius:2px;background:rgba(217,146,31,.2);overflow:hidden}
+.ai-b-bar i{display:block;width:0;height:100%;background:var(--gold);transition:width .25s linear}
+.ch #vc{display:grid;place-items:center;width:30px;height:30px;margin:0 .4rem 0 auto;padding:0;border:1px solid rgba(255,255,255,.4);border-radius:50%;font-size:0;color:#fff}
+.ch #vc svg{width:16px;height:16px;fill:currentColor}
+.ch #vc.on{background:var(--gold);border-color:var(--gold);color:#140a03}
+.ch #vc[hidden]{display:none}
+@media(prefers-reduced-motion:reduce){.ai-bubble.talking .ai-b-play::after,.ai-b-bar i{animation:none;transition:none}}
