@@ -284,12 +284,12 @@
   }
 
   /* ================================================================ 3. Yan's voice
-     A short hello in Yan's own voice (made with ElevenLabs) for each page. It plays by itself when the browser allows it;
+     A short hello in Yan's own voice (made with ElevenLabs, eleven_v4 model) for each page. It plays by itself when the browser allows it;
      browsers that block sound until the visitor touches the page start it on their first tap. Visitors can pause it,
      replay it from the chat, or turn it off for every page ("Voice off" is remembered on their device).
      It only plays once per page per visit, and it pauses when a video with sound starts. */
-  var VOICE = { home: 19, films: 22, sylvia: 18, web: 14, rates: 24, about: 20, barber: 12 };   // seconds
-  var voiceLen = VOICE[page] || 0, voiceSrc = voiceLen ? '/media/voice/' + page + '.mp3?v=1' : '';
+  var VOICE = { home: 27, films: 23, sylvia: 19, web: 21, rates: 34, about: 22, barber: 26 };   // seconds
+  var voiceLen = VOICE[page] || 0, voiceSrc = voiceLen ? '/media/voice/' + page + '.mp3?v=2' : '';
   var audio = null, voiceState = 'idle', waitingOff = null;   // idle | waiting (for a tap) | playing | paused | done
   var ICON = {
     play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>',
