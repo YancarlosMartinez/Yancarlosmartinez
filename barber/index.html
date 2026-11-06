@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Haircut | Yancarlos Martinez</title>
+<meta name="description" content="Book a private haircut with Yancarlos. Pick a time, send half up front by Cash App or Zelle to hold it, and pay the rest after your cut.">
+<meta name="author" content="Yancarlos Martinez">
+<!-- Private, by-appointment page: shared by link with clients, kept off Google -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yancarlos Martinez">
+<meta property="og:title" content="Book a Haircut with Yancarlos">
+<meta property="og:description" content="Pick a time, send half up front to hold it, and pay the rest after your cut.">
+<meta property="og:image" content="https://www.yancarlosmartinez.com/img/og-yancarlos-martinez.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=20261103b">
+<style>
+/* Barber page: booking form, price list, weekly hours and house rules, in the site's burgundy + gold */
+[hidden]{display:none!important}
+#bk-done,#bkf{scroll-margin-top:84px}
+.bk-wrap{max-width:980px;margin:0 auto}
+.bk-cta{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:.4rem}
+.bk-note{color:var(--muted);font-size:.85rem;text-align:center;margin-top:.8rem}
+/* booking form */
+.bk-app{max-width:720px;margin:0 auto;background:var(--card);border:1px solid rgba(217,146,31,.3);border-radius:18px;padding:1.4rem clamp(1rem,3vw,1.8rem);box-shadow:0 10px 30px rgba(114,17,33,.3)}
+.bk-app fieldset{border:0;margin:0 0 1.5rem;padding:0;min-width:0}
+.bk-app legend{display:flex;align-items:center;gap:.6rem;font:800 1.05rem 'Syne',sans-serif;color:#fff;margin-bottom:.7rem}
+.bk-app legend .n{flex:none;width:1.8rem;height:1.8rem;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold);color:var(--gold);font-size:.85rem}
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+@media(max-width:340px){.svc{grid-template-columns:1fr}}
+.svc label{position:relative;display:flex;flex-direction:column;gap:.15rem;padding:.8rem 1rem;border:1px solid rgba(217,146,31,.3);border-radius:12px;cursor:pointer;background:rgba(11,7,8,.5)}
+.svc input{position:absolute;opacity:0;pointer-events:none}
+.svc b{font-size:.98rem}
+.svc small{color:var(--muted);font-size:.8rem}
+.svc .p{font:800 1.35rem 'Syne',sans-serif;color:var(--gold);font-variant-numeric:tabular-nums}
+.svc label:has(input:checked){border-color:var(--gold);background:rgba(114,17,33,.4);box-shadow:0 0 0 1px var(--gold) inset}
+.svc label:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:2px}
+.chips-row{display:flex;gap:.5rem;overflow-x:auto;padding:.1rem .1rem .5rem;scroll-snap-type:x proximity}
+.chips-wrap{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{flex:none;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:0;min-width:4.4rem;padding:.55rem .8rem;border-radius:12px;border:1px solid rgba(217,146,31,.35);background:rgba(11,7,8,.5);color:var(--text);font:600 .92rem 'Inter',sans-serif;cursor:pointer;font-variant-numeric:tabular-nums}
+.chip small{font-weight:500;font-size:.75rem;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#000}
+.chip[aria-pressed="true"] small{color:#2a1a05}
+.chip:focus-visible,.bk-app input:focus-visible,.bk-app textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.bk-hint{color:var(--muted);font-size:.88rem}
+.fld{display:grid;gap:.3rem;margin-bottom:.8rem}
+.fld label{font-size:.88rem;font-weight:600}
+.fld label small{font-weight:400;color:var(--muted)}
+.bk-app input[type=text],.bk-app input[type=tel],.bk-app input[type=email],.bk-app input[type=number],.bk-app textarea{width:100%;font:400 1rem 'Inter',sans-serif;color:var(--text);background:rgba(11,7,8,.65);border:1px solid rgba(217,146,31,.3);border-radius:10px;padding:.65rem .8rem}
+.bk-app textarea{min-height:5rem;resize:vertical}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0 .8rem}
+.bk-app input[type=file]{font-size:.85rem;color:var(--muted);max-width:100%}
+#bk-thumb{width:96px;height:96px;object-fit:cover;border-radius:10px;border:1px solid rgba(217,146,31,.4)}
+.agree{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem;color:var(--muted);margin:.4rem 0 1rem}
+.agree input{margin-top:.25rem;accent-color:var(--gold);width:1.1rem;height:1.1rem;flex:none}
+.agree b{color:var(--text)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.bk-sum{border-top:1px solid rgba(217,146,31,.2);padding-top:1rem;margin-bottom:.9rem;font-weight:600;color:var(--gold)}
+#bk-go{border:0;cursor:pointer;font:600 1rem 'Inter',sans-serif;width:100%}
+#bk-go:disabled{opacity:.6;cursor:wait}
+.bk-err{color:#ffb4a8;font-size:.9rem;min-height:1.2em;margin-top:.6rem}
+.bk-msg{text-align:center}
+.bk-msg h3{font-size:1.4rem;color:var(--gold);margin-bottom:.3rem}
+.bk-msg p{color:var(--muted);margin:.4rem auto;max-width:520px}
+.bk-msg p b{color:var(--text)}
+.bk-when{font:800 clamp(1.3rem,4vw,1.8rem) 'Syne',sans-serif;color:#fff}
+.bk-pay{margin:1.1rem auto;padding:1rem;border:1px dashed rgba(217,146,31,.55);border-radius:14px;max-width:460px;display:grid;gap:.6rem;justify-items:center}
+.bk-pay p{margin:0;color:var(--text)}
+.bk-zelle{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:center;font-weight:600}
+.bk-zelle .btn{padding:.35rem 1rem;font-size:.85rem}
+.bk-owed{color:#ffb4a8!important}
+.bk-small{font-size:.85rem}
+/* prices, hours, rules */
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem}
+.price{background:var(--card);border:1px solid rgba(217,146,31,.25);border-radius:16px;padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.35rem}
+.price h3{font-size:1.15rem;line-height:1.3}
+.price .who{color:var(--muted);font-size:.88rem}
+.price .amt{font:800 2.4rem/1 'Syne',sans-serif;color:var(--gold);margin:.4rem 0 .2rem;font-variant-numeric:tabular-nums}
+.price .dep{font-size:.88rem;color:var(--text);border-top:1px solid rgba(217,146,31,.18);padding-top:.55rem;margin-top:auto}
+.price .dep b{color:var(--gold)}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.1rem}
+.facts span{border:1px solid rgba(217,146,31,.45);border-radius:999px;padding:.35rem .9rem;font-size:.85rem;background:rgba(114,17,33,.18)}
+.hours{list-style:none;max-width:620px;margin:0 auto;border:1px solid rgba(217,146,31,.25);border-radius:16px;overflow:hidden;background:var(--card)}
+.hours li{display:grid;grid-template-columns:7.5rem 1fr;gap:1rem;padding:.75rem 1.2rem;border-top:1px solid rgba(217,146,31,.12);font-variant-numeric:tabular-nums}
+.hours li:first-child{border-top:0}
+.hours .d{font-weight:600}
+.hours li.off .t,.hours li.off .d{color:var(--muted)}
+.rules{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1rem}
+.rules li{background:var(--card);border:1px solid rgba(217,146,31,.15);border-radius:16px;padding:1.1rem 1.2rem}
+.rules li.key{border-color:rgba(217,146,31,.55);background:linear-gradient(180deg,rgba(114,17,33,.35),var(--card) 70%)}
+.rules h3{font-size:1.05rem;color:var(--gold);margin-bottom:.35rem;line-height:1.35}
+.rules p{color:var(--muted);font-size:.9rem;line-height:1.6}
+.rules p b{color:var(--text)}
+@media(max-width:420px){.hours li{grid-template-columns:6rem 1fr;padding:.7rem 1rem}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body class="page-barber">
+
+<div class="amb" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i></div>
+
+<header>
+  <a href="/" class="brand"><img src="/img/yans-cartoon-headshot.webp" alt="Yancarlos"><span>YANCARLOS MARTINEZ</span></a>
+  <button id="mn" aria-label="Open menu" aria-expanded="false" aria-controls="nv">&#9776;</button>
+  <nav id="nv">
+    <a href="/">Animation</a>
+    <a href="/films/">Films</a>
+    <a href="/sylvia/">Sylvia</a>
+    <a href="/salon/">Salon Project</a>
+    <a href="/web-development/">Web Development</a>
+    <a href="/about/">About</a>
+    <a href="/about/#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero sub">
+  <div>
+    <div class="meta">Private barber &bull; By appointment only</div>
+    <h1>Book a Haircut</h1>
+    <p>Pick your time and send half up front by Cash App or Zelle to hold it. Pay the rest after your cut. A booked time disappears for everyone else.</p>
+    <div class="bk-cta">
+      <a href="#book" class="btn btn-primary">Book Your Appointment</a>
+      <a href="#rules" class="btn btn-outline">Read the Rules</a>
+    </div>
+  </div>
+</section>
+
+<section id="book">
+  <div class="bk-app">
+    <div id="bk-loading" class="bk-msg" hidden><p>Loading open times…</p></div>
+    <div id="bk-off" class="bk-msg" hidden><h3>Online booking opens soon</h3><p>For now, text me to book your cut.</p></div>
+    <noscript><div class="bk-msg"><p>Turn on JavaScript to book online, or text me to book.</p></div></noscript>
+
+    <form id="bkf" hidden novalidate>
+      <fieldset>
+        <legend><span class="n">1</span>Pick a service</legend>
+        <div class="svc">
+          <label><input type="radio" name="service" value="kids"><b>Kids Haircut</b><small>Under 16</small><span class="p">$30</span><small>$15 deposit</small></label>
+          <label><input type="radio" name="service" value="cut"><b>Haircut</b><small>16 and over</small><span class="p">$40</span><small>$20 deposit</small></label>
+          <label><input type="radio" name="service" value="beard"><b>Haircut + Beard</b><small>Full haircut with beard</small><span class="p">$40</span><small>$20 deposit</small></label>
+          <label><input type="radio" name="service" value="eyebrows"><b>Eyebrows Only</b><small>Eyebrow cleanup, no haircut</small><span class="p">$15</span><small>$7.50 deposit</small></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">2</span>Pick a day</legend>
+        <div id="bk-days" class="chips-row" aria-label="Open days"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">3</span>Pick a time</legend>
+        <div id="bk-times" class="chips-wrap" aria-label="Open times"></div>
+        <p class="bk-hint">Every appointment is 1 hour. Only open times show.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">4</span>Your info</legend>
+        <div class="two">
+          <div class="fld"><label for="bk-name">Name</label><input id="bk-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="fld"><label for="bk-phone">Phone</label><input id="bk-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(860) 555-0123" required></div>
+        </div>
+        <div class="fld" id="bk-kid" hidden><label for="bk-kidage">Kid’s age <small>(kids price is for 15 and under)</small></label><input id="bk-kidage" name="kidAge" type="number" min="1" max="15" inputmode="numeric"></div>
+        <div class="fld"><label for="bk-email">Email <small>(optional, for your confirmation and reminder)</small></label><input id="bk-email" name="email" type="email" autocomplete="email"></div>
+        <div class="fld"><label for="bk-notes">What do you want? <small>(fade, beard trim, new style, anything I should know)</small></label><textarea id="bk-notes" name="notes" maxlength="600"></textarea></div>
+        <div class="fld"><label for="bk-photo">Photo of the cut you want <small>(optional)</small></label><input id="bk-photo" name="photo" type="file" accept="image/*"><img id="bk-thumb" alt="Your photo" hidden></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">5</span>Deposit: <span id="bk-dep-amt">half the price</span></legend>
+        <div class="svc">
+          <label><input type="radio" name="pay" value="Cash App"><b>Cash App</b><small>Opens Cash App with the amount filled in</small></label>
+          <label><input type="radio" name="pay" value="Zelle"><b>Zelle</b><small>Bank to bank</small></label>
+        </div>
+        <div class="fld" style="margin-top:.8rem"><label for="bk-payname" id="bk-payname-l">Name on your Cash App or Zelle</label><input id="bk-payname" name="payName" type="text" placeholder="So I can match your deposit"></div>
+        <label class="agree"><input type="checkbox" name="agree" id="bk-agree"><span>I agree: <b>15+ minutes late = $5 late fee</b>, and the deposit is kept if I cancel less than 24 hours before or don’t show up.</span></label>
+        <div class="hp" aria-hidden="true"><label for="bk-web">Leave empty</label><input id="bk-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      </fieldset>
+
+      <div class="bk-sum" id="bk-sum">Pick a cut • pick a time</div>
+      <button id="bk-go" class="btn btn-primary" type="submit">Hold My Time</button>
+      <p id="bk-err" class="bk-err" role="alert"></p>
+    </form>
+
+    <div id="bk-done" class="bk-msg" hidden>
+      <h3>Your time is held</h3>
+      <div class="bk-when" id="bk-when"></div>
+      <p id="bk-what"></p>
+      <div class="bk-pay" id="bk-paybox"></div>
+      <p><b>Send the deposit now.</b> Your appointment is confirmed once I see it. If you added your email, the confirmation comes there.</p>
+      <p class="bk-owed" id="bk-owed" hidden></p>
+      <div class="bk-cta"><a id="bk-cal" class="btn btn-outline" target="_blank" rel="noopener">Add to my calendar</a><button id="bk-again" type="button" class="btn btn-outline" style="background:none;cursor:pointer;font:inherit;font-weight:600">Book another</button></div>
+      <p class="bk-small">Booking number <b id="bk-id"></b>. Need to cancel or move it? Text me at least 24 hours before.</p>
+    </div>
+  </div>
+</section>
+
+<section id="prices" class="tint">
+  <div class="bk-wrap">
+    <h2 class="ttl">Prices</h2>
+    <p class="desc">Every appointment is 1 hour. The deposit is half the price and comes off your total.</p>
+    <div class="prices">
+      <article class="price"><h3>Kids Haircut</h3><div class="who">Under 16</div><div class="amt">$30</div><div class="dep">Deposit to book: <b>$15</b></div></article>
+      <article class="price"><h3>Haircut</h3><div class="who">16 and over</div><div class="amt">$40</div><div class="dep">Deposit to book: <b>$20</b></div></article>
+      <article class="price"><h3>Haircut + Beard</h3><div class="who">Full haircut with beard</div><div class="amt">$40</div><div class="dep">Deposit to book: <b>$20</b></div></article>
+      <article class="price"><h3>Eyebrows Only</h3><div class="who">Eyebrow cleanup, no haircut</div><div class="amt">$15</div><div class="dep">Deposit to book: <b>$7.50</b></div></article>
+    </div>
+    <div class="facts"><span>Deposit by Cash App or Zelle when you book</span><span>Rest after your cut: cash, Cash App or Zelle</span></div>
+  </div>
+</section>
+
+<section id="hours">
+  <h2 class="ttl">Start Times</h2>
+  <p class="desc">Days off and vacations are blocked in the booking form, so if a day doesn’t show there, I’m not cutting that day.</p>
+  <ul class="hours" id="hours-list">
+    <li><span class="d">Monday</span><span class="t">3, 4, 5, 6, 7, 8&nbsp;PM</span></li>
+    <li><span class="d">Tuesday</span><span class="t">3, 4, 5, 6, 7, 8&nbsp;PM</span></li>
+    <li class="off"><span class="d">Wednesday</span><span class="t">Closed</span></li>
+    <li><span class="d">Thursday</span><span class="t">9, 10, 11&nbsp;AM &bull; 6, 7, 8, 9&nbsp;PM</span></li>
+    <li><span class="d">Friday</span><span class="t">9, 10, 11&nbsp;AM &bull; 6, 7, 8, 9&nbsp;PM</span></li>
+    <li><span class="d">Saturday</span><span class="t">9, 10, 11&nbsp;AM &bull; 12, 1, 2&nbsp;PM</span></li>
+    <li><span class="d">Sunday</span><span class="t">9, 10, 11&nbsp;AM</span></li>
+  </ul>
+</section>
+
+<section id="rules" class="tint">
+  <div class="bk-wrap">
+    <h2 class="ttl">Before You Book</h2>
+    <p class="desc">These keep everyone’s time on schedule, yours and the next client’s.</p>
+    <ul class="rules">
+      <li class="key"><h3>Be on time</h3><p>If you’re <b>15 minutes or more late</b>, there’s a <b>$5 late fee</b>, paid at the chair. If it isn’t paid, it’s added to your next cut.</p></li>
+      <li class="key"><h3>Deposit holds your spot</h3><p>Send half the price by <b>Cash App or Zelle</b> right after you book. No deposit, no appointment. It comes off your total.</p></li>
+      <li><h3>Can’t make it?</h3><p>Text me at least <b>24 hours before</b> your time to cancel or move it. If you cancel later than that or don’t show up, the deposit is kept.</p></li>
+      <li><h3>Booking for a kid?</h3><p>A parent or guardian books, and the kids price is for anyone <b>15 and under</b>.</p></li>
+      <li><h3>Want a certain style?</h3><p>Write what you want when you book and add a photo if you have one.</p></li>
+      <li><h3>Where</h3><p>It’s a private home studio, not a shop. You get the address once your deposit comes in.</p></li>
+    </ul>
+    <p class="bk-note">Questions? Text me. I’ll answer when I’m not cutting.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <nav class="fnav" aria-label="Site pages"><a href="/">Animation</a> <a href="/films/">Films</a> <a href="/sylvia/">Sylvia</a> <a href="/salon/">Salon Project</a> <a href="/web-development/">Web Development</a> <a href="/about/">About</a> <a href="/about/#contact">Contact</a></nav>
+  <p>&copy; 2026 Yancarlos Martinez</p>
+</footer>
+<!-- AI assistant (fixed bottom-right) -->
+<div id="ai">
+  <div id="chat" class="hidden">
+    <div class="ch"><span>Yancarlos AI Assistant</span><button id="xc" aria-label="Close chat">&times;</button></div>
+    <div class="cb" id="msgs"><p>👋 Hey! I’m Yancarlos’s virtual assistant. Ask me about his films, IMDb-recognized editing, Unreal Engine 5 projects, 3D characters or websites!</p></div>
+    <div class="ci"><input id="q" type="text" placeholder="Type a question..." aria-label="Your question"><button id="snd">Send</button></div>
+  </div>
+  <button id="tg" title="Toggle AI Chat" aria-label="Toggle AI chat"><img src="/img/yans-cartoon-headshot.webp" alt="Yancarlos" loading="lazy" decoding="async"></button>
+</div>
+<script src="/assets/site.js?v=20261103b"></script>
+<script src="/barber/booking.js?v=20261106"></script>
+</body>
+</html>
