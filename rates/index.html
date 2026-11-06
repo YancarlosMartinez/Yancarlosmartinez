@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services &amp; Rates | Yancarlos Martinez</title>
+<meta name="description" content="Starting prices for video editing, green screen removal, VFX and CGI, AI video, voice-over, 3D characters and animation, graphic design, photography, filming, websites, apps and games by Yancarlos Martinez. Free quotes, and new clients get 50% off their first project.">
+<meta name="author" content="Yancarlos Martinez">
+<link rel="canonical" href="https://www.yancarlosmartinez.com/rates/">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yancarlos Martinez">
+<meta property="og:title" content="Services &amp; Rates | Yancarlos Martinez">
+<meta property="og:description" content="Video, VFX, AI, 3D animation, design, photography, websites, apps and games. Starting prices, free quotes and 50% off your first project.">
+<meta property="og:url" content="https://www.yancarlosmartinez.com/rates/">
+<meta property="og:image" content="https://www.yancarlosmartinez.com/img/og-yancarlos-martinez.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=20261103b">
+<style>
+/* Rates page: one "menu board" card per kind of work, service on the left, starting price on the right */
+.rt-wrap{max-width:1180px;margin:0 auto}
+.rt-cta{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:.4rem}
+.rt-deal{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.35rem .6rem;margin:0 auto 1.3rem;padding:.55rem 1.1rem;border:1px solid var(--gold);border-radius:14px;background:linear-gradient(90deg,rgba(114,17,33,.55),rgba(217,146,31,.18));color:var(--text);font-size:.95rem}
+.rt-deal b{color:var(--gold);font:800 1.05rem 'Syne',sans-serif;letter-spacing:.02rem}
+.rt-jump{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin:1.2rem auto 0;max-width:860px}
+.rt-jump a{border:1px solid rgba(217,146,31,.45);border-radius:999px;padding:.32rem .85rem;font-size:.82rem;color:var(--text);text-decoration:none;background:rgba(114,17,33,.18)}
+.rt-jump a:hover,.rt-jump a:focus-visible{border-color:var(--gold);color:var(--gold)}
+.boards{columns:2 440px;column-gap:1.2rem}
+.board{break-inside:avoid;margin:0 0 1.2rem;background:var(--card);border:1px solid rgba(217,146,31,.25);border-radius:18px;padding:1.3rem clamp(1rem,3vw,1.5rem) 1rem;scroll-margin-top:84px;min-width:0}
+.board-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.3rem 1rem;margin-bottom:.2rem}
+.board h2{font-size:clamp(1.25rem,2.6vw,1.5rem);line-height:1.25;text-wrap:balance}
+.board-h a{font-size:.82rem;color:var(--gold);text-decoration:none;font-weight:600;white-space:nowrap}
+.board-h a:hover{text-decoration:underline}
+.board .lead{color:var(--muted);font-size:.9rem;margin-bottom:.4rem}
+.board .lead a,.rows p a{color:var(--gold)}
+.rows{list-style:none}
+.rows li{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;padding:.8rem 0;border-top:1px solid rgba(217,146,31,.14);align-items:start}
+.rows li:first-child{border-top:0}
+.rows h3{font:600 1rem/1.35 'Inter',sans-serif;color:#fff}
+.rows p{grid-column:1;color:var(--muted);font-size:.86rem;line-height:1.5}
+.rows .amt{grid-column:2;grid-row:1/span 2;text-align:right;font:800 1.3rem/1.1 'Syne',sans-serif;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rows .amt small{display:block;font:500 .7rem 'Inter',sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.06rem}
+.rows .amt i{font:500 .78rem 'Inter',sans-serif;font-style:normal;color:var(--muted)}
+.rows .amt.q{font-size:1rem}
+.board .fine{color:var(--muted);font-size:.8rem;border-top:1px dashed rgba(217,146,31,.3);padding-top:.7rem;margin-top:.2rem}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem;counter-reset:s}
+.steps li{background:var(--card);border:1px solid rgba(217,146,31,.15);border-radius:16px;padding:1.1rem 1.2rem;counter-increment:s}
+.steps li.key{border-color:rgba(217,146,31,.6);background:linear-gradient(180deg,rgba(114,17,33,.35),var(--card) 70%)}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font:800 .85rem 'Syne',sans-serif;margin-bottom:.5rem}
+.steps h3{font-size:1.05rem;margin-bottom:.3rem;line-height:1.35}
+.steps p{color:var(--muted);font-size:.9rem;line-height:1.6}
+.steps p b{color:var(--text)}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem}
+.tools div{background:var(--card);border:1px solid rgba(217,146,31,.15);border-radius:16px;padding:1rem 1.2rem}
+.tools h3{font-size:1rem;color:var(--gold);margin-bottom:.55rem}
+.tools ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem}
+.tools li{border:1px solid rgba(217,146,31,.3);border-radius:999px;padding:.2rem .7rem;font-size:.82rem;background:rgba(11,7,8,.5)}
+.soon{font-size:.75rem;font-weight:700;letter-spacing:.06rem;text-transform:uppercase;color:#000;background:var(--gold);border-radius:999px;padding:.2rem .7rem}
+.rt-end{text-align:center}
+.rt-end .mail{display:block;margin-top:.8rem;color:var(--muted);font-size:.9rem}
+.rt-end .mail a{color:var(--gold)}
+@media(max-width:420px){.rows .amt{font-size:1.15rem}}
+</style>
+</head>
+<body class="page-rates">
+
+<div class="amb" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i></div>
+
+<header>
+  <a href="/" class="brand"><img src="/img/yans-cartoon-headshot.webp" alt="Yancarlos"><span>YANCARLOS MARTINEZ</span></a>
+  <button id="mn" aria-label="Open menu" aria-expanded="false" aria-controls="nv">&#9776;</button>
+  <nav id="nv">
+    <a href="/">Animation</a>
+    <a href="/films/">Films</a>
+    <a href="/sylvia/">Sylvia</a>
+    <a href="/salon/">Salon Project</a>
+    <a href="/web-development/">Web Development</a>
+    <a href="/rates/" aria-current="page">Rates</a>
+    <a href="/about/">About</a>
+    <a href="/about/#contact">Contact</a>
+    <a href="/barber/">Book a Haircut</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero sub">
+  <div>
+    <div class="meta">Services &bull; Starting prices &bull; Free quotes</div>
+    <h1>Services &amp; Rates</h1>
+    <p>These are my starting prices. Every project is different, so tell me what you need and I’ll send you a free quote. If your budget is different, say so. We can work something out.</p>
+    <div class="rt-deal"><b>New here? 50% off</b><span>your first project with me, up to $250 off.</span></div>
+    <div class="rt-cta">
+      <a href="mailto:yanmartinez92@gmail.com?subject=Quote%20request" class="btn btn-primary">Get a Free Quote</a>
+      <a href="/films/" class="btn btn-outline">See My Work</a>
+    </div>
+    <nav class="rt-jump" aria-label="Jump to a service">
+      <a href="#editing">Video Editing</a><a href="#green-screen">Green Screen</a><a href="#vfx">VFX &amp; CGI</a><a href="#ai-video">AI Video</a><a href="#voice">Voice-Over</a><a href="#animation">3D &amp; Animation</a><a href="#logos">Logos &amp; Intros</a><a href="#design">Graphic Design</a><a href="#photo">Photography</a><a href="#filming">Filming</a><a href="#websites">Websites</a><a href="#apps-games">Apps &amp; Games</a><a href="#lessons">Lessons</a>
+    </nav>
+  </div>
+</section>
+
+<section aria-label="Prices">
+  <div class="rt-wrap boards">
+
+    <article class="board" id="editing">
+      <div class="board-h"><h2>Video Editing</h2><a href="/films/">See my edits &rarr;</a></div>
+      <p class="lead">You send the footage, I cut it. Length is the finished video.</p>
+      <ul class="rows">
+        <li><h3>Social clip, Reel or Short</h3><p>Up to 60 seconds. Cuts, captions, music and color.</p><div class="amt"><small>from</small>$125</div></li>
+        <li><h3>Promo or commercial</h3><p>30 seconds to 3 minutes.</p><div class="amt"><small>from</small>$300</div></li>
+        <li><h3>YouTube video</h3><p>5 to 15 minutes.</p><div class="amt"><small>from</small>$400</div></li>
+        <li><h3>YouTube series</h3><p>4 episodes a month, up to 15 minutes each.</p><div class="amt"><small>from</small>$1,400<i> /month</i></div></li>
+        <li><h3>Music video</h3><p>Up to 5 minutes, with color and effects.</p><div class="amt"><small>from</small>$600</div></li>
+        <li><h3>Short film</h3><p>Up to 20 minutes.</p><div class="amt"><small>from</small>$900</div></li>
+        <li><h3>Feature film or series</h3><p>Priced by the project, or by the day.</p><div class="amt">$350<i> /day</i></div></li>
+        <li><h3>Color grading only</h3><p>Your edit, color matched and graded.</p><div class="amt"><small>from</small>$100</div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="green-screen">
+      <div class="board-h"><h2>Green Screen &amp; Background Removal</h2><a href="/films/">See the before &amp; after &rarr;</a></div>
+      <p class="lead">I remove the background and put you anywhere: your background, one I find, or a full set.</p>
+      <ul class="rows">
+        <li><h3>Green screen, up to 30 seconds</h3><p>Clean green screen, camera not moving.</p><div class="amt">$100</div></li>
+        <li><h3>Green screen, up to 1 minute</h3><p>Same as above.</p><div class="amt">$150</div></li>
+        <li><h3>Each extra minute</h3><p>For longer clips.</p><div class="amt">+$75</div></li>
+        <li><h3>No green screen?</h3><p>Background removed or changed on regular footage, up to 30 seconds.</p><div class="amt"><small>from</small>$150</div></li>
+        <li><h3>Virtual news or studio set</h3><p>People placed on a full set with graphics and lower thirds, up to 1 minute.</p><div class="amt"><small>from</small>$350</div></li>
+      </ul>
+      <p class="fine">Uneven lighting, a moving camera or a wrinkled screen take longer. Send the clip and I’ll tell you the price before I start.</p>
+    </article>
+
+    <article class="board" id="vfx">
+      <div class="board-h"><h2>VFX &amp; CGI</h2><a href="/films/">See my VFX &rarr;</a></div>
+      <p class="lead">Priced per shot. A shot is one camera angle, usually under 10 seconds.</p>
+      <ul class="rows">
+        <li><h3>Cleanup</h3><p>Remove a logo, boom mic, sign or object. Replace a phone or TV screen.</p><div class="amt"><small>from</small>$100<i> /shot</i></div></li>
+        <li><h3>Clone shot</h3><p>The same person 2 or 3 times in one frame. I can help you plan it before you film.</p><div class="amt"><small>from</small>$200<i> /shot</i></div></li>
+        <li><h3>Advanced shot</h3><p>Camera tracking, sky or set replacement, fire, smoke or muzzle flashes.</p><div class="amt"><small>from</small>$400<i> /shot</i></div></li>
+        <li><h3>CGI shot</h3><p>A 3D creature, character, vehicle or object added to your real footage.</p><div class="amt"><small>from</small>$600<i> /shot</i></div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="ai-video">
+      <div class="board-h"><h2>AI Video &amp; Images</h2></div>
+      <p class="lead">No filming needed. I write the prompts, generate, pick the best takes and edit it all together. AI credits are included in the price.</p>
+      <ul class="rows">
+        <li><h3>AI video clip</h3><p>One scene, up to 10 seconds.</p><div class="amt"><small>from</small>$75</div></li>
+        <li><h3>AI social video</h3><p>Up to 60 seconds, edited with music and captions.</p><div class="amt"><small>from</small>$250</div></li>
+        <li><h3>AI commercial or ad</h3><p>Up to 60 seconds, with your product or brand.</p><div class="amt"><small>from</small>$500</div></li>
+        <li><h3>AI music video</h3><p>Up to 3 minutes, made to your song.</p><div class="amt"><small>from</small>$900</div></li>
+        <li><h3>AI talking presenter</h3><p>An AI host or avatar speaking your script, up to 60 seconds.</p><div class="amt"><small>from</small>$300</div></li>
+        <li><h3>AI images</h3><p>A set of 5 finished images.</p><div class="amt"><small>from</small>$50</div></li>
+      </ul>
+      <p class="fine">AI generations cost credits. Big changes after you approve a scene mean new generations, and those can cost extra.</p>
+    </article>
+
+    <article class="board" id="voice">
+      <div class="board-h"><h2>Voice-Over &amp; AI Voice</h2></div>
+      <p class="lead">A real voice for your video, or an AI voice made with ElevenLabs.</p>
+      <ul class="rows">
+        <li><h3>Voice-over in my voice</h3><p>Commercial, intro, narration or character, up to 60 seconds.</p><div class="amt"><small>from</small>$100</div></li>
+        <li><h3>AI voice-over</h3><p>A natural AI voice reading your script, up to 2 minutes.</p><div class="amt"><small>from</small>$40</div></li>
+        <li><h3>Voice clone</h3><p>Your own voice as an AI voice, so it can read your future scripts.</p><div class="amt"><small>from</small>$150</div></li>
+      </ul>
+      <p class="fine">I only clone your own voice, or a voice you have written permission to use.</p>
+    </article>
+
+    <article class="board" id="animation">
+      <div class="board-h"><h2>3D Characters &amp; Animation</h2><a href="/">See my characters &rarr;</a></div>
+      <p class="lead">Characters built in Character Creator, Blender and Maya, animated in iClone and Unreal Engine 5.</p>
+      <ul class="rows">
+        <li><h3>3D character</h3><p>You, your mascot or your brand, with a turnaround sheet.</p><div class="amt"><small>from</small>$600</div></li>
+        <li><h3>Game-ready character</h3><p>Rigged, textured and optimized for Unreal Engine or Unity.</p><div class="amt"><small>from</small>$700</div></li>
+        <li><h3>Game animation set</h3><p>Idle, walk, run and jump for your character.</p><div class="amt"><small>from</small>$250</div></li>
+        <li><h3>Turnaround sheet only</h3><p>Front, side and back views of a character you already have.</p><div class="amt"><small>from</small>$150</div></li>
+        <li><h3>Talking character</h3><p>Your character speaking your voice-over, up to 30 seconds.</p><div class="amt"><small>from</small>$450</div></li>
+        <li><h3>3D animation</h3><p>Up to 60 seconds. Longer videos and animated series are priced by length.</p><div class="amt"><small>from</small>$800</div></li>
+        <li><h3>Animated welcome package</h3><p>A new character plus a 30-second welcome video, like <a href="/sylvia/">Sylvia</a>.</p><div class="amt"><small>from</small>$1,000</div></li>
+        <li><h3>Unreal Engine scene</h3><p>A 3D room, set or environment, rendered.</p><div class="amt"><small>from</small>$400</div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="logos">
+      <div class="board-h"><h2>Logos, Intros &amp; Motion Graphics</h2></div>
+      <p class="lead">Short pieces for the start or end of your videos and your music.</p>
+      <ul class="rows">
+        <li><h3>2D logo animation</h3><p>5 to 10 seconds.</p><div class="amt"><small>from</small>$100</div></li>
+        <li><h3>3D logo reveal or channel intro</h3><p>5 to 15 seconds.</p><div class="amt"><small>from</small>$200</div></li>
+        <li><h3>Animated album cover</h3><p>A looping cover for Spotify, Instagram or YouTube.</p><div class="amt"><small>from</small>$150</div></li>
+        <li><h3>Titles and lower thirds</h3><p>A matching set of names, titles and end screen.</p><div class="amt"><small>from</small>$75</div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="design">
+      <div class="board-h"><h2>Graphic Design</h2></div>
+      <p class="lead">Made in Photoshop and Illustrator, ready to post or print.</p>
+      <ul class="rows">
+        <li><h3>Logo design</h3><p>3 ideas to choose from, then 2 rounds of changes.</p><div class="amt"><small>from</small>$200</div></li>
+        <li><h3>Flyer or poster</h3><p>For print or social media.</p><div class="amt"><small>from</small>$60</div></li>
+        <li><h3>Album or mixtape cover</h3><p>Square cover art for streaming.</p><div class="amt"><small>from</small>$100</div></li>
+        <li><h3>Social media posts</h3><p>A matching set of 5 posts.</p><div class="amt"><small>from</small>$75</div></li>
+        <li><h3>YouTube thumbnail</h3><p>One thumbnail.</p><div class="amt">$30</div></li>
+        <li><h3>Business card</h3><p>Front and back.</p><div class="amt"><small>from</small>$40</div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="photo">
+      <div class="board-h"><h2>Photography &amp; Photo Editing</h2></div>
+      <p class="lead">Photos taken by me, or photos you already have, edited.</p>
+      <ul class="rows">
+        <li><h3>Portrait or headshot session</h3><p>1 hour, 15 edited photos.</p><div class="amt">$150</div></li>
+        <li><h3>Event photography</h3><p>2-hour minimum, edited photos sent online.</p><div class="amt">$125<i> /hour</i></div></li>
+        <li><h3>Product photos</h3><p>5 edited photos on a clean background.</p><div class="amt"><small>from</small>$150</div></li>
+        <li><h3>Photo editing</h3><p>Color, light and small fixes.</p><div class="amt">$10<i> /photo</i></div></li>
+        <li><h3>Retouching or photo manipulation</h3><p>Skin, removing people or objects, combining photos.</p><div class="amt"><small>from</small>$30<i> /photo</i></div></li>
+        <li><h3>Background removal or change</h3><p>Clean cutout or a new background.</p><div class="amt">$5<i> /photo</i></div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="filming">
+      <div class="board-h"><h2>Filming</h2><a href="/films/">See my films &rarr;</a></div>
+      <p class="lead">Camera, lights and sound included. Based in Hartford County, Connecticut.</p>
+      <ul class="rows">
+        <li><h3>Half day</h3><p>Up to 4 hours of filming. You get the footage.</p><div class="amt">$450</div></li>
+        <li><h3>Full day</h3><p>Up to 8 hours of filming. You get the footage.</p><div class="amt">$800</div></li>
+        <li><h3>Interview video</h3><p>One interview, filmed and edited, up to 5 minutes.</p><div class="amt"><small>from</small>$600</div></li>
+        <li><h3>Event coverage</h3><p>Up to 4 hours of filming plus a 2 to 3 minute highlight video.</p><div class="amt"><small>from</small>$900</div></li>
+        <li><h3>Commercial or promo</h3><p>Filmed and edited, 30 to 60 seconds.</p><div class="amt"><small>from</small>$1,200</div></li>
+      </ul>
+      <p class="fine">Travel outside Hartford County may add a fee.</p>
+    </article>
+
+    <article class="board" id="websites">
+      <div class="board-h"><h2>Websites</h2><a href="/web-development/">See my websites &rarr;</a></div>
+      <p class="lead">Fast, mobile-friendly sites with your videos and photos built in.</p>
+      <ul class="rows">
+        <li><h3>One-page website</h3><p>Like the <a href="/salon/">Ms. Trish salon page</a>: who you are, what you offer, how to reach you.</p><div class="amt"><small>from</small>$500</div></li>
+        <li><h3>Multi-page website</h3><p>Up to 5 pages.</p><div class="amt"><small>from</small>$1,200</div></li>
+        <li><h3>Online booking</h3><p>Customers pick a time and send a deposit, and you get a phone alert.</p><div class="amt"><small>from</small>$300</div></li>
+        <li><h3>Interactive 3D tour</h3><p>Walk through your space in the browser.</p><div class="amt"><small>from</small>$750</div></li>
+        <li><h3>Updates and changes</h3><p>For a site I built or one you already have.</p><div class="amt">$50<i> /hour</i></div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="apps-games">
+      <div class="board-h"><h2>Apps &amp; Games</h2></div>
+      <p class="lead">Bigger builds that take weeks or months. I quote each one by project, and you pay in stages as each part is finished.</p>
+      <ul class="rows">
+        <li><h3>Simple app</h3><p>A few screens for phone or web, like a booking or menu app.</p><div class="amt"><small>from</small>$1,500</div></li>
+        <li><h3>Custom app</h3><p>Accounts, payments or your own features.</p><div class="amt q">Free quote</div></li>
+        <li><h3>Game prototype</h3><p>A playable level or demo in Unreal Engine or Unity.</p><div class="amt"><small>from</small>$1,500</div></li>
+        <li><h3>Small complete game</h3><p>Characters, levels, menus and sound, ready to publish.</p><div class="amt"><small>from</small>$5,000</div></li>
+        <li><h3>Ongoing work</h3><p>Updates and new features after launch.</p><div class="amt">$60<i> /hour</i></div></li>
+      </ul>
+    </article>
+
+    <article class="board" id="lessons">
+      <div class="board-h"><h2>Online Lessons</h2><span class="soon">Coming soon</span></div>
+      <p class="lead">One-on-one video calls where you learn on your own computer, at your pace: Blender, Character Creator, iClone, Unreal Engine, DaVinci Resolve and Premiere Pro.</p>
+      <p class="fine">Want to be one of the first students? <a href="mailto:yanmartinez92@gmail.com?subject=Online%20lessons" style="color:var(--gold)">Email me</a> and I’ll let you know when lessons open.</p>
+    </article>
+
+  </div>
+</section>
+
+<section id="how" class="tint">
+  <div class="rt-wrap">
+    <h2 class="ttl">How It Works</h2>
+    <p class="desc">Simple and upfront. You know the price before I start.</p>
+    <ol class="steps">
+      <li><h3>Tell me what you need</h3><p>Send the clip length, your deadline and any examples you like. I send a <b>free quote</b>, usually within a day or two.</p></li>
+      <li class="key"><h3>New clients: 50% off</h3><p>Your <b>first project with me is half price</b>, up to $250 off. A $100 cleanup shot is $50, and a $200 clone shot is $100.</p></li>
+      <li><h3>Half to start</h3><p><b>50% up front</b> to book your spot, and the rest when you approve the final version. Apps and games are paid in stages.</p></li>
+      <li><h3>Your deadline sets the price</h3><p>Need it in <b>less than 3 days</b>? Rush jobs add 25%. More time means the regular price.</p></li>
+      <li><h3>Two rounds of changes</h3><p><b>Two rounds of changes are included.</b> More changes after that are $50 an hour.</p></li>
+      <li><h3>Come back and save</h3><p>Returning clients get <b>25% off their next project</b>, up to $250 off. Booking filming, editing and effects together costs less than booking them one by one.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="rt-wrap">
+    <h2 class="ttl">Tools I Use</h2>
+    <p class="desc">The same software the studios use.</p>
+    <div class="tools">
+      <div><h3>Editing &amp; VFX</h3><ul><li>DaVinci Resolve</li><li>Premiere Pro</li><li>After Effects</li><li>Nuke</li><li>Houdini</li><li>CapCut</li><li>Filmora</li></ul></div>
+      <div><h3>3D &amp; Animation</h3><ul><li>Blender</li><li>Maya</li><li>ZBrush</li><li>Substance Painter</li><li>Cinema 4D</li><li>Character Creator</li><li>iClone</li><li>AccuRig</li><li>Cartoon Animator</li><li>Unreal Engine 5</li><li>MetaHuman</li><li>Unity</li></ul></div>
+      <div><h3>Design &amp; Photo</h3><ul><li>Photoshop</li><li>Illustrator</li><li>Lightroom</li><li>Adobe Creative Cloud</li></ul></div>
+      <div><h3>Code &amp; AI</h3><ul><li>JavaScript</li><li>HTML &amp; CSS</li><li>three.js</li><li>ElevenLabs</li><li>AI video and image tools</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="rt-end">
+  <h2 class="ttl">Let’s Talk About Your Project</h2>
+  <p class="desc">Film, video, 3D, design, an app or a game. Tell me what you have in mind.</p>
+  <div class="rt-cta"><a href="mailto:yanmartinez92@gmail.com?subject=Quote%20request" class="btn btn-primary">Get a Free Quote</a></div>
+  <span class="mail"><a href="mailto:yanmartinez92@gmail.com">yanmartinez92@gmail.com</a></span>
+</section>
+</main>
+
+<footer class="site">
+  <nav class="fnav" aria-label="Site pages"><a href="/">Animation</a> <a href="/films/">Films</a> <a href="/sylvia/">Sylvia</a> <a href="/salon/">Salon Project</a> <a href="/web-development/">Web Development</a> <a href="/rates/">Rates</a> <a href="/about/">About</a> <a href="/about/#contact">Contact</a> <a href="/barber/">Book a Haircut</a></nav>
+  <p>&copy; 2026 Yancarlos Martinez</p>
+</footer>
+<!-- AI assistant (fixed bottom-right) -->
+<div id="ai">
+  <div id="chat" class="hidden">
+    <div class="ch"><span>Yancarlos AI Assistant</span><button id="xc" aria-label="Close chat">&times;</button></div>
+    <div class="cb" id="msgs"><p>👋 Hey! I’m Yancarlos’s virtual assistant. Ask me about his films, IMDb-recognized editing, Unreal Engine 5 projects, 3D characters or websites!</p></div>
+    <div class="ci"><input id="q" type="text" placeholder="Type a question..." aria-label="Your question"><button id="snd">Send</button></div>
+  </div>
+  <button id="tg" title="Toggle AI Chat" aria-label="Toggle AI chat"><img src="/img/yans-cartoon-headshot.webp" alt="Yancarlos" loading="lazy" decoding="async"></button>
+</div>
+<script src="/assets/site.js?v=20261103b"></script>
+</body>
+</html>
