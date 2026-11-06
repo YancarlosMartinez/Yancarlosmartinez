@@ -9,7 +9,7 @@
   var state = { service: '', date: '', time: '', data: null, photo: '' };
   // Services, names and prices come from SERVICES in the Google script, so Yan changes them in one place.
   // These are only used if the script can't be reached.
-  var PRICES = { kids: 30, cut: 40, beard: 40, eyebrows: 15 };
+  var PRICES = { kids: 30, cut: 40, beard: 45, eyebrows: 15 };
   var NAMES = { kids: 'Kids Haircut', cut: 'Haircut', beard: 'Haircut + Beard', eyebrows: 'Eyebrows Only' };
   // the small line under each service; a "note" in the Google script replaces it
   var SUB = { kids: 'Under 16', cut: '16 and over', beard: 'Full haircut with beard', eyebrows: 'Eyebrow cleanup, no haircut' };
@@ -47,6 +47,7 @@
   function drawPrices() {
     var box = $('price-list'); if (!box) return;
     box.innerHTML = '';
+    box.classList.remove('wait');
     services().forEach(function (v) {
       var a = document.createElement('article'); a.className = 'price';
       a.innerHTML = '<h3></h3>' + (v.sub ? '<div class="who"></div>' : '') + '<div class="amt"></div><div class="dep">Deposit to book: <b></b></div>';
@@ -58,7 +59,10 @@
     });
   }
 
-  if (!API) { off.hidden = false; return; }
+  // show the typed-in prices if the live ones can't load
+  var showFallbackPrices = function () { var b = $('price-list'); if (b) b.classList.remove('wait'); };
+
+  if (!API) { off.hidden = false; showFallbackPrices(); return; }
 
   function load() {
     $('bk-loading').hidden = false;
@@ -74,6 +78,7 @@
     }).catch(function () {
       $('bk-loading').hidden = true;
       off.hidden = false;
+      showFallbackPrices();
       off.querySelector('p').textContent = 'Online booking isn’t loading right now. Text me to book, or try again in a few minutes.';
     });
   }
