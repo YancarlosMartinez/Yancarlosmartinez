@@ -220,36 +220,7 @@ Q('.stage').forEach(st=>{
   st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();saber(st);flip(st)}});
 });
 
-/* 6. AI assistant */
-const L=(u,t)=>`<a href='${u}' target='_blank' rel='noopener'>${t}</a>`;
-const IMDB=L('https://www.imdb.com/name/nm11192416/?ref_=ext_shr_lnk','IMDb');
-const ABOUT=`Yancarlos Martinez is a 3D artist and filmmaker who makes 3D animated films. He’s a film editor recognized on ${IMDB} for “The Families Feud,” a cinematographer and actor, a New York Film Academy graduate (Class of 2019) who also studied at Goodwin College, and a game developer and 3D artist (Unreal Engine 5, Unity, Blender, Character Creator 5) who is developing a video game and an app for 2027.`;
-const KB=[
-[/salon|trish|donat|charity|children|ccmc|luncheon|hospital/i,`The Ms. Trish Self-Care Salon was Patricia “Ms. Trish” Candillo’s vision: a salon inside the hospital for patients, parents and staff. Her family is raising the funds to build it at Connecticut Children’s Medical Center. Yancarlos designed it in 3D and built the narrated presentation for the CCMC Charity Luncheon. ${L('/salon/','See the project and how to support it')}.`],
-[/family|short film|bridg|emmanuel|olivia|\bmom\b|\bson\b|daughter/i,'His upcoming animated short stars Character Creator 5 versions of his family: Bridgitte (mom), Emmanuel (son), Olivia (daughter) and his youngest son.'],
-[/web|site|develop|html|javascript|three/i,`He builds websites and interactive 3D pages, including this site and the Ms. Trish salon 3D tour. ${L('/web-development/','See his web development work')}.`],
-[/sylvia|presentation|welcome/i,`Sylvia’s animated character welcomed guests at the CCMC Charity Luncheon. ${L('/sylvia/','See Sylvia’s page')}.`],
-[/3d|game|unreal|unity|blender|\bcod(e|er|ing)\b|character|dot|robot|broccarlos|broccoli|victor|animat/i,`He builds games, shaders, and 3D virtual environments with Unreal Engine 5, Unity, Blender, and Character Creator 5, plus original universes like Broccarlos, Avictor and Dot Robot. ${L('/','See his animation work')}.`],
-[/video game|\bapp\b|2027|upcoming|next project/i,`Yancarlos is developing a video game and an app for 2027, alongside his 3D animated films. ${L('/','See his animation work')}.`],
-[/film|edit|award|imdb|movie|feud|nyfa|academy|goodwin|school|educat|diploma|graduat/i,`Yancarlos is recognized on ${IMDB} for editing the feature film “The Families Feud.” He studied at the New York Film Academy (Class of 2019) and Goodwin College. ${L('/films/','See his films')}.`],
-[/social|instagram|tiktok|linkedin|facebook/i,'Connect with Yancarlos:<br>• '+L('https://www.linkedin.com/in/yancarlos-martinez-56a610203?trk=contact-info','LinkedIn')+'<br>• '+L('https://www.instagram.com/yancarlosmart1nez?vrfl=ZmpobjMyZnM4cjVl','Instagram')+'<br>• '+L('https://www.tiktok.com/@yancarlosmart1nez?_r=1&_t=ZP-9Ahc36fQtxv','TikTok')+'<br>• '+L('https://www.facebook.com/share/19sGsR39n8/','Facebook')],
-[/contact|hire|email|reach/i,`You can reach Yancarlos directly at ${L('mailto:yanmartinez92@gmail.com','yanmartinez92@gmail.com')}, or see ${L('/about/','About &amp; Contact')}.`]
-];
-const chat=$('chat'),msgs=$('msgs'),q=$('q');
-function say(who,txt,html){
-  const p=document.createElement('p'),b=document.createElement('b');
-  b.textContent=who+': ';p.appendChild(b);
-  if(html)p.insertAdjacentHTML('beforeend',txt);else p.append(txt);
-  msgs.appendChild(p);msgs.scrollTop=msgs.scrollHeight;
-}
-function ask(){
-  const t=q.value.trim();if(!t)return;
-  q.value='';say('You',t);
-  setTimeout(()=>say('AI',(KB.find(k=>k[0].test(t))||[0,ABOUT])[1],1),400);
-}
-$('tg').onclick=()=>chat.classList.toggle('hidden');
-$('xc').onclick=()=>chat.classList.add('hidden');$('snd').onclick=ask;
-q.onkeydown=e=>{if(e.key==='Enter')ask()};
+/* 6. The chat assistant and the message form live in /assets/connect.js */
 
 /* 9. Old one-page links (#portfolio-gallery, #contact...) go to their new pages */
 (()=>{const m={'#portfolio-gallery':'/films/','#collaborators':'/about/#collaborators','#contact':'/about/#contact','#socials':'/about/#socials','#sylvia-section':'/sylvia/','#salon-section':'/salon/'};

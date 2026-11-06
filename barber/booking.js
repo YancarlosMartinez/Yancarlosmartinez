@@ -64,19 +64,31 @@
 
   if (!API) { off.hidden = false; showFallbackPrices(); return; }
 
+  // The last open times are remembered for 10 minutes so a returning visitor sees them right away
+  // while fresh ones load. The booking itself is always checked against the live times.
+  var SAVED = 'bkSlots', SAVED_FOR = 10 * 60 * 1000;
+  function saved() { try { var c = JSON.parse(localStorage.getItem(SAVED) || 'null'); return c && Date.now() - c.at < SAVED_FOR && c.d && c.d.ok ? c.d : null; } catch (e) { return null; } }
+  function save(d) { try { localStorage.setItem(SAVED, JSON.stringify({ at: Date.now(), d: d })); } catch (e) { } }
+  function show(d) {
+    state.data = d;
+    $('bk-loading').hidden = true; off.hidden = true; form.hidden = false;
+    drawServices(); drawPrices(); showHours(d.hours); drawDays(); summary();
+  }
   function load() {
-    $('bk-loading').hidden = false;
+    var c = saved();
+    if (c) show(c);
+    else if (!state.data) {
+      // show the form right away; only the day and time boxes wait for the open times
+      $('bk-loading').hidden = true; form.hidden = false; drawServices();
+      $('bk-days').innerHTML = '<p class="bk-hint bk-wait">Loading open times…</p>'; $('bk-times').innerHTML = '';
+    }
     return fetch(API + '?action=slots').then(function (r) { return r.json(); }).then(function (d) {
       if (!d.ok) throw new Error('bad');
-      state.data = d;
-      $('bk-loading').hidden = true;
-      form.hidden = false;
-      drawServices();
-      drawPrices();
-      showHours(d.hours);
-      drawDays();
+      save(d); show(d);
     }).catch(function () {
+      if (state.data) return;          // keep showing the saved times
       $('bk-loading').hidden = true;
+      form.hidden = true;
       off.hidden = false;
       showFallbackPrices();
       off.querySelector('p').textContent = 'Online booking isn’t loading right now. Text me to book, or try again in a few minutes.';
@@ -125,6 +137,7 @@
   function drawTimes() {
     var box = $('bk-times'); box.innerHTML = '';
     var day = state.data.days.filter(function (d) { return d.date === state.date; })[0];
+    if (state.time && !(day && day.times.some(function (t) { return t.t === state.time; }))) state.time = '';
     (day ? day.times : []).forEach(function (t) {
       box.appendChild(chip(t.label, '', t.t === state.time, function () { state.time = t.t; drawTimes(); summary(); }));
     });
@@ -196,7 +209,7 @@
       btn.disabled = false; btn.textContent = 'Hold My Time';
       if (!r.ok) {
         fail(r.error || 'Something went wrong. Please try again.');
-        if (r.taken) load();
+        if (r.taken) { try { localStorage.removeItem(SAVED); } catch (e) { } load(); }
         return;
       }
       showDone(r, pay.value);
@@ -207,6 +220,7 @@
   });
 
   function showDone(r, pay) {
+    try { localStorage.removeItem(SAVED); } catch (e) { }   // the time just booked must not show again
     form.hidden = true; done.hidden = false;
     $('bk-when').textContent = r.when;
     $('bk-what').textContent = r.service + ' ($' + money(r.price) + ')';
