@@ -7,12 +7,56 @@
   var $ = function (id) { return document.getElementById(id); };
   var form = $('bkf'), off = $('bk-off'), done = $('bk-done'), err = $('bk-err');
   var state = { service: '', date: '', time: '', data: null, photo: '' };
+  // Services, names and prices come from SERVICES in the Google script, so Yan changes them in one place.
+  // These are only used if the script can't be reached.
   var PRICES = { kids: 30, cut: 40, beard: 40, eyebrows: 15 };
   var NAMES = { kids: 'Kids Haircut', cut: 'Haircut', beard: 'Haircut + Beard', eyebrows: 'Eyebrows Only' };
+  // the small line under each service; a "note" in the Google script replaces it
+  var SUB = { kids: 'Under 16', cut: '16 and over', beard: 'Full haircut with beard', eyebrows: 'Eyebrow cleanup, no haircut' };
   // $7.5 -> "7.50", $20 -> "20"
   var money = function (n) { n = Number(n); return n % 1 ? n.toFixed(2) : String(n); };
-  // the price set in the Google script wins, so a price change there shows up here too
-  var price = function (s) { var v = state.data && state.data.services && state.data.services[s]; return v && v.price ? v.price : PRICES[s]; };
+
+  /** [{key, title, sub, price}] in the order they're written in the Google script */
+  function services() {
+    var s = state.data && state.data.services;
+    if (!s) return Object.keys(PRICES).map(function (k) { return { key: k, title: NAMES[k], sub: SUB[k], price: PRICES[k] }; });
+    return Object.keys(s).filter(function (k) { return s[k] && Number(s[k].price) > 0; }).map(function (k) {
+      var name = String(s[k].name || k), m = name.match(/^(.*?)\s*\((.*)\)\s*$/);   // "Haircut (16 and over)"
+      var inParens = m ? m[2].charAt(0).toUpperCase() + m[2].slice(1) : '';
+      return { key: k, title: m ? m[1] : name, sub: s[k].note || SUB[k] || inParens, price: Number(s[k].price) };
+    });
+  }
+  function svc(key) { return services().filter(function (v) { return v.key === key; })[0]; }
+  var price = function (key) { var v = svc(key); return v ? v.price : 0; };
+
+  function drawServices() {
+    var list = services(), box = $('bk-svc');
+    if (!svc(state.service)) state.service = '';
+    box.innerHTML = '';
+    list.forEach(function (v) {
+      var l = document.createElement('label');
+      l.innerHTML = '<input type="radio" name="service"><b></b>' + (v.sub ? '<small></small>' : '') + '<span class="p"></span><small class="d"></small>';
+      var i = l.querySelector('input'); i.value = v.key; i.checked = v.key === state.service;
+      l.querySelector('b').textContent = v.title;
+      if (v.sub) l.querySelector('small').textContent = v.sub;
+      l.querySelector('.p').textContent = '$' + money(v.price);
+      l.querySelector('.d').textContent = '$' + money(v.price / 2) + ' deposit';
+      box.appendChild(l);
+    });
+  }
+  function drawPrices() {
+    var box = $('price-list'); if (!box) return;
+    box.innerHTML = '';
+    services().forEach(function (v) {
+      var a = document.createElement('article'); a.className = 'price';
+      a.innerHTML = '<h3></h3>' + (v.sub ? '<div class="who"></div>' : '') + '<div class="amt"></div><div class="dep">Deposit to book: <b></b></div>';
+      a.querySelector('h3').textContent = v.title;
+      if (v.sub) a.querySelector('.who').textContent = v.sub;
+      a.querySelector('.amt').textContent = '$' + money(v.price);
+      a.querySelector('.dep b').textContent = '$' + money(v.price / 2);
+      box.appendChild(a);
+    });
+  }
 
   if (!API) { off.hidden = false; return; }
 
@@ -23,6 +67,8 @@
       state.data = d;
       $('bk-loading').hidden = true;
       form.hidden = false;
+      drawServices();
+      drawPrices();
       showHours(d.hours);
       drawDays();
     }).catch(function () {
@@ -85,21 +131,20 @@
     var t = day && day.times.filter(function (x) { return x.t === state.time; })[0];
     var dep = s ? price(s) / 2 : 0;
     $('bk-dep-amt').textContent = s ? '$' + money(dep) : 'half the price';
-    $('bk-sum').textContent = (s ? NAMES[s] + ' ($' + money(price(s)) + ')' : 'Pick a service') + ' • ' +
+    $('bk-sum').textContent = (s ? svc(s).title + ' ($' + money(price(s)) + ')' : 'Pick a service') + ' • ' +
       (t ? day.label + ' at ' + t.label : 'pick a time') + (s ? ' • Deposit $' + money(dep) : '');
   }
 
-  // service cards
-  Array.prototype.forEach.call(form.querySelectorAll('input[name="service"]'), function (r) {
-    r.addEventListener('change', function () {
+  // service cards are redrawn from the Google script, so listen on the whole form
+  form.addEventListener('change', function (e) {
+    var r = e.target;
+    if (r.name === 'service') {
       state.service = r.value;
       $('bk-kid').hidden = r.value !== 'kids';
       $('bk-kidage').required = r.value === 'kids';
       summary();
-    });
-  });
-  Array.prototype.forEach.call(form.querySelectorAll('input[name="pay"]'), function (r) {
-    r.addEventListener('change', function () { $('bk-payname-l').textContent = 'Name on your ' + r.value; });
+    }
+    if (r.name === 'pay') $('bk-payname-l').textContent = 'Name on your ' + r.value;
   });
 
   // reference photo: shrink it before sending

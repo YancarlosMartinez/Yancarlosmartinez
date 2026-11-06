@@ -140,7 +140,7 @@
     <form id="bkf" hidden novalidate>
       <fieldset>
         <legend><span class="n">1</span>Pick a service</legend>
-        <div class="svc">
+        <div class="svc" id="bk-svc">
           <label><input type="radio" name="service" value="kids"><b>Kids Haircut</b><small>Under 16</small><span class="p">$30</span><small>$15 deposit</small></label>
           <label><input type="radio" name="service" value="cut"><b>Haircut</b><small>16 and over</small><span class="p">$40</span><small>$20 deposit</small></label>
           <label><input type="radio" name="service" value="beard"><b>Haircut + Beard</b><small>Full haircut with beard</small><span class="p">$40</span><small>$20 deposit</small></label>
@@ -204,7 +204,7 @@
   <div class="bk-wrap">
     <h2 class="ttl">Prices</h2>
     <p class="desc">Every appointment is 1 hour. The deposit is half the price and comes off your total.</p>
-    <div class="prices">
+    <div class="prices" id="price-list">
       <article class="price"><h3>Kids Haircut</h3><div class="who">Under 16</div><div class="amt">$30</div><div class="dep">Deposit to book: <b>$15</b></div></article>
       <article class="price"><h3>Haircut</h3><div class="who">16 and over</div><div class="amt">$40</div><div class="dep">Deposit to book: <b>$20</b></div></article>
       <article class="price"><h3>Haircut + Beard</h3><div class="who">Full haircut with beard</div><div class="amt">$40</div><div class="dep">Deposit to book: <b>$20</b></div></article>
@@ -259,6 +259,6 @@
   <button id="tg" title="Toggle AI Chat" aria-label="Toggle AI chat"><img src="/img/yans-cartoon-headshot.webp" alt="Yancarlos" loading="lazy" decoding="async"></button>
 </div>
 <script src="/assets/site.js?v=20261103b"></script>
-<script src="/barber/booking.js?v=20261106"></script>
+<script src="/barber/booking.js?v=20261106b"></script>
 </body>
 </html>
