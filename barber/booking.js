@@ -10,7 +10,7 @@
   // Services, names and prices come from SERVICES in the Google script, so Yan changes them in one place.
   // These are only used if the script can't be reached.
   var PRICES = { kids: 30, cut: 40, beard: 45, eyebrows: 15 };
-  var NAMES = { kids: 'Kids Haircut', cut: 'Haircut', beard: 'Haircut + Beard', eyebrows: 'Eyebrows Only' };
+  var NAMES = { kids: 'Kids Haircut', cut: 'Haircut + Eyebrows', beard: 'Haircut + Beard', eyebrows: 'Eyebrows Only' };
   // the small line under each service; a "note" in the Google script replaces it
   var SUB = { kids: 'Under 16', cut: '16 and over', beard: 'Full haircut with beard', eyebrows: 'Eyebrow cleanup, no haircut' };
   // $7.5 -> "7.50", $20 -> "20"
@@ -71,10 +71,13 @@
   function save(d) { try { localStorage.setItem(SAVED, JSON.stringify({ at: Date.now(), d: d })); } catch (e) { } }
   function show(d) {
     state.data = d;
-    $('bk-loading').hidden = true; off.hidden = true; form.hidden = false;
+    $('bk-loading').hidden = true; off.hidden = true;
+    if (!pendingGet()) form.hidden = false;
     drawServices(); drawPrices(); showHours(d.hours); drawDays(); summary();
   }
   function load() {
+    var pc = pendingGet();
+    if (pc) { $('bk-loading').hidden = true; form.hidden = true; off.hidden = true; showPay(pc); }
     var c = saved();
     if (c) show(c);
     else if (!state.data) {
@@ -86,7 +89,7 @@
       if (!d.ok) throw new Error('bad');
       save(d); show(d);
     }).catch(function () {
-      if (state.data) return;          // keep showing the saved times
+      if (state.data || pendingGet()) return;          // keep showing the saved times / the payment step
       $('bk-loading').hidden = true;
       form.hidden = true;
       off.hidden = false;
@@ -199,6 +202,7 @@
       if (!(age >= 1 && age < 16)) return fail('The kids price is for ages 15 and under. Pick “Haircut” for 16 and over.', f.kidAge);
     }
     if (!pay) return fail('Pick Cash App or Zelle for your deposit.', form.querySelector('input[name="pay"]'));
+    if (!f.email.value.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value.trim())) return fail('Enter your email. Your confirmation and booking number are sent there.', f.email);
     if (!f.agree.checked) return fail('Please agree to the rules to book.', f.agree);
 
     var btn = $('bk-go'); btn.disabled = true; btn.textContent = 'Holding your time…';
@@ -212,48 +216,90 @@
         if (r.taken) { try { localStorage.removeItem(SAVED); } catch (e) { } load(); }
         return;
       }
-      showDone(r, pay.value);
+      showDone(r, pay.value, body.phone, body.payName);
     }).catch(function () {
       btn.disabled = false; btn.textContent = 'Hold My Time';
       fail('Couldn’t reach the booking system. Check your connection and try again.');
     });
   });
 
-  function showDone(r, pay) {
+  // ---- Payment step. The time is only held: no booking number is shown and no confirmation is sent
+  // until the deposit is sent AND Yan confirms it. The page stays on this step until the deposit is reported.
+  var PENDING = 'bkPending', PENDING_FOR = 6 * 60 * 60 * 1000;
+  function pendingGet() { try { var c = JSON.parse(sessionStorage.getItem(PENDING) || 'null'); return c && Date.now() - c.at < PENDING_FOR ? c : null; } catch (e) { return null; } }
+  function pendingSet(c) { try { sessionStorage.setItem(PENDING, JSON.stringify(c)); } catch (e) { } }
+  function pendingClear() { try { sessionStorage.removeItem(PENDING); } catch (e) { } guardLeave(false); }
+  // warn before leaving while the deposit is still owed
+  function guardLeave(on) {
+    window.onbeforeunload = on ? function (e) { e.preventDefault(); e.returnValue = ''; return ''; } : null;
+  }
+
+  function showDone(r, pay, phone, payName) {
     try { localStorage.removeItem(SAVED); } catch (e) { }   // the time just booked must not show again
-    form.hidden = true; done.hidden = false;
-    $('bk-when').textContent = r.when;
-    $('bk-what').textContent = r.service + ' ($' + money(r.price) + ')';
-    $('bk-id').textContent = r.id;
-    var d = state.data, box = $('bk-paybox');
-    var cashtag = r.cashtag || d.cashtag, zelle = r.zelle || d.zelle || '';
-    if (pay === 'Cash App') {
+    var d = state.data || {};
+    pendingSet({ at: Date.now(), id: r.id, phone: phone || '', payName: payName || '', pay: pay, deposit: r.deposit,
+      when: r.when, service: r.service, price: r.price, owed: r.owed,
+      cashtag: r.cashtag || d.cashtag || '', zelle: r.zelle || d.zelle || '', payee: r.payee || '' });
+    showPay(pendingGet());
+  }
+
+  function showPay(c) {
+    var box = $('bk-paybox'), d = state.data || {};
+    form.hidden = true; done.hidden = false; $('bk-paydone').hidden = true; $('bk-payform').hidden = false;
+    $('bk-when').textContent = c.when;
+    $('bk-what').textContent = c.service + ' ($' + money(c.price) + ')';
+    var cashtag = c.cashtag || d.cashtag || '', zelle = c.zelle || d.zelle || '';
+    if (c.pay === 'Cash App') {
       box.innerHTML = '<p>Send your <b></b> deposit on Cash App to <b></b>.</p><a class="btn btn-primary" target="_blank" rel="noopener"></a>';
-      box.querySelectorAll('b')[0].textContent = '$' + money(r.deposit);
+      box.querySelectorAll('b')[0].textContent = '$' + money(c.deposit);
       box.querySelectorAll('b')[1].textContent = cashtag;
       var a = box.querySelector('a');
-      a.href = 'https://cash.app/' + String(cashtag).replace(/[^$\w-]/g, '') + '/' + money(r.deposit);
-      a.textContent = 'Pay $' + money(r.deposit) + ' on Cash App';
+      a.href = 'https://cash.app/' + String(cashtag).replace(/[^$\w-]/g, '') + '/' + money(c.deposit);
+      a.textContent = 'Pay $' + money(c.deposit) + ' on Cash App';
     } else {
       box.innerHTML = '<p>Send your <b></b> deposit with Zelle to:</p><p class="bk-zelle"><span></span><button type="button" class="btn btn-outline">Copy</button></p>' +
-        (r.payee ? '<p class="bk-small">It shows up as <b></b>.</p>' : '');
-      box.querySelector('b').textContent = '$' + money(r.deposit);
+        (c.payee ? '<p class="bk-small">It shows up as <b></b>.</p>' : '');
+      box.querySelector('b').textContent = '$' + money(c.deposit);
       box.querySelector('span').textContent = zelle;
-      if (r.payee) box.querySelector('.bk-small b').textContent = r.payee;
+      if (c.payee) box.querySelector('.bk-small b').textContent = c.payee;
       box.querySelector('button').addEventListener('click', function (ev) {
         var b = ev.currentTarget;
         (navigator.clipboard ? navigator.clipboard.writeText(zelle) : Promise.reject()).then(function () { b.textContent = 'Copied'; })
           .catch(function () { var s = window.getSelection(), rg = document.createRange(); rg.selectNodeContents(box.querySelector('span')); s.removeAllRanges(); s.addRange(rg); });
       });
     }
-    $('bk-owed').hidden = !r.owed;
-    if (r.owed) $('bk-owed').textContent = 'Heads up: you have a $' + r.owed + ' late fee from a past visit. It’s added to this cut.';
-    $('bk-cal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(r.service + ' with Yan') +
-      '&dates=' + r.start + '/' + r.end + '&ctz=America/New_York&details=' + encodeURIComponent('Booking ' + r.id + '. Be on time: 15+ minutes late = $5 late fee.');
+    $('bk-paid-name').value = c.payName || '';
+    $('bk-owed').hidden = !c.owed;
+    if (c.owed) $('bk-owed').textContent = 'Heads up: you have a $' + c.owed + ' late fee from a past visit. It’s added to this cut.';
+    guardLeave(true);
     done.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
+  // "I've sent my deposit": tells Yan the payment is on its way so he can check it
+  $('bk-payform').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var c = pendingGet(), err2 = $('bk-pay-err'), btn = $('bk-paid-go');
+    if (!c) { window.location.reload(); return; }
+    var payName = $('bk-paid-name').value.trim(), proof = $('bk-proof').value.trim();
+    err2.textContent = '';
+    if (!payName) { err2.textContent = 'Enter the name on your payment.'; return; }
+    if (proof.length < 4) { err2.textContent = 'Enter the payment ID or the last 4 digits of the transaction number from your payment app.'; return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(API, { method: 'POST', body: JSON.stringify({ kind: 'paid', id: c.id, phone: c.phone, payName: payName, proof: proof }) })
+      .then(function (r) { return r.json(); }).then(function (r) {
+        if (!r.ok) { var x = new Error(r.error || 'Something went wrong. Please try again.'); x.server = true; throw x; }
+        pendingClear();
+        $('bk-paybox').hidden = true; $('bk-payform').hidden = true; $('bk-owed').hidden = true;
+        $('bk-paydone').hidden = false;
+        done.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }).catch(function (x) {
+        btn.disabled = false; btn.textContent = 'I’ve sent my deposit';
+        err2.textContent = x.server ? x.message : 'Couldn’t reach the booking system. Check your connection and try again.';
+      });
+  });
+
   $('bk-again').addEventListener('click', function () {
+    pendingClear(); $('bk-payform').hidden = false; $('bk-paybox').hidden = false;
     done.hidden = true; form.reset(); state.service = ''; state.time = ''; state.photo = '';
     $('bk-thumb').hidden = true; $('bk-kid').hidden = true; load();
   });

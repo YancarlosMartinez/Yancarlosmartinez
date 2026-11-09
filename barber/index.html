@@ -171,7 +171,7 @@
           <div class="fld"><label for="bk-phone">Phone</label><input id="bk-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(860) 555-0123" required></div>
         </div>
         <div class="fld" id="bk-kid" hidden><label for="bk-kidage">Kid’s age <small>(kids price is for 15 and under)</small></label><input id="bk-kidage" name="kidAge" type="number" min="1" max="15" inputmode="numeric"></div>
-        <div class="fld"><label for="bk-email">Email <small>(optional, for your confirmation and reminder)</small></label><input id="bk-email" name="email" type="email" autocomplete="email"></div>
+        <div class="fld"><label for="bk-email">Email <small>(required, your confirmation and booking number are sent here)</small></label><input id="bk-email" name="email" type="email" autocomplete="email" required></div>
         <div class="fld"><label for="bk-notes">What do you want? <small>(fade, beard trim, new style, anything I should know)</small></label><textarea id="bk-notes" name="notes" maxlength="600"></textarea></div>
         <div class="fld"><label for="bk-photo">Photo of the cut you want <small>(optional)</small></label><input id="bk-photo" name="photo" type="file" accept="image/*"><img id="bk-thumb" alt="Your photo" hidden></div>
       </fieldset>
@@ -193,14 +193,23 @@
     </form>
 
     <div id="bk-done" class="bk-msg" hidden>
-      <h3>Your time is held</h3>
+      <h3>Pay your deposit to hold your time</h3>
       <div class="bk-when" id="bk-when"></div>
       <p id="bk-what"></p>
       <div class="bk-pay" id="bk-paybox"></div>
-      <p><b>Send the deposit now.</b> Your appointment is confirmed once I see it. If you added your email, the confirmation comes there.</p>
+      <form id="bk-payform" hidden novalidate>
+        <p><b>Then fill this in.</b> Your appointment is confirmed only after I see your deposit. You’ll get your booking number by email.</p>
+        <div class="fld"><label for="bk-paid-name">Name on your payment</label><input id="bk-paid-name" type="text" autocomplete="name"></div>
+        <div class="fld"><label for="bk-proof">Payment ID or last 4 digits of the transaction number</label><input id="bk-proof" type="text" autocomplete="off"></div>
+        <p class="bk-small" id="bk-pay-err" role="alert" style="color:#ff9a9a"></p>
+        <button id="bk-paid-go" class="btn btn-primary" type="submit" style="width:100%">I’ve sent my deposit</button>
+      </form>
+      <div id="bk-paydone" hidden>
+        <h3>Thanks! Your deposit is being checked.</h3>
+        <p>Your time is on hold. As soon as I see the deposit, I’ll confirm it and email you your booking number. Please keep this page open until you see this message.</p>
+        <div class="bk-cta"><button id="bk-again" type="button" class="btn btn-outline" style="background:none;cursor:pointer;font:inherit;font-weight:600">Book another</button></div>
+      </div>
       <p class="bk-owed" id="bk-owed" hidden></p>
-      <div class="bk-cta"><a id="bk-cal" class="btn btn-outline" target="_blank" rel="noopener">Add to my calendar</a><button id="bk-again" type="button" class="btn btn-outline" style="background:none;cursor:pointer;font:inherit;font-weight:600">Book another</button></div>
-      <p class="bk-small">Booking number <b id="bk-id"></b>. Need to cancel or move it? Text me at least 24 hours before.</p>
     </div>
   </div>
 </section>
@@ -211,7 +220,7 @@
     <p class="desc">Every appointment is 1 hour. The deposit is half the price and comes off your total.</p>
     <div class="prices wait" id="price-list">
       <article class="price"><h3>Kids Haircut</h3><div class="who">Under 16</div><div class="amt">$30</div><div class="dep">Deposit to book: <b>$15</b></div></article>
-      <article class="price"><h3>Haircut</h3><div class="who">16 and over</div><div class="amt">$40</div><div class="dep">Deposit to book: <b>$20</b></div></article>
+      <article class="price"><h3>Haircut + Eyebrows</h3><div class="who">16 and over</div><div class="amt">$40</div><div class="dep">Deposit to book: <b>$20</b></div></article>
       <article class="price"><h3>Haircut + Beard</h3><div class="who">Full haircut with beard</div><div class="amt">$45</div><div class="dep">Deposit to book: <b>$22.50</b></div></article>
       <article class="price"><h3>Eyebrows Only</h3><div class="who">Eyebrow cleanup, no haircut</div><div class="amt">$15</div><div class="dep">Deposit to book: <b>$7.50</b></div></article>
     </div>
